@@ -1,0 +1,4 @@
+{
+  "prompt": "Origin: rendered, not generated. WebGL render of the 3D salon in clients/line-fortier/salon.js (three@0.160), entrance camera stop, without the page UI, 1600x1000, captured with Playwright headless Chromium on 2026-11-01. Poster shown until the live 3D scene paints, and the fallback when WebGL is unavailable.",
+  "createdAt": "2026-11-01T20:19:00.718Z"
+}

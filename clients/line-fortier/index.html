@@ -2,251 +2,275 @@
 <html lang="fr-CA">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Line Fortier Coiffure Elle &amp; Lui · Salon mixte à Beauharnois</title>
-  <meta name="description" content="Line Fortier Coiffure Elle & Lui, salon mixte au 749, boulevard Cadieux, à Beauharnois. Coupes femme et homme, couleur et dégradés depuis plus de 30 ans. Appelez le 450 429-2222.">
-  <meta name="theme-color" content="#e04a26">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Salon de coiffure mixte à Beauharnois · Line Fortier Coiffure Elle &amp; Lui</title>
+  <meta name="description" content="Line Fortier Coiffure Elle & Lui, salon de coiffure mixte au 749, boulevard Cadieux, à Beauharnois. Coupes femme et homme, couleur, mèches et dégradés depuis plus de 30 ans. Appelez le 450 429-2222.">
+  <meta name="theme-color" content="#f6f5f2">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_CA">
+  <meta property="og:title" content="Line Fortier Coiffure Elle & Lui · Beauharnois">
+  <meta property="og:description" content="Salon de coiffure mixte au 749, boulevard Cadieux, à Beauharnois. 450 429-2222.">
+  <meta property="og:image" content="img/salon-entree.webp">
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="img/salon-entree.webp" as="image" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"HairSalon","name":"Line Fortier Coiffure Elle & Lui","telephone":"+1-450-429-2222","address":{"@type":"PostalAddress","streetAddress":"749, boulevard Cadieux","addressLocality":"Beauharnois","addressRegion":"QC","postalCode":"J6N 2E9","addressCountry":"CA"},"sameAs":["https://www.facebook.com/LFCellelui/"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"60"}}
+  {"@context":"https://schema.org","@type":"HairSalon","name":"Line Fortier Coiffure Elle & Lui","telephone":"+1-450-429-2222","address":{"@type":"PostalAddress","streetAddress":"749, boulevard Cadieux","addressLocality":"Beauharnois","addressRegion":"QC","postalCode":"J6N 2E9","addressCountry":"CA"},"areaServed":"Beauharnois","sameAs":["https://www.facebook.com/LFCellelui/"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"60"},"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coupe femme"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coloration et mèches"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coupe homme"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dégradé"}}]}
   </script>
 </head>
 <body>
-  <a class="evitement" href="#sommaire">Aller au contenu</a>
+  <a class="evitement" href="#services">Aller au contenu</a>
 
-  <!-- En-tête courant : apparaît quand on a quitté la couverture -->
-  <header class="entete" id="entete">
-    <a class="entete-titre" href="#couverture">Elle &amp; Lui</a>
-    <nav class="entete-nav" aria-label="Rubriques">
-      <a href="#dossier">Services</a>
-      <a href="#portrait">Le salon</a>
-      <a href="#courrier">Questions</a>
-      <a href="#carte">Rappel</a>
+  <!-- La scène 3D du salon, derrière toute la page -->
+  <img class="affiche" src="img/salon-entree.webp" alt="" width="1600" height="1000">
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <div class="chargement" id="chargement" aria-hidden="true">
+    <p>Le salon ouvre… <span id="pourcent">0 %</span></p>
+  </div>
+
+  <!-- En-tête -->
+  <header class="barre" id="barre">
+    <a class="marque" href="#entree"><span>Line Fortier</span> <span class="marque-2">Coiffure Elle &amp; Lui</span></a>
+    <nav class="menu" aria-label="Menu principal">
+      <a href="#services">Services</a>
+      <a href="#salon">Le salon</a>
+      <a href="#avis">Avis</a>
+      <a href="#questions">Questions</a>
+      <a href="#contact">Nous joindre</a>
     </nav>
-    <a class="appel appel-petit" href="tel:+14504292222">
-      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>
-      <span class="tel">450 429-2222</span>
-    </a>
+    <a class="barre-tel tel" href="tel:+14504292222">450 429-2222</a>
+    <a class="btn btn-cuivre btn-petit" href="#contact" data-type="coupe-femme">Rendez-vous</a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu-mobile"><span class="sr">Ouvrir le menu</span><i></i><i></i></button>
+    <span class="progression" id="progression" aria-hidden="true"></span>
   </header>
 
+  <div class="menu-mobile" id="menu-mobile" hidden>
+    <nav aria-label="Menu mobile">
+      <a href="#services">Services</a>
+      <a href="#salon">Le salon</a>
+      <a href="#avis">Avis</a>
+      <a href="#questions">Questions</a>
+      <a href="#contact">Nous joindre</a>
+    </nav>
+    <a class="btn btn-cuivre" href="tel:+14504292222">Appeler le <span class="tel">450 429-2222</span></a>
+  </div>
+
+  <!-- Points cliquables posés sur les chaises (coordonnées dans la scène) -->
+  <button type="button" class="point" data-point="2.95,1.5,-0.6" data-pour="services" data-onglet="elle" aria-label="Voir les services pour elle">Elle</button>
+  <button type="button" class="point" data-point="2.95,1.5,1.9" data-pour="services" data-onglet="lui" aria-label="Voir les services pour lui">Lui</button>
+
   <main>
-    <!-- COUVERTURE -->
-    <section class="couverture" id="couverture" aria-labelledby="titre">
-      <p class="edition">Édition Beauharnois · à lire au salon</p>
-      <nav class="couv-nav" aria-label="Dans ce numéro">
-        <a href="#dossier">Services</a>
-        <a href="#portrait">Le salon</a>
-        <a href="#courrier">Questions</a>
-        <a href="#carte">Rappel</a>
-      </nav>
-
-      <h1 class="manchette" id="titre">
-        <span class="manchette-petit">Line Fortier Coiffure</span>
-        <span class="manchette-grand">Elle &amp; Lui</span>
-      </h1>
-
-      <div class="scene" id="scene" aria-hidden="true">
-        <img class="chaise-plate" src="img/chaise-couverture.webp" alt="" width="733" height="1000">
-        <canvas id="chaise" class="chaise"></canvas>
-        <span class="repere" id="repere"></span>
-      </div>
-
-      <div class="titres-couv" role="group" aria-label="Services : choisissez pour faire tourner la chaise">
-        <button type="button" class="titre-couv" data-service="0" aria-pressed="false" aria-controls="pastille">
-          <span class="tc-nom">Coupes femme</span>
-          <span class="tc-ligne">On écoute votre routine du matin, puis on coupe.</span>
-        </button>
-        <button type="button" class="titre-couv" data-service="1" aria-pressed="false" aria-controls="pastille">
-          <span class="tc-nom">Couleur</span>
-          <span class="tc-ligne">Coloration, mèches et balayage, teinte choisie avec vous.</span>
-        </button>
-        <button type="button" class="titre-couv" data-service="2" aria-pressed="false" aria-controls="pastille">
-          <span class="tc-nom">Coupes homme</span>
-          <span class="tc-ligne">Aux ciseaux, pour les hommes comme pour les garçons.</span>
-        </button>
-        <button type="button" class="titre-couv" data-service="3" aria-pressed="false" aria-controls="pastille">
-          <span class="tc-nom">Dégradés</span>
-          <span class="tc-ligne">Low, mid ou skin fade, avec une nuque nette.</span>
-        </button>
-      </div>
-
-      <div class="pastille" id="pastille" aria-live="polite">
-        <svg class="pastille-fond" viewBox="0 0 200 200" aria-hidden="true"><path id="etoile"/></svg>
-        <div class="pastille-texte" id="pastille-texte">
-          <b>30 ans</b>
-          <span>sur le boulevard Cadieux</span>
-        </div>
-      </div>
-
-      <div class="prix">
-        <a class="prix-appel" href="tel:+14504292222">
-          <span class="prix-quoi">Pour un rendez-vous, appelez</span>
-          <span class="prix-tel tel">450 429-2222</span>
-        </a>
-        <svg class="codebarre" viewBox="0 0 96 40" preserveAspectRatio="none" aria-hidden="true"></svg>
-        <a class="prix-rappel" href="#carte">ou demandez qu'on vous rappelle</a>
-      </div>
-
-      <p class="ligne-date">749, boulevard Cadieux · Beauharnois · Salon mixte</p>
-    </section>
-
-    <!-- SOMMAIRE -->
-    <section class="page sommaire" id="sommaire" aria-labelledby="t-sommaire">
-      <h2 id="t-sommaire">Dans ce numéro</h2>
-      <ol class="sommaire-liste">
-        <li><a href="#dossier"><span class="som-p">4</span><span class="som-titre">Le dossier Elle &amp; Lui</span><span class="som-ligne">Coupes, couleur et dégradés, avec les durées.</span></a></li>
-        <li><a href="#portrait"><span class="som-p">6</span><span class="som-titre">Trente ans sur le boulevard Cadieux</span><span class="som-ligne">Le salon, ses habitués, sa façon de faire.</span></a></li>
-        <li><a href="#courrier"><span class="som-p">8</span><span class="som-titre">Courrier des lecteurs</span><span class="som-ligne">Prix, rendez-vous, sans rendez-vous : vos questions.</span></a></li>
-        <li><a href="#carte"><span class="som-p">9</span><span class="som-titre">Carte-réponse</span><span class="som-ligne">Laissez votre numéro, le salon vous rappelle.</span></a></li>
-      </ol>
-      <p class="folio"><span>2</span>Line Fortier Coiffure · Elle &amp; Lui</p>
-    </section>
-
-    <!-- DOSSIER : double page Elle / Lui -->
-    <section class="page dossier" id="dossier" aria-labelledby="t-dossier">
-      <h2 class="sr" id="t-dossier">Les services</h2>
-      <div class="double">
-        <article class="feuillet" aria-labelledby="t-elle">
-          <h3 class="geant" id="t-elle">Elle</h3>
-          <p class="chapeau">On regarde vos cheveux, on vous demande combien de temps vous voulez y mettre le matin, puis on coupe.</p>
-          <ul class="tarifs">
-            <li><span>Coupe et brushing</span><span class="pointe" aria-hidden="true"></span><span class="duree">45 min</span></li>
-            <li><span>Mise en plis</span><span class="pointe" aria-hidden="true"></span><span class="duree">30 min</span></li>
-            <li><span>Coloration</span><span class="pointe" aria-hidden="true"></span><span class="duree">1 h 30</span></li>
-            <li><span>Mèches et balayage</span><span class="pointe" aria-hidden="true"></span><span class="duree">2 h</span></li>
-          </ul>
-          <p class="folio"><span>4</span>Le dossier</p>
-        </article>
-        <article class="feuillet" aria-labelledby="t-lui">
-          <h3 class="geant" id="t-lui">Lui</h3>
-          <p class="chapeau">C'est le « Lui » du nom : la coupe aux ciseaux et le dégradé, pour les hommes comme pour les garçons.</p>
-          <ul class="tarifs">
-            <li><span>Coupe classique aux ciseaux</span><span class="pointe" aria-hidden="true"></span><span class="duree">30 min</span></li>
-            <li><span>Dégradé : low, mid ou skin fade</span><span class="pointe" aria-hidden="true"></span><span class="duree">40 min</span></li>
-            <li><span>Contour et nuque</span><span class="pointe" aria-hidden="true"></span><span class="duree">15 min</span></li>
-            <li><span>Coupe jeunesse</span><span class="pointe" aria-hidden="true"></span><span class="duree">25 min</span></li>
-          </ul>
-          <p class="folio"><span>5</span>Le dossier</p>
-        </article>
-      </div>
-      <p class="note-dossier">Durées indicatives. Le prix dépend du service et de la longueur des cheveux : on vous le donne au téléphone, avant de réserver. <a class="lien" href="tel:+14504292222">Appeler le <span class="tel">450 429-2222</span></a></p>
-    </section>
-
-    <!-- PORTRAIT -->
-    <section class="page portrait" id="portrait" aria-labelledby="t-portrait">
-      <h2 id="t-portrait">Trente ans sur le boulevard Cadieux</h2>
-      <div class="portrait-corps">
-        <div class="portrait-gauche">
-        <div class="colonnes">
-          <p class="lettrine">Des clientes viennent depuis le premier jour. Aujourd'hui, elles amènent leurs enfants. Le salon de Line Fortier est resté au même endroit, au 749, boulevard Cadieux, et il a gardé la même façon de travailler.</p>
-          <p>Avant de couper, on vous demande ce que vous aimez et combien de temps vous voulez y mettre le matin. Une coupe qui demande une heure de séchoir n'est pas une bonne coupe si vous partez travailler à sept heures.</p>
-          <p>Le salon est mixte : c'est le « Elle &amp; Lui » du nom. Les femmes y viennent pour la coupe, la mise en plis et la couleur ; les hommes et les garçons, pour la coupe aux ciseaux et les dégradés.</p>
-        </div>
-        <blockquote class="exergue"><p>Avant de couper, on vous demande ce que vous&nbsp;aimez.</p></blockquote>
-        </div>
-        <div class="portrait-droite">
-        <figure class="planche">
-          <img src="img/chaise-dos.webp" alt="Une chaise de coiffure en cuir noir capitonné, vue de dos" width="900" height="691" loading="lazy">
-          <figcaption>Illustration : la chaise de la couverture, vue de dos.</figcaption>
-        </figure>
-        </div>
-        <aside class="fiche" aria-labelledby="t-fiche">
-          <h3 id="t-fiche">La fiche du salon</h3>
-          <dl>
-            <div><dt>Adresse</dt><dd>749, boulevard Cadieux, Beauharnois (Québec) J6N&nbsp;2E9</dd></div>
-            <div><dt>Téléphone</dt><dd><a class="lien tel" href="tel:+14504292222">450 429-2222</a></dd></div>
-            <div><dt>Sur le boulevard</dt><dd>depuis plus de 30 ans</dd></div>
-            <div><dt>Avis Google</dt><dd><span class="tel">5,0</span> sur 60 avis</dd></div>
-            <div><dt>Facebook</dt><dd><a class="lien" href="https://www.facebook.com/LFCellelui/" target="_blank" rel="noopener noreferrer">Le salon sur Facebook</a></dd></div>
-            <div><dt>Heures</dt><dd>à confirmer avec le salon</dd></div>
-          </dl>
-        </aside>
-      </div>
-      <p class="folio"><span>6</span>Portrait</p>
-    </section>
-
-    <!-- COURRIER DES LECTEURS -->
-    <section class="page courrier" id="courrier" aria-labelledby="t-courrier">
-      <h2 id="t-courrier">Courrier des lecteurs</h2>
-      <div class="lettres">
-        <div class="lettres-col">
-        <details open>
-          <summary>Comment prendre rendez-vous&nbsp;?</summary>
-          <p>Par téléphone au <a class="lien tel" href="tel:+14504292222">450 429-2222</a>. Si vous préférez, laissez votre nom et votre numéro sur la carte-réponse plus bas : le salon vous rappelle.<span class="signe">La réponse du salon</span></p>
-        </details>
-        <details>
-          <summary>Coiffez-vous les hommes aussi&nbsp;?</summary>
-          <p>Oui. Coupes aux ciseaux, dégradés et skin fades, pour les hommes comme pour les garçons.<span class="signe">La réponse du salon</span></p>
-        </details>
-        </div>
-        <div class="lettres-col">
-        <details>
-          <summary>Combien coûte une coupe&nbsp;?</summary>
-          <p>Le prix dépend du service et de la longueur des cheveux. On vous le donne au téléphone, avant de réserver.<span class="signe">La réponse du salon</span></p>
-        </details>
-        <details>
-          <summary>Puis-je venir sans rendez-vous&nbsp;?</summary>
-          <p>Appelez avant de vous déplacer : on vous dira s'il reste une place dans la journée.<span class="signe">La réponse du salon</span></p>
-        </details>
-        </div>
-      </div>
-      <p class="folio"><span>8</span>Courrier des lecteurs</p>
-    </section>
-
-    <!-- CARTE-RÉPONSE -->
-    <section class="page carte" id="carte" aria-labelledby="t-carte">
-      <div class="carte-reponse">
-        <svg class="ciseaux" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.6 7.6 20 16.5M8.6 16.4 20 7.5"/></svg>
-        <div class="carte-gauche">
-          <h2 id="t-carte">On vous garde une&nbsp;chaise</h2>
-          <p>Le plus rapide, c'est d'appeler :</p>
-          <a class="case-appel" href="tel:+14504292222">
-            <span class="prix-quoi">Appel local · Beauharnois</span>
-            <span class="case-tel tel">450 429-2222</span>
+    <!-- 1. ENTRÉE -->
+    <section class="etape entree" id="entree" data-arret="entree" aria-labelledby="t-entree">
+      <div class="panneau">
+        <p class="kicker">749, boulevard Cadieux</p>
+        <h1 id="t-entree" class="titre3">
+          <span class="lh"><span class="ajuste">Line Fortier</span></span>
+          <span class="lh contour"><span class="ajuste">Elle &amp; Lui</span></span>
+          <span class="lh accent"><span class="ajuste">Coiffure</span></span>
+          <span class="sous-h1">Salon de coiffure mixte à Beauharnois</span>
+        </h1>
+        <p class="chapeau">Coupes, couleur et dégradés, pour les femmes, les hommes et les jeunes, depuis plus de 30&nbsp;ans sur le boulevard Cadieux.</p>
+        <div class="actions">
+          <a class="btn btn-cuivre" href="tel:+14504292222">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>
+            <span class="tel">450 429-2222</span>
           </a>
+          <a class="btn btn-encre" href="#services">Entrer dans le salon <svg class="ico fleche" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
         </div>
-        <form class="carte-droite" id="formulaire" novalidate>
-          <p class="carte-consigne">Ou remplissez la carte, le salon vous rappelle pour fixer l'heure.</p>
-          <div class="champ">
-            <label for="f-nom">Votre nom</label>
-            <input id="f-nom" name="nom" autocomplete="name" maxlength="80" required>
+      </div>
+      <p class="indice" aria-hidden="true">Défilez pour entrer</p>
+    </section>
+
+    <!-- 2. SERVICES : les deux chaises -->
+    <section class="etape" id="services" data-arret="services" aria-labelledby="t-services">
+      <div class="panneau">
+        <div class="s-tete">
+          <p class="kicker">Les deux chaises</p>
+          <h2 id="t-services" class="titre3">
+            <span class="lh"><span class="ajuste">Une chaise</span></span>
+            <span class="lh contour"><span class="ajuste">pour elle,</span></span>
+            <span class="lh accent"><span class="ajuste">une pour lui</span></span>
+          </h2>
+        </div>
+        <div class="onglets" role="tablist" aria-label="Services">
+          <button type="button" role="tab" id="o-elle" aria-controls="p-elle" aria-selected="true" data-onglet="elle">Elle</button>
+          <button type="button" role="tab" id="o-lui" aria-controls="p-lui" aria-selected="false" data-onglet="lui" tabindex="-1">Lui</button>
+        </div>
+        <!-- À CONFIRMER avec le salon : liste exacte et durées (exemples repris de l'ancienne version) -->
+        <div class="onglet-panneau" role="tabpanel" id="p-elle" aria-labelledby="o-elle">
+          <p>On regarde vos cheveux et on vous demande combien de temps vous voulez y mettre le matin, puis on coupe.</p>
+          <ul class="tarifs">
+            <li><span>Coupe et brushing</span><span class="duree">45 min</span></li>
+            <li><span>Mise en plis</span><span class="duree">30 min</span></li>
+            <li><span>Coloration</span><span class="duree">1 h 30</span></li>
+            <li><span>Mèches et balayage</span><span class="duree">2 h</span></li>
+          </ul>
+          <a class="btn btn-cuivre" href="#contact" data-type="coupe-femme">Prendre rendez-vous</a>
+        </div>
+        <div class="onglet-panneau" role="tabpanel" id="p-lui" aria-labelledby="o-lui" hidden>
+          <p>C'est le « Lui » du nom : la coupe aux ciseaux et le dégradé, pour les hommes comme pour les garçons.</p>
+          <ul class="tarifs">
+            <li><span>Coupe classique aux ciseaux</span><span class="duree">30 min</span></li>
+            <li><span>Dégradé : low, mid ou skin fade</span><span class="duree">40 min</span></li>
+            <li><span>Contour et nuque</span><span class="duree">15 min</span></li>
+            <li><span>Coupe jeunesse</span><span class="duree">25 min</span></li>
+          </ul>
+          <a class="btn btn-cuivre" href="#contact" data-type="coupe-homme">Prendre rendez-vous</a>
+        </div>
+        <p class="note">Durées indicatives. Le prix dépend du service et de la longueur des cheveux : on vous le donne au téléphone, avant de réserver.</p>
+      </div>
+    </section>
+
+    <!-- 3. LE SALON : pourquoi nous -->
+    <section class="etape droite" id="salon" data-arret="salon" aria-labelledby="t-salon">
+      <div class="panneau">
+        <div class="s-tete">
+          <p class="kicker">Le salon</p>
+          <h2 id="t-salon" class="titre3">
+            <span class="lh"><span class="ajuste">Trente ans</span></span>
+            <span class="lh contour"><span class="ajuste">sur le boulevard</span></span>
+            <span class="lh accent"><span class="ajuste">Cadieux</span></span>
+          </h2>
+        </div>
+        <!-- À FAIRE APPROUVER par le salon -->
+        <p class="chapeau">Des clientes viennent depuis le premier jour. Aujourd'hui, elles amènent leurs enfants.</p>
+        <dl class="chiffres">
+          <div><dt>ans sur le boulevard</dt><dd><span data-compte="30">30</span>+</dd></div>
+          <div><dt>note Google</dt><dd>5,0</dd></div>
+          <div><dt>avis Google</dt><dd><span data-compte="60">60</span></dd></div>
+        </dl>
+        <ol class="methode">
+          <li><b>On vous écoute.</b> Ce que vous aimez, ce que vous n'aimez plus, et le temps que vous voulez y mettre le matin.</li>
+          <li><b>On coupe pour votre routine.</b> Une coupe qui demande une heure de séchoir n'est pas une bonne coupe si vous partez travailler à 7&nbsp;h.</li>
+          <li><b>On vous montre comment la refaire.</b> Pour que la coiffure tienne aussi chez vous.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 4. AVIS : le coin d'attente -->
+    <section class="etape droite" id="avis" data-arret="avis" aria-labelledby="t-avis">
+      <div class="panneau">
+        <div class="s-tete">
+          <p class="kicker">Le coin d'attente</p>
+          <h2 id="t-avis" class="titre3">
+            <span class="lh"><span class="ajuste">Ce que</span></span>
+            <span class="lh contour"><span class="ajuste">disent nos</span></span>
+            <span class="lh accent"><span class="ajuste">clients</span></span>
+          </h2>
+        </div>
+        <p class="note-google"><b>5,0</b> <span class="etoiles" aria-hidden="true"><svg viewBox="0 0 120 22"><path id="etoile1" d="M11 1l3 6.6 7.2.8-5.4 4.9 1.5 7.1L11 16.8 4.7 20.4l1.5-7.1L.8 8.4 8 7.6Z"/><use href="#etoile1" x="24.5"/><use href="#etoile1" x="49"/><use href="#etoile1" x="73.5"/><use href="#etoile1" x="98"/></svg></span> sur Google, 60 avis</p>
+        <!-- À REMPLIR : recopier le texte exact des avis Google (captures du salon), prénom + initiale. Voir la liste AVIS dans main.js. -->
+        <div class="carrousel" id="carrousel" role="region" aria-roledescription="carrousel" aria-label="Avis Google" hidden>
+          <div class="piste" id="piste"></div>
+          <div class="carrousel-nav">
+            <button type="button" class="rond" id="avis-prec" aria-label="Avis précédents"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <div class="points-nav" id="points-nav"></div>
+            <button type="button" class="rond" id="avis-suiv" aria-label="Avis suivants"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
-          <div class="champ">
-            <label for="f-tel">Votre téléphone</label>
-            <input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" required aria-describedby="aide-tel">
-            <span class="aide" id="aide-tel">Un numéro à 10 chiffres.</span>
+        </div>
+        <a class="btn btn-encre" href="https://www.google.com/maps/search/?api=1&amp;query=Line+Fortier+Coiffure+Elle+et+Lui+Beauharnois" target="_blank" rel="noopener noreferrer">Lire les avis sur Google <svg class="ico fleche" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+
+    <!-- 5. QUESTIONS : au comptoir -->
+    <section class="etape" id="questions" data-arret="questions" aria-labelledby="t-questions">
+      <div class="panneau">
+        <div class="s-tete">
+          <p class="kicker">Au comptoir</p>
+          <h2 id="t-questions" class="titre3">
+            <span class="lh"><span class="ajuste">Vos</span></span>
+            <span class="lh contour"><span class="ajuste">questions,</span></span>
+            <span class="lh accent"><span class="ajuste">nos réponses</span></span>
+          </h2>
+        </div>
+        <div class="faq">
+          <details open>
+            <summary>Comment prendre rendez-vous&nbsp;?</summary>
+            <p>Par téléphone au <a class="lien tel" href="tel:+14504292222">450 429-2222</a>, ou avec le formulaire plus bas : le salon vous rappelle.</p>
+          </details>
+          <details>
+            <summary>Coiffez-vous les hommes aussi&nbsp;?</summary>
+            <p>Oui, c'est le « Lui » du nom : coupes aux ciseaux, dégradés et skin fades, pour les hommes comme pour les garçons.</p>
+          </details>
+          <details>
+            <summary>Combien coûte une coupe&nbsp;?</summary>
+            <p>Le prix dépend du service et de la longueur des cheveux. On vous le donne au téléphone, avant de réserver.</p>
+          </details>
+          <details>
+            <summary>Puis-je venir sans rendez-vous&nbsp;?</summary>
+            <p>Appelez avant de vous déplacer : on vous dira s'il reste une place dans la journée.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CONTACT -->
+    <section class="etape droite contact" id="contact" data-arret="contact" aria-labelledby="t-contact">
+      <div class="panneau panneau-nuit">
+        <div class="s-tete">
+          <p class="kicker">Nous joindre</p>
+          <h2 id="t-contact" class="titre3">
+            <span class="lh"><span class="ajuste">On vous</span></span>
+            <span class="lh contour"><span class="ajuste">garde une</span></span>
+            <span class="lh accent"><span class="ajuste">chaise</span></span>
+          </h2>
+        </div>
+        <a class="carte-appel" href="tel:+14504292222">
+          <span class="onde" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg></span>
+          <span class="ca-texte">
+            <span class="ca-libelle">Appelez-nous directement</span>
+            <span class="ca-tel tel">450 429-2222</span>
+            <span class="statut" id="statut"><i></i><span id="statut-texte">Heures d'ouverture à confirmer</span></span>
+          </span>
+        </a>
+        <p class="coord"><span id="adresse">749, boulevard Cadieux, Beauharnois (Québec) J6N 2E9</span> <button type="button" class="copier" data-copie="adresse">Copier</button></p>
+        <p class="coord"><a class="lien" href="https://www.google.com/maps/search/?api=1&amp;query=749+boulevard+Cadieux+Beauharnois+QC" target="_blank" rel="noopener noreferrer">Itinéraire dans Google Maps</a> · <a class="lien" href="https://www.facebook.com/LFCellelui/" target="_blank" rel="noopener noreferrer">Facebook</a></p>
+
+        <form class="formulaire" id="formulaire" novalidate>
+          <fieldset class="types">
+            <legend>Pour quel service&nbsp;?</legend>
+            <label><input type="radio" name="type" value="coupe-femme" checked> Coupe femme</label>
+            <label><input type="radio" name="type" value="couleur"> Couleur</label>
+            <label><input type="radio" name="type" value="coupe-homme"> Coupe homme</label>
+            <label><input type="radio" name="type" value="degrade"> Dégradé</label>
+          </fieldset>
+          <div class="champs">
+            <div class="champ"><label for="f-nom">Votre nom</label><input id="f-nom" name="nom" autocomplete="name" maxlength="80" required></div>
+            <div class="champ"><label for="f-tel">Votre téléphone</label><input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" required></div>
           </div>
           <!--TURNSTILE-->
           <input class="pot" id="f-site" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="envoyer" type="submit">Demander un rappel</button>
+          <button class="btn btn-cuivre" type="submit">Demander un rappel</button>
+          <p class="consent">En envoyant, vous acceptez d'être rappelé par le salon. <button type="button" class="lien-bouton" data-politique>Politique de confidentialité</button></p>
           <p class="message" id="message" role="status" hidden></p>
-          <details class="confid">
-            <summary>Ce qu'on fait de votre numéro</summary>
-            <p>Le formulaire recueille seulement votre nom et votre numéro de téléphone, pour vous rappeler et fixer un rendez-vous. Ces renseignements ne sont ni vendus ni partagés, et sont conservés au plus trois ans après votre dernier contact. Pour les consulter, les corriger ou les faire supprimer, appelez le salon au <span class="tel">450 429-2222</span>.</p>
-          </details>
         </form>
       </div>
-      <p class="folio"><span>9</span>Carte-réponse</p>
     </section>
   </main>
 
-  <!-- QUATRIÈME DE COUVERTURE -->
-  <footer class="dos" aria-labelledby="t-dos">
-    <h2 id="t-dos">Où nous trouver</h2>
-    <div class="dos-grille">
-      <p class="dos-adresse">749, boulevard Cadieux<br>Beauharnois (Québec)<br>J6N 2E9</p>
-      <div class="dos-liens">
-        <a class="lien-dos" href="https://www.google.com/maps/search/?api=1&amp;query=749+boulevard+Cadieux+Beauharnois+QC" target="_blank" rel="noopener noreferrer">Itinéraire dans Google Maps</a>
-        <a class="lien-dos" href="https://www.facebook.com/LFCellelui/" target="_blank" rel="noopener noreferrer">Le salon sur Facebook</a>
-        <a class="lien-dos tel" href="tel:+14504292222">450 429-2222</a>
-      </div>
-    </div>
-    <p class="dos-bas">© <span id="annee">2026</span> Line Fortier Coiffure Elle &amp; Lui</p>
+  <footer class="pied">
+    <p class="pied-titre">Line Fortier Coiffure Elle &amp; Lui</p>
+    <p>749, boulevard Cadieux, Beauharnois · <a class="tel" href="tel:+14504292222">450 429-2222</a></p>
+    <p class="pied-bas">© <span id="annee">2026</span> · <button type="button" class="lien-bouton" data-politique>Politique de confidentialité</button> · <a href="#entree">Haut de page</a></p>
   </footer>
+
+  <!-- Barre d'appel mobile -->
+  <div class="barre-mobile" id="barre-mobile">
+    <a class="btn btn-cuivre" href="tel:+14504292222">Appeler</a>
+    <a class="btn btn-encre" href="#contact" data-type="coupe-femme">Rendez-vous</a>
+  </div>
+
+  <dialog id="politique" aria-labelledby="t-pol">
+    <h2 id="t-pol">Politique de confidentialité</h2>
+    <p>Le formulaire recueille votre nom, votre numéro de téléphone et le service souhaité, seulement pour vous rappeler et fixer un rendez-vous. Ces renseignements ne sont ni vendus ni partagés, et sont conservés au plus trois ans après votre dernier contact.</p>
+    <p>Vous pouvez les consulter, les corriger ou les faire supprimer en appelant le salon au 450 429-2222. Responsable de la protection des renseignements personnels : la propriétaire du salon. <!-- À CONFIRMER : nom de la personne responsable et date d'entrée en vigueur --></p>
+    <form method="dialog"><button class="btn btn-cuivre">Fermer</button></form>
+  </dialog>
 
   <script src="main.js"></script>
   <script type="importmap">{"imports":{"three":"./vendor/three/three.module.min.js","three/addons/":"./vendor/three/addons/"}}</script>
-  <script type="module" src="chaise.js"></script>
+  <script type="module" src="salon.js"></script>
 </body>
 </html>
