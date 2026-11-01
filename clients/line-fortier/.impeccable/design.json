@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T19:43:20.372144+00:00",
+  "title": "Design System: Line Fortier Coiffure Elle & Lui",
+  "extensions": {
+    "colorMeta": {
+      "rouge": {
+        "role": "primary",
+        "displayName": "Copper Seamless Red",
+        "canonical": "oklch(61.5% 0.193 34.5)",
+        "tonalRamp": [
+          "oklch(15% 0.083 34.5)",
+          "oklch(25% 0.138 34.5)",
+          "oklch(35% 0.193 34.5)",
+          "oklch(48% 0.193 34.5)",
+          "oklch(60% 0.193 34.5)",
+          "oklch(72% 0.154 34.5)",
+          "oklch(84% 0.088 34.5)",
+          "oklch(95% 0.028 34.5)"
+        ]
+      },
+      "rouge-encre": {
+        "role": "primary",
+        "displayName": "Folio Red",
+        "canonical": "oklch(52.7% 0.169 34.2)",
+        "tonalRamp": [
+          "oklch(15% 0.072 34.2)",
+          "oklch(25% 0.121 34.2)",
+          "oklch(35% 0.169 34.2)",
+          "oklch(48% 0.169 34.2)",
+          "oklch(60% 0.169 34.2)",
+          "oklch(72% 0.135 34.2)",
+          "oklch(84% 0.077 34.2)",
+          "oklch(95% 0.024 34.2)"
+        ]
+      },
+      "rouge-ombre": {
+        "role": "primary",
+        "displayName": "Studio Floor Shadow",
+        "canonical": "oklch(31.1% 0.104 33.8)",
+        "tonalRamp": [
+          "oklch(15% 0.045 33.8)",
+          "oklch(25% 0.074 33.8)",
+          "oklch(35% 0.104 33.8)",
+          "oklch(48% 0.104 33.8)",
+          "oklch(60% 0.104 33.8)",
+          "oklch(72% 0.083 33.8)",
+          "oklch(84% 0.048 33.8)",
+          "oklch(95% 0.015 33.8)"
+        ]
+      },
+      "jaune": {
+        "role": "secondary",
+        "displayName": "Sticker Yellow",
+        "canonical": "oklch(87.9% 0.164 91.3)",
+        "tonalRamp": [
+          "oklch(15% 0.07 91.3)",
+          "oklch(25% 0.117 91.3)",
+          "oklch(35% 0.164 91.3)",
+          "oklch(48% 0.164 91.3)",
+          "oklch(60% 0.164 91.3)",
+          "oklch(72% 0.131 91.3)",
+          "oklch(84% 0.075 91.3)",
+          "oklch(95% 0.023 91.3)"
+        ]
+      },
+      "papier": {
+        "role": "neutral",
+        "displayName": "Inside Paper",
+        "canonical": "oklch(96.6% 0.003 128.5)",
+        "tonalRamp": [
+          "oklch(15% 0.001 128.5)",
+          "oklch(25% 0.002 128.5)",
+          "oklch(35% 0.003 128.5)",
+          "oklch(48% 0.003 128.5)",
+          "oklch(60% 0.003 128.5)",
+          "oklch(72% 0.002 128.5)",
+          "oklch(84% 0.001 128.5)",
+          "oklch(95% 0.0 128.5)"
+        ]
+      },
+      "blanc": {
+        "role": "neutral",
+        "displayName": "Card White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.0 0)",
+          "oklch(25% 0.0 0)",
+          "oklch(35% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0.0 0)",
+          "oklch(84% 0.0 0)",
+          "oklch(95% 0.0 0)"
+        ]
+      },
+      "encre": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(19.6% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.0 0)",
+          "oklch(25% 0.0 0)",
+          "oklch(35% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0.0 0)",
+          "oklch(84% 0.0 0)",
+          "oklch(95% 0.0 0)"
+        ]
+      },
+      "encre-douce": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(41.1% 0.006 67.6)",
+        "tonalRamp": [
+          "oklch(15% 0.003 67.6)",
+          "oklch(25% 0.004 67.6)",
+          "oklch(35% 0.006 67.6)",
+          "oklch(48% 0.006 67.6)",
+          "oklch(60% 0.006 67.6)",
+          "oklch(72% 0.005 67.6)",
+          "oklch(84% 0.003 67.6)",
+          "oklch(95% 0.001 67.6)"
+        ]
+      },
+      "filet": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(21, 21, 21, .18)",
+        "tonalRamp": [
+          "rgba(21, 21, 21, 0.9)",
+          "rgba(21, 21, 21, 0.7)",
+          "rgba(21, 21, 21, 0.5)",
+          "rgba(21, 21, 21, 0.35)",
+          "rgba(21, 21, 21, 0.25)",
+          "rgba(21, 21, 21, 0.18)",
+          "rgba(21, 21, 21, 0.1)",
+          "rgba(21, 21, 21, 0.05)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Masthead",
+        "purpose": "Cover masthead; the same extended-black voice sets the giant Elle / Lui, the drop cap and the back-cover title."
+      },
+      "headline": {
+        "displayName": "Page Headline",
+        "purpose": "One per inside page."
+      },
+      "coverline": {
+        "displayName": "Coverline",
+        "purpose": "Condensed uppercase service buttons on the cover."
+      },
+      "numeral": {
+        "displayName": "Phone Numeral",
+        "purpose": "Phone number in the call boxes and the sticker figure; tabular, never wraps."
+      },
+      "title": {
+        "displayName": "Entry Title",
+        "purpose": "Table-of-contents entries and reader-letter questions."
+      },
+      "lede": {
+        "displayName": "Standfirst",
+        "purpose": "The lede under each half of the double page."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, 46 to 70ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Dateline, call-box instruction, salon-sheet terms, form labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "cover-object",
+        "value": "0 10px 28px rgba(90, 20, 5, .28), 0 2px 6px rgba(90, 20, 5, .18)",
+        "purpose": "White object on the red cover (price box)."
+      },
+      {
+        "name": "paper-object",
+        "value": "0 1px 2px rgba(21, 21, 21, .08), 0 12px 32px rgba(21, 21, 21, .08)",
+        "purpose": "White object on inside paper (salon sheet)."
+      },
+      {
+        "name": "paper-object-deep",
+        "value": "0 1px 2px rgba(21, 21, 21, .08), 0 14px 40px rgba(21, 21, 21, .1)",
+        "purpose": "The reply card."
+      },
+      {
+        "name": "running-header",
+        "value": "0 1px 0 rgba(21, 21, 21, .18), 0 8px 24px rgba(21, 21, 21, .06)",
+        "purpose": "Fixed running header edge."
+      },
+      {
+        "name": "sticker-drop",
+        "value": "drop-shadow(0 6px 10px rgba(90, 20, 5, .3))",
+        "purpose": "Sticker filter on the cover."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "The single easing for transforms and reveals."
+      },
+      {
+        "name": "hover-colour",
+        "value": "200ms",
+        "purpose": "Colour and background hovers."
+      },
+      {
+        "name": "hover-move",
+        "value": "300-350ms",
+        "purpose": "Lift, slide and press transforms."
+      },
+      {
+        "name": "cover-assemble",
+        "value": "chair 1.1s fade / 1.4s rise; sticker .8s after .5s delay",
+        "purpose": "One-time cover entrance; removed under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "900px"
+      },
+      {
+        "name": "short-compact",
+        "value": "max-height 700px and max-width 900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Call Button",
+      "kind": "button",
+      "refersTo": "button-call",
+      "description": "Ink pill with phone icon; the running-header and primary call action.",
+      "html": "<a class=\"ds-appel\" href=\"tel:+14504292222\"><svg class=\"ds-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z\"/></svg><span>450 429-2222</span></a>",
+      "css": ".ds-appel{display:inline-flex;align-items:center;gap:.55em;background:#151515;color:#fff;text-decoration:none;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:16px;min-height:44px;padding:0 18px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap;transition:background .2s,transform .3s cubic-bezier(.16,1,.3,1)}.ds-appel:hover{background:#000;transform:translateY(-1px)}.ds-appel:active{transform:scale(.97)}.ds-appel:focus-visible{outline:3px solid #151515;outline-offset:3px}.ds-ico{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}"
+    },
+    {
+      "name": "Submit Button",
+      "kind": "button",
+      "refersTo": "button-submit",
+      "description": "Square yellow stamp with Ink border; the reply-card submit.",
+      "html": "<button class=\"ds-envoyer\" type=\"button\">Demander un rappel</button>",
+      "css": ".ds-envoyer{min-height:52px;padding:0 26px;font:800 17px Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515;background:#ffd23a;border:2px solid #151515;border-radius:0;cursor:pointer;transition:background .2s,transform .3s cubic-bezier(.16,1,.3,1)}.ds-envoyer:hover{background:#ffdd66;transform:translateY(-1px)}.ds-envoyer:active{transform:scale(.97)}.ds-envoyer:focus-visible{outline:3px solid #151515;outline-offset:3px}"
+    },
+    {
+      "name": "Price Box Call",
+      "kind": "custom",
+      "refersTo": "price-box-call",
+      "description": "The cover's price box: label, phone numeral, barcode, call-back link; hover fills yellow.",
+      "html": "<div class=\"ds-prix\"><a class=\"ds-prix-appel\" href=\"tel:+14504292222\"><span class=\"ds-quoi\">Pour un rendez-vous, appelez</span><span class=\"ds-tel\">450 429-2222</span></a><a class=\"ds-rappel\" href=\"#\">ou demandez qu'on vous rappelle</a></div>",
+      "css": ".ds-prix{display:inline-grid;background:#fff;color:#151515;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 10px 28px rgba(90,20,5,.28),0 2px 6px rgba(90,20,5,.18)}.ds-prix-appel{display:grid;gap:2px;padding:12px 18px;color:inherit;text-decoration:none;transition:background .2s}.ds-prix-appel:hover{background:#ffd23a}.ds-prix-appel:focus-visible,.ds-rappel:focus-visible{outline:3px solid #151515;outline-offset:3px}.ds-quoi{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.ds-tel{font-weight:900;font-stretch:112%;font-size:40px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-rappel{font-size:14px;font-weight:600;color:inherit;padding:8px 18px 10px;border-top:1px dashed rgba(21,21,21,.18);text-decoration:underline;text-underline-offset:.2em;text-decoration-color:#e04a26}.ds-rappel:hover{text-decoration-color:#151515}"
+    },
+    {
+      "name": "Underline Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Square transparent field with a single Ink bottom rule; red rule on focus.",
+      "html": "<label class=\"ds-champ\"><span>Votre nom</span><input class=\"ds-input\" autocomplete=\"name\"></label>",
+      "css": ".ds-champ{display:grid;gap:6px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515}.ds-champ span{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.ds-input{height:52px;width:100%;font:600 19px Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515;background:transparent;border:0;border-bottom:2px solid #151515;border-radius:0;padding:0 2px;transition:border-color .2s,background .2s}.ds-input:hover{background:rgba(21,21,21,.03)}.ds-input:focus{outline:none;border-bottom-color:#e04a26;background:rgba(224,74,38,.05)}"
+    },
+    {
+      "name": "Running Header Nav",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Paper bar with red extended title, Soft Ink links, red underline on the current section.",
+      "html": "<nav class=\"ds-entete\"><a class=\"ds-titre\" href=\"#\">Elle &amp; Lui</a><a class=\"ds-lien\" href=\"#\" aria-current=\"true\">Services</a><a class=\"ds-lien\" href=\"#\">Le salon</a><a class=\"ds-lien\" href=\"#\">Questions</a></nav>",
+      "css": ".ds-entete{display:flex;align-items:center;gap:22px;padding:10px 20px;background:#f3f4f2;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 1px 0 rgba(21,21,21,.18),0 8px 24px rgba(21,21,21,.06)}.ds-titre{font-weight:900;font-stretch:125%;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:#b8381a;margin-right:auto}.ds-lien{font-size:15px;font-weight:600;text-decoration:none;padding:10px 0;color:#4d4a47;transition:color .2s}.ds-lien:hover,.ds-lien[aria-current=true]{color:#151515}.ds-lien[aria-current=true]{box-shadow:inset 0 -2px 0 #e04a26}.ds-lien:focus-visible,.ds-titre:focus-visible{outline:3px solid #151515;outline-offset:3px}"
+    },
+    {
+      "name": "Coverline",
+      "kind": "custom",
+      "refersTo": "coverline",
+      "description": "Condensed uppercase service toggle on the red cover; pressed state turns white with a yellow dot.",
+      "html": "<div class=\"ds-couv\"><button class=\"ds-tc\" aria-pressed=\"true\"><span class=\"ds-tc-nom\">Couleur</span><span class=\"ds-tc-ligne\">Coloration, mèches et balayage.</span></button><button class=\"ds-tc\" aria-pressed=\"false\"><span class=\"ds-tc-nom\">Dégradés</span><span class=\"ds-tc-ligne\">Low, mid ou skin fade.</span></button></div>",
+      "css": ".ds-couv{display:grid;gap:4px;background:#e04a26;padding:20px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif}.ds-tc{display:grid;gap:2px;text-align:left;font:inherit;color:#151515;background:none;border:0;cursor:pointer;padding:10px 14px 10px 0;transition:transform .35s cubic-bezier(.16,1,.3,1)}.ds-tc-nom{font-weight:900;font-stretch:75%;text-transform:uppercase;font-size:40px;line-height:.92;letter-spacing:-.01em;transition:color .2s}.ds-tc-ligne{font-size:16px;font-weight:500;line-height:1.35}.ds-tc:hover{transform:translateX(6px)}.ds-tc:hover .ds-tc-nom,.ds-tc[aria-pressed=true] .ds-tc-nom{color:#fff}.ds-tc[aria-pressed=true] .ds-tc-nom::after{content:'';display:inline-block;width:.32em;height:.32em;margin-left:.25em;vertical-align:.18em;border-radius:50%;background:#ffd23a;box-shadow:0 0 0 2px #151515}.ds-tc:focus-visible{outline:3px solid #151515;outline-offset:3px}"
+    },
+    {
+      "name": "Sticker",
+      "kind": "custom",
+      "refersTo": "sticker",
+      "description": "Yellow 24-point star burst rotated -8deg; answers the selected coverline.",
+      "html": "<div class=\"ds-pastille\"><svg viewBox=\"0 0 200 200\" aria-hidden=\"true\"><polygon points=\"100,1 111,12 126,4 133,18 150,13 152,29 169,29 166,45 182,50 174,64 188,74 176,85 188,100 176,115 188,126 174,136 182,150 166,155 169,171 152,171 150,187 133,182 126,196 111,188 100,199 89,188 74,196 67,182 50,187 48,171 31,171 34,155 18,150 26,136 12,126 24,115 12,100 24,85 12,74 26,64 18,50 34,45 31,29 48,29 50,13 67,18 74,4 89,12\"/></svg><div class=\"ds-p-txt\"><b>30 ans</b><span>sur le boulevard Cadieux</span></div></div>",
+      "css": ".ds-pastille{position:relative;width:180px;aspect-ratio:1;display:grid;place-items:center;transform:rotate(-8deg);font-family:Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515}.ds-pastille svg{position:absolute;inset:0;width:100%;height:100%;fill:#ffd23a;filter:drop-shadow(0 6px 10px rgba(90,20,5,.3))}.ds-p-txt{position:relative;display:grid;justify-items:center;text-align:center;padding:0 18%;line-height:1.1}.ds-p-txt b{font-weight:900;font-stretch:112%;font-size:38px;line-height:.95;letter-spacing:-.02em}.ds-p-txt span{font-size:13px;font-weight:700;margin-top:4px}"
+    },
+    {
+      "name": "Salon Sheet",
+      "kind": "card",
+      "refersTo": "salon-sheet",
+      "description": "White paper object with a 3px Ink heading rule and hairline definition rows.",
+      "html": "<aside class=\"ds-fiche\"><h3>La fiche du salon</h3><dl><div><dt>Adresse</dt><dd>749, boulevard Cadieux</dd></div><div><dt>Téléphone</dt><dd>450 429-2222</dd></div></dl></aside>",
+      "css": ".ds-fiche{background:#fff;color:#151515;padding:28px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 1px 2px rgba(21,21,21,.08),0 12px 32px rgba(21,21,21,.08)}.ds-fiche h3{margin:0;font-weight:900;font-stretch:112%;font-size:22px;letter-spacing:-.01em;padding-bottom:12px;border-bottom:3px solid #151515}.ds-fiche dl{margin:0;display:grid;grid-template-columns:1fr 1fr;column-gap:32px}.ds-fiche dl div{display:grid;gap:2px;padding:12px 0;border-bottom:1px solid rgba(21,21,21,.18)}.ds-fiche dt{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#b8381a}.ds-fiche dd{margin:0;font-size:17px;font-weight:600}"
+    },
+    {
+      "name": "Rate Row",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Ruled service list with dotted leader and tabular duration.",
+      "html": "<ul class=\"ds-tarifs\"><li><span>Coupe et brushing</span><span class=\"ds-pointe\"></span><span class=\"ds-duree\">45 min</span></li><li><span>Coloration</span><span class=\"ds-pointe\"></span><span class=\"ds-duree\">1 h 30</span></li></ul>",
+      "css": ".ds-tarifs{list-style:none;margin:0;padding:0;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515;background:#f3f4f2}.ds-tarifs li{display:flex;align-items:baseline;gap:10px;padding:13px 0;border-top:1px solid rgba(21,21,21,.18);font-size:18px;font-weight:600}.ds-tarifs li:last-child{border-bottom:1px solid rgba(21,21,21,.18)}.ds-pointe{flex:1;min-width:20px;border-bottom:2px dotted rgba(21,21,21,.35);transform:translateY(-4px)}.ds-duree{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Waiting-Room Magazine",
+    "overview": "The site is set like an issue of the salon's own hairstyle magazine. The first viewport is a full-bleed cover on a saturated copper-red seamless: a white, extended-black masthead, black condensed coverlines down the left, the black leather barber chair as cover star, a yellow round sticker, and the phone number boxed where a cover price would sit. Past the cover, the inside pages are plain, matte paper with black ink and red folios, ruled like print rather than boxed like an app. The back cover returns to red.\n\nDensity is editorial: very large display type against generous page margins, then tight ruled lists (rates, table of contents, letters) with hairline rows. One variable family, Archivo, carries every voice by changing width, from 62% condensed numerals to 125% extended mastheads. The world is light only. Imagery is the rendered 3D chair and its renders; there are no salon photos.",
+    "keyCharacteristics": [
+      "Copper-red cover and back cover; flat light paper for every inside page.",
+      "One typeface, many widths: Archivo variable (wdth 62 to 125, wght 100 to 900).",
+      "Print devices used natively: folios, running head, drop cap, pull quote, double-page gutter, dotted leaders, tear-out reply card with a dashed cut line.",
+      "Yellow is the answer colour: the sticker, and the hover state of every call surface.",
+      "The phone number is always the loudest actionable element on the screen."
+    ],
+    "rules": [
+      {
+        "name": "The Folio Red Rule",
+        "body": "Red text on paper is always Folio Red (5.3:1 on paper). Copper Seamless Red measures 3.7:1 on paper and is reserved for fields, rules and underlines.",
+        "section": "colors"
+      },
+      {
+        "name": "The White-On-Red Is Display Rule",
+        "body": "White type on the red field appears only at display and coverline sizes (4.1:1). Running text and small labels on red are Ink (4.5:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Yellow Answers Rule",
+        "body": "Yellow marks response: the sticker that answers a coverline, the hover of a call box, the submit button, the selected marker. It is never a section background.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Every voice is Archivo; contrast comes from width (wdth 62 to 125) and weight, never from a second typeface.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Phone Rule",
+        "body": "Phone numbers, durations and page numbers are tabular and never wrap.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Page Rule",
+        "body": "Inside pages are plain matte paper: no gloss, sheen, gradients or texture on the page itself. Only objects laid on it lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** set every inside page on flat Inside Paper (#f3f4f2) with Ink text, and reserve Copper Seamless Red fields for the cover and back cover (and figure plates).",
+      "**Do** use Folio Red for any red letterform on paper; use Copper Seamless Red only for fields, rules and underlines.",
+      "**Do** keep the phone number tabular, unwrapped, and the loudest action on every viewport.",
+      "**Do** separate content with rules (1px hairline rows, 1.5px Ink between pages) rather than tinted boxes.",
+      "**Do** change voice through Archivo's width axis: extended for mastheads, condensed for coverlines and numerals.",
+      "**Do** close each inside page with a folio: Folio Red page number, Soft Ink running title."
+    ],
+    "donts": [
+      "**Don't** describe or render the inside pages as glossy: no sheen, gloss gradient or texture on paper.",
+      "**Don't** add a second typeface or fall back to a system display face.",
+      "**Don't** put white text on red below coverline size, or Copper Seamless Red text on paper.",
+      "**Don't** round paper objects or fields; the pill belongs to the Ink call button alone.",
+      "**Don't** use yellow as a section background; it marks the sticker and responses.",
+      "**Don't** go dark, and don't introduce salon photos, video or the old logo; imagery is the rendered chair.",
+      "**Don't** add hard offset shadows or small uppercase kickers above headlines; the magazine's labels are its dateline, folios and call-box lines."
+    ]
+  }
+}
