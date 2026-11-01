@@ -14,8 +14,8 @@
       if (el.scrollWidth > W) { const fs = parseFloat(getComputedStyle(el).fontSize); el.style.fontSize = (fs * W / el.scrollWidth * .98).toFixed(1) + 'px'; }
       let lo = 62, hi = 125; el.style.fontStretch = '125%';
       if (el.scrollWidth > W) { for (let k = 0; k < 9; k++) { const m = (lo + hi) / 2; el.style.fontStretch = m + '%'; if (el.scrollWidth > W) hi = m; else lo = m; } el.style.fontStretch = (lo * .99).toFixed(1) + '%'; }
-      // une ligne courte reste en deçà même à 125 % : on agrandit la taille (au plus 1,7 fois)
-    if (el.scrollWidth < W * .97) { const fs = parseFloat(getComputedStyle(el).fontSize); el.style.fontSize = Math.min(base * 1.7, fs * W / el.scrollWidth * .98).toFixed(1) + 'px'; }
+      // une ligne courte reste en deçà même à 125 % : on agrandit la taille (au plus 2,3 fois)
+    if (el.scrollWidth < W * .97) { const fs = parseFloat(getComputedStyle(el).fontSize); el.style.fontSize = Math.min(base * 2.3, fs * W / el.scrollWidth * .98).toFixed(1) + 'px'; }
     el.style.display = '';
     });
   }
