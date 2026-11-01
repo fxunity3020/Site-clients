@@ -16,13 +16,15 @@ const leger = matchMedia('(max-width: 900px), (pointer: coarse)').matches;
 
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias: !leger, powerPreference: 'high-performance' }); }
-catch (e) { body.classList.add('sans-3d', 'rendu'); throw e; }
+catch (e) { body.classList.add('sans-3d', 'fin-chargement'); throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, leger ? 1.5 : 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = .98;
 renderer.shadowMap.enabled = !leger;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.VSMShadowMap; // ombres floues : pas de marches d'escalier au soleil
+renderer.shadowMap.autoUpdate = false;           // le soleil ne bouge pas : on recalcule seulement quand une chaise pivote
+renderer.shadowMap.needsUpdate = true;
 etat(10);
 
 const scene = new THREE.Scene();
@@ -245,8 +247,9 @@ function chaiseCoque(couleur, x, z) {
   const coque = new THREE.LatheGeometry(profil, 40);
   coque.scale(1, 1, .92);
   const c = mesh(coque, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .44, -.02], [0, 0, 0], g);
-  const dos = new THREE.SphereGeometry(.25, 32, 12, Math.PI * .05, Math.PI * .9, Math.PI * .3, Math.PI * .2); // dossier relevé
-  mesh(dos, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .42, .02], [-.3, Math.PI, 0], g);
+  // dossier relevé, légèrement courbé
+  const dos = new THREE.CylinderGeometry(.27, .27, .3, 32, 1, true, Math.PI * .72, Math.PI * .56);
+  mesh(dos, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .74, .06], [-.18, 0, 0], g);
   [[-.15, -.15], [.15, -.15], [-.15, .15], [.15, .15]].forEach(([a, b]) => mesh(new THREE.CylinderGeometry(.013, .011, .46, 8), M.bois, [a * 1.2, .22, b * 1.2], [b * .4, 0, -a * .4], g));
   mesh(new THREE.TorusGeometry(.16, .006, 6, 24), M.chrome, [0, .25, 0], [Math.PI / 2, 0, 0], g);
 }
@@ -261,11 +264,11 @@ chaiseCoque(0x161616, -3.45, 2.0); chaiseCoque(0xf1f0ec, -3.45, 2.65); chaiseCoq
 etat(82);
 
 /* ---------- Lumière de jour ---------- */
-scene.add(new THREE.HemisphereLight(0xffffff, 0x8a6a55, 1.15));
-const soleil = new THREE.DirectionalLight(0xfff4e6, 1.9);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a6a55, 1.3));
+const soleil = new THREE.DirectionalLight(0xfff4e6, 1.35);
 soleil.position.set(-9, 5.5, 3); soleil.target.position.set(0, 0, .5);
 if (!leger) {
-  soleil.castShadow = true; soleil.shadow.mapSize.set(2048, 2048); soleil.shadow.bias = -.0004; soleil.shadow.normalBias = .03; soleil.shadow.radius = 4;
+  soleil.castShadow = true; soleil.shadow.mapSize.set(2048, 2048); soleil.shadow.bias = -.0004; soleil.shadow.normalBias = .03; soleil.shadow.radius = 10; soleil.shadow.blurSamples = 16;
   Object.assign(soleil.shadow.camera, { left: -4.6, right: 4.6, top: 4.2, bottom: -4.2, near: 4, far: 17 });
 }
 scene.add(soleil, soleil.target);
@@ -342,6 +345,7 @@ function image(t) {
     }
     let d = vise - s.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d));
     s.rotation.y += d * (reduit ? 1 : 1 - Math.exp(-dt * 4));
+    if (Math.abs(d) > .002) renderer.shadowMap.needsUpdate = true;
   });
 
   // points cliquables projetés sur les chaises
