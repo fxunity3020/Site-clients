@@ -243,13 +243,17 @@ etat(70);
 /* ---------- Coin d'attente (devant les vitrines) ---------- */
 function chaiseCoque(couleur, x, z) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = Math.PI / 2; scene.add(g);
-  const profil = [[0, 0], [.14, .005], [.2, .03], [.235, .09], [.25, .16]].map(p => new THREE.Vector2(...p));
-  const coque = new THREE.LatheGeometry(profil, 40);
-  coque.scale(1, 1, .92);
-  const c = mesh(coque, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .44, -.02], [0, 0, 0], g);
-  // dossier relevé, légèrement courbé
-  const dos = new THREE.CylinderGeometry(.27, .27, .3, 32, 1, true, Math.PI * .72, Math.PI * .56);
-  mesh(dos, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .74, .06], [-.18, 0, 0], g);
+  // coque moulée d'une seule pièce : un bol dont l'arrière se relève en dossier
+  const coque = new THREE.SphereGeometry(.25, 48, 24, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2);
+  const p = coque.attributes.position;
+  for (let n = 0; n < p.count; n++) {
+    const x = p.getX(n), y = p.getY(n), z = p.getZ(n);
+    const arriere = Math.max(0, -z) / .25;                 // 0 devant, 1 tout au fond
+    const leve = arriere * arriere * (3 - 2 * arriere);   // montée douce du dossier
+    p.setXYZ(n, x * (1.04 + leve * .22), -y * .3 + leve * .3, z * .95 - leve * .04);
+  }
+  coque.computeVertexNormals();
+  mesh(coque, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .5, 0], [0, 0, 0], g);
   [[-.15, -.15], [.15, -.15], [-.15, .15], [.15, .15]].forEach(([a, b]) => mesh(new THREE.CylinderGeometry(.013, .011, .46, 8), M.bois, [a * 1.2, .22, b * 1.2], [b * .4, 0, -a * .4], g));
   mesh(new THREE.TorusGeometry(.16, .006, 6, 24), M.chrome, [0, .25, 0], [Math.PI / 2, 0, 0], g);
 }
