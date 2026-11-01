@@ -58,7 +58,7 @@ button, a, [role="tab"] { touch-action: manipulation; }
 .affiche { object-fit: cover; transition: opacity .8s var(--ease); }
 .rendu .affiche { opacity: 0; pointer-events: none; }
 .chargement { position: fixed; left: var(--g); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 60; font-size: 14px; font-weight: 600; background: var(--papier); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(31, 28, 26, .14); font-variant-numeric: tabular-nums; transition: opacity .5s; }
-.rendu .chargement { opacity: 0; pointer-events: none; }
+.rendu .chargement, .fin-chargement .chargement { opacity: 0; pointer-events: none; }
 
 /* ---------- Boutons (pilules) ---------- */
 .btn {
@@ -72,6 +72,7 @@ button, a, [role="tab"] { touch-action: manipulation; }
 .btn .fleche { transition: transform .25s var(--ease); }
 .btn-cuivre { background: var(--cuivre); color: #fff; }
 .btn-encre { background: var(--lac); color: var(--papier); }
+.btn-clair { background: transparent; color: var(--papier); box-shadow: inset 0 0 0 1.5px var(--papier); }
 .btn-petit { min-height: 42px; padding: 0 18px; font-size: 15px; }
 @media (hover: hover) and (pointer: fine) {
   .btn-cuivre:hover { background: var(--cuivre-fonce); }
@@ -131,8 +132,8 @@ main { position: relative; z-index: 10; }
 .kicker::before { content: ""; width: 22px; height: 2px; background: currentColor; }
 .s-tete { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--filet); }
 
-.titre3 { display: grid; font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -.01em; }
-.titre3 .lh { display: block; overflow: hidden; padding-bottom: .02em; }
+.titre3 { display: grid; grid-template-columns: minmax(0, 1fr); font-weight: 900; text-transform: uppercase; line-height: .88; letter-spacing: -.01em; }
+.titre3 .lh { display: block; padding-top: .06em; }
 .titre3 .ajuste { display: block; white-space: nowrap; font-size: clamp(40px, 4.6vw, 64px); font-stretch: 62%; }
 .titre3 .contour { color: transparent; -webkit-text-stroke: 2px var(--lac); }
 .titre3 .accent { color: var(--cuivre); }
@@ -154,11 +155,7 @@ body:not([data-arret="entree"]) .indice { opacity: 0; }
 .duree { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .note { margin-top: 16px; font-size: 14px; color: var(--gris); }
 
-/* Chiffres et méthode */
-.chiffres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0; }
-.chiffres div { display: flex; flex-direction: column-reverse; gap: 2px; padding-top: 12px; border-top: 2px solid var(--lac); }
-.chiffres dt { font-size: 13px; font-weight: 600; color: var(--gris); line-height: 1.3; }
-.chiffres dd { font-weight: 900; font-stretch: 75%; font-size: 46px; line-height: 1; color: var(--cuivre); font-variant-numeric: tabular-nums; }
+/* Méthode */
 .methode { list-style: none; padding: 0; counter-reset: m; display: grid; gap: 14px; position: relative; }
 .methode::before { content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px; width: 2px; background: var(--filet); }
 .methode::after { content: ""; position: absolute; left: 15px; top: 8px; width: 2px; height: calc((100% - 16px) * var(--remplir, 0)); background: var(--cuivre); }
@@ -268,12 +265,14 @@ dialog p { margin-bottom: 12px; font-size: 16px; }
 @media (max-width: 760px) {
   :root { --hh: 58px; }
   .etape, .etape.droite { min-height: 0; justify-content: center; padding-bottom: 22vh; }
-  .panneau, .contact .panneau { position: relative; top: 0; margin: 52vh 0 0; width: 100%; padding: 22px; border-radius: 20px; }
+  .panneau, .contact .panneau { position: relative; top: 0; margin: 64vh 0 0; width: 100%; padding: 22px; border-radius: 20px; }
   .entree .panneau { margin-top: 44vh; }
   .entree { padding-bottom: 16vh; }
   .titre3 .ajuste { font-size: 52px; }
   .champs { grid-template-columns: 1fr; }
-  .chiffres dd { font-size: 38px; }
+  .carte-appel { padding: 14px; gap: 12px; }
+  .onde { width: 46px; height: 46px; }
+  .ca-tel { font-size: clamp(22px, 7vw, 30px); }
   .indice { display: none; }
   .point { height: 40px; font-size: 14px; }
   .barre-mobile {

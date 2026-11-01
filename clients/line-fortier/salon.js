@@ -20,7 +20,7 @@ catch (e) { body.classList.add('sans-3d', 'rendu'); throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, leger ? 1.5 : 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = .98;
 renderer.shadowMap.enabled = !leger;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 etat(10);
@@ -117,12 +117,14 @@ mesh(new THREE.PlaneGeometry(3.2, 2.05), M.mur, [-4, 1.575, -2.4], [0, Math.PI /
 mesh(new THREE.PlaneGeometry(6.2, 2.05), M.dehors, [-4.6, 1.575, 1.75], [0, Math.PI / 2, 0], scene, false);
 for (let z = -.8; z <= 4.5; z += 1.32) mesh(new THREE.BoxGeometry(.12, 2.05, .07), M.blanc, [-3.98, 1.575, z]);
 mesh(new THREE.BoxGeometry(.2, .05, 5.3), M.blanc, [-3.92, .57, 1.85]);
-// façade (z = 4,5) : vitrine, porte vitrée, vue sur le boulevard
-mesh(new THREE.PlaneGeometry(9, 2.6), M.dehors, [0, 1.45, 5.1], [0, Math.PI, 0], scene, false);
-[[-3.8, .4, 3], [.9, .6, 3], [3.1, 1.8, 3]].forEach(([x, w, h]) => mesh(new THREE.PlaneGeometry(w, h), M.mur, [x, h / 2, 4.5], [0, Math.PI, 0], scene, false));
-mesh(new THREE.PlaneGeometry(4.2, .55), M.mur, [-1.5, .275, 4.5], [0, Math.PI, 0], scene, false);
-mesh(new THREE.PlaneGeometry(4.2, .4), M.mur, [-1.5, 2.8, 4.5], [0, Math.PI, 0], scene, false);
-mesh(new THREE.PlaneGeometry(1, .7), M.mur, [1.7, 2.65, 4.5], [0, Math.PI, 0], scene, false);
+// façade (z = 4,5) : vitrine, porte vitrée ; vue de l'intérieur et du trottoir
+const facade = new THREE.MeshStandardMaterial({ color: 0xf1efeb, roughness: .9, side: THREE.DoubleSide });
+mesh(new THREE.PlaneGeometry(14, 4), M.sol.clone(), [0, -.001, 6.5], [-Math.PI / 2, 0, 0], scene, false).material.color.setHex(0x9b9690); // trottoir
+const vueRue = mesh(new THREE.PlaneGeometry(9, 2.6), M.dehors, [0, 1.45, 5.1], [0, Math.PI, 0], scene, false);
+[[-3.8, .4, 3], [.9, .6, 3], [3.1, 1.8, 3]].forEach(([x, w, h]) => mesh(new THREE.PlaneGeometry(w, h), facade, [x, h / 2, 4.5], [0, Math.PI, 0], scene, false));
+mesh(new THREE.PlaneGeometry(4.2, .55), facade, [-1.5, .275, 4.5], [0, Math.PI, 0], scene, false);
+mesh(new THREE.PlaneGeometry(4.2, .4), facade, [-1.5, 2.8, 4.5], [0, Math.PI, 0], scene, false);
+mesh(new THREE.PlaneGeometry(1, .7), facade, [1.7, 2.65, 4.5], [0, Math.PI, 0], scene, false);
 [-3.6, -2.2, -.8, .6].forEach(x => mesh(new THREE.BoxGeometry(.1, 2.05, .07), M.blanc, [x, 1.575, 4.48]));
 mesh(new THREE.BoxGeometry(4.3, .05, .2), M.blanc, [-1.5, .57, 4.42]);
 [1.2, 2.2].forEach(x => mesh(new THREE.BoxGeometry(.08, 2.3, .08), M.noir, [x, 1.15, 4.48]));
@@ -201,7 +203,7 @@ etat(55);
 
 /* ---------- Deux postes : Elle (z -0,6) et Lui (z 1,9) ---------- */
 const POSTES = { elle: -.6, lui: 1.9 };
-const modele = createBarberChair(THREE, RoundedBoxGeometry, { pass: leger ? 'form' : 'material' });
+const modele = createBarberChair(THREE, RoundedBoxGeometry, { pass: 'material' });
 const chaises = {};
 Object.entries(POSTES).forEach(([nom, z], i) => {
   const W = 1.0, H = 1.4, y = 1.55;
@@ -229,18 +231,24 @@ etat(70);
   mesh(boite(.62, .7, .12, .05), M.noir, [0, .82, -.28], [-.12, 0, 0], g);
   [-.32, .32].forEach(x => mesh(boite(.08, .26, .56, .03), M.noir, [x, .6, 0], [0, 0, 0], g));
   mesh(boite(.5, .3, .5, .04), M.noir, [0, .22, 0], [0, 0, 0], g);
-  mesh(new THREE.CylinderGeometry(.025, .025, .9, 10), M.chrome, [0, 1.35, -.42], [0, 0, 0], g);
-  const casque = mesh(new THREE.SphereGeometry(.27, 32, 16, 0, Math.PI * 2, 0, Math.PI * .55), M.cuivre, [0, 1.56, -.18], [-.6, 0, 0], g);
-  casque.scale.set(1, 1.1, 1);
+  mesh(new THREE.CylinderGeometry(.025, .025, 1.0, 10), M.chrome, [0, 1.2, -.42], [0, 0, 0], g);
+  const casque = mesh(new THREE.SphereGeometry(.26, 32, 16, 0, Math.PI * 2, 0, Math.PI * .5), new THREE.MeshStandardMaterial({ color: 0xb07a45, roughness: .35, metalness: .5, side: THREE.DoubleSide }), [0, 1.3, -.16], [-.35, 0, 0], g);
+  casque.scale.set(1, 1.15, 1);
+  mesh(new THREE.TorusGeometry(.26, .018, 10, 40), M.noir, [0, 1.3, -.16], [Math.PI / 2 - .35, 0, 0], g);
+  mesh(new THREE.CylinderGeometry(.02, .02, .2, 8), M.chrome, [0, 1.62, -.3], [-.6, 0, 0], g);
 });
 
 /* ---------- Coin d'attente (devant les vitrines) ---------- */
 function chaiseCoque(couleur, x, z) {
   const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = Math.PI / 2; scene.add(g);
-  const plastique = mat(couleur, .3);
-  mesh(boite(.46, .05, .44, .02), plastique, [0, .45, 0], [0, 0, 0], g);
-  mesh(boite(.46, .36, .05, .02), plastique, [0, .66, -.22], [-.22, 0, 0], g);
-  [[-.17, -.17], [.17, -.17], [-.17, .17], [.17, .17]].forEach(([a, b]) => mesh(new THREE.CylinderGeometry(.013, .011, .46, 8), M.bois, [a * 1.15, .22, b * 1.15], [b * .35, 0, -a * .35], g));
+  const profil = [[0, 0], [.14, .005], [.2, .03], [.235, .09], [.25, .16]].map(p => new THREE.Vector2(...p));
+  const coque = new THREE.LatheGeometry(profil, 40);
+  coque.scale(1, 1, .92);
+  const c = mesh(coque, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .44, -.02], [0, 0, 0], g);
+  const dos = new THREE.SphereGeometry(.25, 32, 12, Math.PI * .05, Math.PI * .9, Math.PI * .3, Math.PI * .2); // dossier relevé
+  mesh(dos, mat(couleur, .28, { side: THREE.DoubleSide }), [0, .42, .02], [-.3, Math.PI, 0], g);
+  [[-.15, -.15], [.15, -.15], [-.15, .15], [.15, .15]].forEach(([a, b]) => mesh(new THREE.CylinderGeometry(.013, .011, .46, 8), M.bois, [a * 1.2, .22, b * 1.2], [b * .4, 0, -a * .4], g));
+  mesh(new THREE.TorusGeometry(.16, .006, 6, 24), M.chrome, [0, .25, 0], [Math.PI / 2, 0, 0], g);
 }
 chaiseCoque(0x161616, -3.45, 2.0); chaiseCoque(0xf1f0ec, -3.45, 2.65); chaiseCoque(0x161616, -3.45, 3.3);
 {
@@ -254,11 +262,11 @@ etat(82);
 
 /* ---------- Lumière de jour ---------- */
 scene.add(new THREE.HemisphereLight(0xffffff, 0x8a6a55, 1.15));
-const soleil = new THREE.DirectionalLight(0xfff4e6, 2.6);
+const soleil = new THREE.DirectionalLight(0xfff4e6, 1.9);
 soleil.position.set(-9, 5.5, 3); soleil.target.position.set(0, 0, .5);
 if (!leger) {
-  soleil.castShadow = true; soleil.shadow.mapSize.set(2048, 2048); soleil.shadow.bias = -.0004; soleil.shadow.normalBias = .02;
-  Object.assign(soleil.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6, near: 1, far: 20 });
+  soleil.castShadow = true; soleil.shadow.mapSize.set(2048, 2048); soleil.shadow.bias = -.0004; soleil.shadow.normalBias = .03; soleil.shadow.radius = 4;
+  Object.assign(soleil.shadow.camera, { left: -4.6, right: 4.6, top: 4.2, bottom: -4.2, near: 4, far: 17 });
 }
 scene.add(soleil, soleil.target);
 const plafond = new THREE.PointLight(0xfff6ea, leger ? 6 : 9, 9, 1.6); plafond.position.set(1, 2.8, 0); scene.add(plafond);
@@ -268,8 +276,8 @@ if (!leger) { const p2 = new THREE.PointLight(0xfff6ea, 5, 7, 1.6); p2.position.
 let onglet = 'elle';
 addEventListener('lf:onglet', e => { onglet = e.detail; demander(); });
 const ARRETS = {
-  entree: () => [V(.2, 1.7, 4.4), V(.1, 1.35, -4)],
-  services: () => onglet === 'lui' ? [V(1.1, 1.6, 3.3), V(3.1, .95, 1.9)] : [V(1.1, 1.6, .8), V(3.1, .95, -.6)],
+  entree: () => [V(-1.4, 1.62, 6.6), V(.3, 1.3, -4)],   // sur le trottoir, devant la vitrine
+  services: () => onglet === 'lui' ? [V(.9, 1.7, .25), V(3.0, 1.1, 1.95)] : [V(.9, 1.7, 1.0), V(3.0, 1.1, -.65)],
   salon: () => [V(.7, 1.65, 1.5), V(-.4, 1.55, -4)],
   avis: () => [V(.9, 1.55, 1.1), V(-3.2, .75, 2.9)],
   questions: () => [V(.1, 1.65, .7), V(-2.1, 1.0, -2.35)],
@@ -296,7 +304,7 @@ const points = [...document.querySelectorAll('.point')].map(el => ({ el, v: V(..
 const souris = new THREE.Vector2();
 if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduit) addEventListener('pointermove', e => { souris.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1)); demander(); }, { passive: true });
 let portrait = false;
-const pos = V(.2, 1.7, 4.4), cible = V(.1, 1.35, -4), par = V();
+const pos = V(-1.4, 1.62, 6.6), cible = V(.3, 1.3, -4), par = V();
 let decal = 0, tPrec = performance.now(), enCours = false, calme = 0, actuelPrec = '';
 function demander() { calme = 0; if (!enCours) { enCours = true; tPrec = performance.now(); requestAnimationFrame(image); } }
 function taille() {
@@ -313,17 +321,28 @@ function image(t) {
   const dt = Math.min(.05, (t - tPrec) / 1000); tPrec = t;
   const [p, c, actuel, cote] = voulu();
   const k = reduit ? 1 : 1 - Math.exp(-dt * 3.4);
+  if (portrait) c.y -= .22;
   pos.lerp(p, k); cible.lerp(c, k);
   decal += (cote - decal) * k;
   if (!reduit) par.lerp(V(souris.x * .12, souris.y * .06, 0), 1 - Math.exp(-dt * 2.5));
   const w = innerWidth, h = innerHeight;
   // téléphone : panneau en bas, le salon monte ; tablette debout : panneau en haut, le salon descend
-  if (portrait) camera.setViewOffset(w, h, 0, w > 760 ? -h * .1 : h * .17, w, h);
+  if (portrait) camera.setViewOffset(w, h, w > 760 ? -decal * w * .2 : 0, w > 760 ? -h * .16 : h * .2, w, h);
   else camera.setViewOffset(w, h, -decal * w * .12, 0, w, h);
   camera.position.copy(pos).add(par); camera.lookAt(cible);
 
   // la chaise choisie pivote vers le visiteur
-  ['elle', 'lui'].forEach(n => { const s = chaises[n]; if (!s) return; const vise = actuel === 'services' && onglet === n ? -.55 : 0; s.rotation.y += (vise - s.rotation.y) * (reduit ? 1 : 1 - Math.exp(-dt * 4)); });
+  ['elle', 'lui'].forEach(n => {
+    const s = chaises[n]; if (!s) return;
+    let vise = 0;
+    if (actuel === 'services' && onglet === n) {
+      // le siège (axe +z local, chaise tournée de 90°) se tourne de trois quarts vers la caméra
+      const cz = POSTES[n], ang = Math.atan2(camera.position.x - 2.95, camera.position.z - cz) - Math.PI / 2;
+      vise = Math.atan2(Math.sin(ang + .45), Math.cos(ang + .45));
+    }
+    let d = vise - s.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d));
+    s.rotation.y += d * (reduit ? 1 : 1 - Math.exp(-dt * 4));
+  });
 
   // points cliquables projetés sur les chaises
   const pan = document.querySelector(`#${actuel} .panneau`), zone = pan ? pan.getBoundingClientRect() : null;

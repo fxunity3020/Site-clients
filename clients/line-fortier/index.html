@@ -15,7 +15,7 @@
   <link rel="preload" href="img/salon-entree.webp" as="image" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"HairSalon","name":"Line Fortier Coiffure Elle & Lui","telephone":"+1-450-429-2222","address":{"@type":"PostalAddress","streetAddress":"749, boulevard Cadieux","addressLocality":"Beauharnois","addressRegion":"QC","postalCode":"J6N 2E9","addressCountry":"CA"},"areaServed":"Beauharnois","sameAs":["https://www.facebook.com/LFCellelui/"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"60"},"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coupe femme"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coloration et mèches"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coupe homme"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dégradé"}}]}
+  {"@context":"https://schema.org","@type":"HairSalon","name":"Line Fortier Coiffure Elle & Lui","telephone":"+1-450-429-2222","address":{"@type":"PostalAddress","streetAddress":"749, boulevard Cadieux","addressLocality":"Beauharnois","addressRegion":"QC","postalCode":"J6N 2E9","addressCountry":"CA"},"areaServed":"Beauharnois","sameAs":["https://www.facebook.com/LFCellelui/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coupe femme"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coloration et mèches"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Coupe homme"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dégradé"}}]}
   </script>
 </head>
 <body>
@@ -57,8 +57,8 @@
   </div>
 
   <!-- Points cliquables posés sur les chaises (coordonnées dans la scène) -->
-  <button type="button" class="point" data-point="2.95,1.5,-0.6" data-pour="services" data-onglet="elle" aria-label="Voir les services pour elle">Elle</button>
-  <button type="button" class="point" data-point="2.95,1.5,1.9" data-pour="services" data-onglet="lui" aria-label="Voir les services pour lui">Lui</button>
+  <button type="button" class="point" data-point="2.95,.9,-0.6" data-pour="services" data-onglet="elle" aria-label="Voir les services pour elle">Elle</button>
+  <button type="button" class="point" data-point="2.95,.9,1.9" data-pour="services" data-onglet="lui" aria-label="Voir les services pour lui">Lui</button>
 
   <main>
     <!-- 1. ENTRÉE -->
@@ -136,11 +136,6 @@
         </div>
         <!-- À FAIRE APPROUVER par le salon -->
         <p class="chapeau">Des clientes viennent depuis le premier jour. Aujourd'hui, elles amènent leurs enfants.</p>
-        <dl class="chiffres">
-          <div><dt>ans sur le boulevard</dt><dd><span data-compte="30">30</span>+</dd></div>
-          <div><dt>note Google</dt><dd>5,0</dd></div>
-          <div><dt>avis Google</dt><dd><span data-compte="60">60</span></dd></div>
-        </dl>
         <ol class="methode">
           <li><b>On vous écoute.</b> Ce que vous aimez, ce que vous n'aimez plus, et le temps que vous voulez y mettre le matin.</li>
           <li><b>On coupe pour votre routine.</b> Une coupe qui demande une heure de séchoir n'est pas une bonne coupe si vous partez travailler à 7&nbsp;h.</li>
@@ -155,11 +150,12 @@
         <div class="s-tete">
           <p class="kicker">Le coin d'attente</p>
           <h2 id="t-avis" class="titre3">
-            <span class="lh"><span class="ajuste">Ce que</span></span>
-            <span class="lh contour"><span class="ajuste">disent nos</span></span>
+            <span class="lh"><span class="ajuste">Lisez les</span></span>
+            <span class="lh contour"><span class="ajuste">avis de nos</span></span>
             <span class="lh accent"><span class="ajuste">clients</span></span>
           </h2>
         </div>
+        <!-- À CONFIRMER : note et nombre d'avis Google (repris de l'ancienne version) -->
         <p class="note-google"><b>5,0</b> <span class="etoiles" aria-hidden="true"><svg viewBox="0 0 120 22"><path id="etoile1" d="M11 1l3 6.6 7.2.8-5.4 4.9 1.5 7.1L11 16.8 4.7 20.4l1.5-7.1L.8 8.4 8 7.6Z"/><use href="#etoile1" x="24.5"/><use href="#etoile1" x="49"/><use href="#etoile1" x="73.5"/><use href="#etoile1" x="98"/></svg></span> sur Google, 60 avis</p>
         <!-- À REMPLIR : recopier le texte exact des avis Google (captures du salon), prénom + initiale. Voir la liste AVIS dans main.js. -->
         <div class="carrousel" id="carrousel" role="region" aria-roledescription="carrousel" aria-label="Avis Google" hidden>
@@ -259,7 +255,7 @@
   <!-- Barre d'appel mobile -->
   <div class="barre-mobile" id="barre-mobile">
     <a class="btn btn-cuivre" href="tel:+14504292222">Appeler</a>
-    <a class="btn btn-encre" href="#contact" data-type="coupe-femme">Rendez-vous</a>
+    <a class="btn btn-clair" href="#contact" data-type="coupe-femme">Rendez-vous</a>
   </div>
 
   <dialog id="politique" aria-labelledby="t-pol">

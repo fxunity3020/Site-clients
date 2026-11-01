@@ -10,10 +10,13 @@
     document.querySelectorAll('.ajuste').forEach(el => {
       const W = el.parentElement.clientWidth; if (!W) return;
       el.style.fontSize = ''; el.style.fontStretch = '62%'; el.style.display = 'inline-block';
+      const base = parseFloat(getComputedStyle(el).fontSize);
       if (el.scrollWidth > W) { const fs = parseFloat(getComputedStyle(el).fontSize); el.style.fontSize = (fs * W / el.scrollWidth * .98).toFixed(1) + 'px'; }
       let lo = 62, hi = 125; el.style.fontStretch = '125%';
       if (el.scrollWidth > W) { for (let k = 0; k < 9; k++) { const m = (lo + hi) / 2; el.style.fontStretch = m + '%'; if (el.scrollWidth > W) hi = m; else lo = m; } el.style.fontStretch = (lo * .99).toFixed(1) + '%'; }
-      el.style.display = '';
+      // une ligne courte reste en deçà même à 125 % : on agrandit la taille (au plus 1,7 fois)
+    if (el.scrollWidth < W * .97) { const fs = parseFloat(getComputedStyle(el).fontSize); el.style.fontSize = Math.min(base * 1.7, fs * W / el.scrollWidth * .98).toFixed(1) + 'px'; }
+    el.style.display = '';
     });
   }
   ajusterTitres(); addEventListener('resize', ajusterTitres);
@@ -24,6 +27,9 @@
   }
   // filet de sécurité : la police peut arriver après le premier calcul (chargement lent, 3D lourde)
   addEventListener('load', ajusterTitres); [400, 1200, 3000].forEach(t => setTimeout(ajusterTitres, t));
+
+  /* Si la 3D n'arrive pas (module bloqué, appareil trop lent), on retire l'indicateur de chargement */
+  setTimeout(() => body.classList.add('fin-chargement'), 9000);
 
   /* ---------- Apparition des panneaux ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } }), { threshold: .12 });
