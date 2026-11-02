@@ -1,371 +1,555 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-01T19:43:20.372144+00:00",
+  "generatedAt": "2026-11-02T00:33:24.367781+00:00",
   "title": "Design System: Line Fortier Coiffure Elle & Lui",
   "extensions": {
     "colorMeta": {
-      "rouge": {
+      "cuivre": {
         "role": "primary",
-        "displayName": "Copper Seamless Red",
-        "canonical": "oklch(61.5% 0.193 34.5)",
+        "displayName": "Salon Copper",
+        "canonical": "oklch(53.5% 0.154 38.3)",
         "tonalRamp": [
-          "oklch(15% 0.083 34.5)",
-          "oklch(25% 0.138 34.5)",
-          "oklch(35% 0.193 34.5)",
-          "oklch(48% 0.193 34.5)",
-          "oklch(60% 0.193 34.5)",
-          "oklch(72% 0.154 34.5)",
-          "oklch(84% 0.088 34.5)",
-          "oklch(95% 0.028 34.5)"
+          "oklch(15% 0.081 38.3)",
+          "oklch(25% 0.105 38.3)",
+          "oklch(35% 0.129 38.3)",
+          "oklch(48% 0.154 38.3)",
+          "oklch(60% 0.154 38.3)",
+          "oklch(72% 0.136 38.3)",
+          "oklch(84% 0.107 38.3)",
+          "oklch(95% 0.081 38.3)"
         ]
       },
-      "rouge-encre": {
+      "cuivre-fonce": {
         "role": "primary",
-        "displayName": "Folio Red",
-        "canonical": "oklch(52.7% 0.169 34.2)",
+        "displayName": "Copper Pressed",
+        "canonical": "oklch(47.0% 0.135 38.0)",
         "tonalRamp": [
-          "oklch(15% 0.072 34.2)",
-          "oklch(25% 0.121 34.2)",
-          "oklch(35% 0.169 34.2)",
-          "oklch(48% 0.169 34.2)",
-          "oklch(60% 0.169 34.2)",
-          "oklch(72% 0.135 34.2)",
-          "oklch(84% 0.077 34.2)",
-          "oklch(95% 0.024 34.2)"
+          "oklch(15% 0.071 38.0)",
+          "oklch(25% 0.092 38.0)",
+          "oklch(35% 0.113 38.0)",
+          "oklch(48% 0.135 38.0)",
+          "oklch(60% 0.135 38.0)",
+          "oklch(72% 0.119 38.0)",
+          "oklch(84% 0.094 38.0)",
+          "oklch(95% 0.071 38.0)"
         ]
       },
-      "rouge-ombre": {
-        "role": "primary",
-        "displayName": "Studio Floor Shadow",
-        "canonical": "oklch(31.1% 0.104 33.8)",
-        "tonalRamp": [
-          "oklch(15% 0.045 33.8)",
-          "oklch(25% 0.074 33.8)",
-          "oklch(35% 0.104 33.8)",
-          "oklch(48% 0.104 33.8)",
-          "oklch(60% 0.104 33.8)",
-          "oklch(72% 0.083 33.8)",
-          "oklch(84% 0.048 33.8)",
-          "oklch(95% 0.015 33.8)"
-        ]
-      },
-      "jaune": {
+      "ecume": {
         "role": "secondary",
-        "displayName": "Sticker Yellow",
-        "canonical": "oklch(87.9% 0.164 91.3)",
+        "displayName": "Copper Foam",
+        "canonical": "oklch(82.1% 0.081 43.8)",
         "tonalRamp": [
-          "oklch(15% 0.07 91.3)",
-          "oklch(25% 0.117 91.3)",
-          "oklch(35% 0.164 91.3)",
-          "oklch(48% 0.164 91.3)",
-          "oklch(60% 0.164 91.3)",
-          "oklch(72% 0.131 91.3)",
-          "oklch(84% 0.075 91.3)",
-          "oklch(95% 0.023 91.3)"
+          "oklch(15% 0.042 43.8)",
+          "oklch(25% 0.055 43.8)",
+          "oklch(35% 0.068 43.8)",
+          "oklch(48% 0.081 43.8)",
+          "oklch(60% 0.081 43.8)",
+          "oklch(72% 0.072 43.8)",
+          "oklch(84% 0.056 43.8)",
+          "oklch(95% 0.042 43.8)"
         ]
       },
       "papier": {
         "role": "neutral",
-        "displayName": "Inside Paper",
-        "canonical": "oklch(96.6% 0.003 128.5)",
+        "displayName": "Panel Paper",
+        "canonical": "oklch(97.0% 0.004 91.4)",
         "tonalRamp": [
-          "oklch(15% 0.001 128.5)",
-          "oklch(25% 0.002 128.5)",
-          "oklch(35% 0.003 128.5)",
-          "oklch(48% 0.003 128.5)",
-          "oklch(60% 0.003 128.5)",
-          "oklch(72% 0.002 128.5)",
-          "oklch(84% 0.001 128.5)",
-          "oklch(95% 0.0 128.5)"
+          "oklch(15% 0.002 91.4)",
+          "oklch(25% 0.003 91.4)",
+          "oklch(35% 0.003 91.4)",
+          "oklch(48% 0.004 91.4)",
+          "oklch(60% 0.004 91.4)",
+          "oklch(72% 0.004 91.4)",
+          "oklch(84% 0.003 91.4)",
+          "oklch(95% 0.002 91.4)"
+        ]
+      },
+      "teinte": {
+        "role": "neutral",
+        "displayName": "Shop Tint",
+        "canonical": "oklch(94.0% 0.003 106.5)",
+        "tonalRamp": [
+          "oklch(15% 0.001 106.5)",
+          "oklch(25% 0.002 106.5)",
+          "oklch(35% 0.002 106.5)",
+          "oklch(48% 0.003 106.5)",
+          "oklch(60% 0.003 106.5)",
+          "oklch(72% 0.002 106.5)",
+          "oklch(84% 0.002 106.5)",
+          "oklch(95% 0.001 106.5)"
+        ]
+      },
+      "lac": {
+        "role": "neutral",
+        "displayName": "Charcoal Ink",
+        "canonical": "oklch(22.9% 0.006 56.1)",
+        "tonalRamp": [
+          "oklch(15% 0.003 56.1)",
+          "oklch(25% 0.004 56.1)",
+          "oklch(35% 0.005 56.1)",
+          "oklch(48% 0.006 56.1)",
+          "oklch(60% 0.006 56.1)",
+          "oklch(72% 0.005 56.1)",
+          "oklch(84% 0.004 56.1)",
+          "oklch(95% 0.003 56.1)"
+        ]
+      },
+      "gris": {
+        "role": "neutral",
+        "displayName": "Soft Grey",
+        "canonical": "oklch(46.4% 0.011 62.4)",
+        "tonalRamp": [
+          "oklch(15% 0.006 62.4)",
+          "oklch(25% 0.008 62.4)",
+          "oklch(35% 0.009 62.4)",
+          "oklch(48% 0.011 62.4)",
+          "oklch(60% 0.011 62.4)",
+          "oklch(72% 0.01 62.4)",
+          "oklch(84% 0.008 62.4)",
+          "oklch(95% 0.006 62.4)"
+        ]
+      },
+      "nuit": {
+        "role": "neutral",
+        "displayName": "Contact Night",
+        "canonical": "oklch(20.4% 0.008 48.3)",
+        "tonalRamp": [
+          "oklch(15% 0.004 48.3)",
+          "oklch(25% 0.005 48.3)",
+          "oklch(35% 0.006 48.3)",
+          "oklch(48% 0.008 48.3)",
+          "oklch(60% 0.008 48.3)",
+          "oklch(72% 0.007 48.3)",
+          "oklch(84% 0.005 48.3)",
+          "oklch(95% 0.004 48.3)"
+        ]
+      },
+      "nuit-carte": {
+        "role": "neutral",
+        "displayName": "Night Card",
+        "canonical": "oklch(26.6% 0.011 48.3)",
+        "tonalRamp": [
+          "oklch(15% 0.006 48.3)",
+          "oklch(25% 0.007 48.3)",
+          "oklch(35% 0.009 48.3)",
+          "oklch(48% 0.011 48.3)",
+          "oklch(60% 0.011 48.3)",
+          "oklch(72% 0.009 48.3)",
+          "oklch(84% 0.007 48.3)",
+          "oklch(95% 0.006 48.3)"
+        ]
+      },
+      "sur-nuit": {
+        "role": "neutral",
+        "displayName": "Night Muted",
+        "canonical": "oklch(77.5% 0.016 67.6)",
+        "tonalRamp": [
+          "oklch(15% 0.009 67.6)",
+          "oklch(25% 0.011 67.6)",
+          "oklch(35% 0.014 67.6)",
+          "oklch(48% 0.016 67.6)",
+          "oklch(60% 0.016 67.6)",
+          "oklch(72% 0.014 67.6)",
+          "oklch(84% 0.011 67.6)",
+          "oklch(95% 0.009 67.6)"
         ]
       },
       "blanc": {
         "role": "neutral",
         "displayName": "Card White",
-        "canonical": "oklch(100% 0 0)",
+        "canonical": "oklch(100.0% 0.000 89.9)",
         "tonalRamp": [
-          "oklch(15% 0.0 0)",
-          "oklch(25% 0.0 0)",
-          "oklch(35% 0 0)",
-          "oklch(48% 0 0)",
-          "oklch(60% 0 0)",
-          "oklch(72% 0.0 0)",
-          "oklch(84% 0.0 0)",
-          "oklch(95% 0.0 0)"
-        ]
-      },
-      "encre": {
-        "role": "neutral",
-        "displayName": "Ink",
-        "canonical": "oklch(19.6% 0 0)",
-        "tonalRamp": [
-          "oklch(15% 0.0 0)",
-          "oklch(25% 0.0 0)",
-          "oklch(35% 0 0)",
-          "oklch(48% 0 0)",
-          "oklch(60% 0 0)",
-          "oklch(72% 0.0 0)",
-          "oklch(84% 0.0 0)",
-          "oklch(95% 0.0 0)"
-        ]
-      },
-      "encre-douce": {
-        "role": "neutral",
-        "displayName": "Soft Ink",
-        "canonical": "oklch(41.1% 0.006 67.6)",
-        "tonalRamp": [
-          "oklch(15% 0.003 67.6)",
-          "oklch(25% 0.004 67.6)",
-          "oklch(35% 0.006 67.6)",
-          "oklch(48% 0.006 67.6)",
-          "oklch(60% 0.006 67.6)",
-          "oklch(72% 0.005 67.6)",
-          "oklch(84% 0.003 67.6)",
-          "oklch(95% 0.001 67.6)"
+          "oklch(15% 0.0 89.9)",
+          "oklch(25% 0.0 89.9)",
+          "oklch(35% 0.0 89.9)",
+          "oklch(48% 0.0 89.9)",
+          "oklch(60% 0.0 89.9)",
+          "oklch(72% 0.0 89.9)",
+          "oklch(84% 0.0 89.9)",
+          "oklch(95% 0.0 89.9)"
         ]
       },
       "filet": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "rgba(21, 21, 21, .18)",
+        "canonical": "rgba(31, 28, 26, .16)",
         "tonalRamp": [
-          "rgba(21, 21, 21, 0.9)",
-          "rgba(21, 21, 21, 0.7)",
-          "rgba(21, 21, 21, 0.5)",
-          "rgba(21, 21, 21, 0.35)",
-          "rgba(21, 21, 21, 0.25)",
-          "rgba(21, 21, 21, 0.18)",
-          "rgba(21, 21, 21, 0.1)",
-          "rgba(21, 21, 21, 0.05)"
+          "rgba(31, 28, 26, 0.9)",
+          "rgba(31, 28, 26, 0.7)",
+          "rgba(31, 28, 26, 0.5)",
+          "rgba(31, 28, 26, 0.35)",
+          "rgba(31, 28, 26, 0.25)",
+          "rgba(31, 28, 26, 0.16)",
+          "rgba(31, 28, 26, 0.1)",
+          "rgba(31, 28, 26, 0.05)"
+        ]
+      },
+      "filet-clair": {
+        "role": "neutral",
+        "displayName": "Night Hairline",
+        "canonical": "rgba(246, 245, 242, .18)",
+        "tonalRamp": [
+          "rgba(246, 245, 242, 0.9)",
+          "rgba(246, 245, 242, 0.7)",
+          "rgba(246, 245, 242, 0.5)",
+          "rgba(246, 245, 242, 0.35)",
+          "rgba(246, 245, 242, 0.25)",
+          "rgba(246, 245, 242, 0.18)",
+          "rgba(246, 245, 242, 0.1)",
+          "rgba(246, 245, 242, 0.05)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
-        "displayName": "Masthead",
-        "purpose": "Cover masthead; the same extended-black voice sets the giant Elle / Lui, the drop cap and the back-cover title."
+        "displayName": "Fitted Title",
+        "purpose": "Three-line panel titles (solid, outlined, accent); each line fitted to the column by the .ajuste script, wdth 62 to 125."
       },
       "headline": {
-        "displayName": "Page Headline",
-        "purpose": "One per inside page."
-      },
-      "coverline": {
-        "displayName": "Coverline",
-        "purpose": "Condensed uppercase service buttons on the cover."
+        "displayName": "Condensed Headline",
+        "purpose": "Footer title, mobile menu links, dialog title, Google score."
       },
       "numeral": {
         "displayName": "Phone Numeral",
-        "purpose": "Phone number in the call boxes and the sticker figure; tabular, never wraps."
+        "purpose": "Phone number in the call card; tabular, never wraps. Same voice for the header brand."
+      },
+      "subhead": {
+        "displayName": "H1 Line",
+        "purpose": "Sentence-case line inside the h1 under the fitted title."
       },
       "title": {
-        "displayName": "Entry Title",
-        "purpose": "Table-of-contents entries and reader-letter questions."
+        "displayName": "Item Title",
+        "purpose": "FAQ questions, method step leads, Elle/Lui tabs."
       },
       "lede": {
         "displayName": "Standfirst",
-        "purpose": "The lede under each half of the double page."
+        "purpose": "The chapeau under each panel title."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Running text, 46 to 70ch."
+        "purpose": "Running text."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Pill button labels."
       },
       "label": {
-        "displayName": "Label",
-        "purpose": "Dateline, call-box instruction, salon-sheet terms, form labels."
+        "displayName": "Kicker",
+        "purpose": "House-standard kicker with a 22px copper dash; the scroll cue."
       }
     },
     "shadows": [
       {
-        "name": "cover-object",
-        "value": "0 10px 28px rgba(90, 20, 5, .28), 0 2px 6px rgba(90, 20, 5, .18)",
-        "purpose": "White object on the red cover (price box)."
+        "name": "panel",
+        "value": "0 1px 2px rgba(31, 28, 26, .1), 0 18px 48px rgba(31, 28, 26, .16)",
+        "purpose": "Every content panel over the scene."
       },
       {
-        "name": "paper-object",
-        "value": "0 1px 2px rgba(21, 21, 21, .08), 0 12px 32px rgba(21, 21, 21, .08)",
-        "purpose": "White object on inside paper (salon sheet)."
+        "name": "floating-chip",
+        "value": "0 4px 14px rgba(31, 28, 26, .14)",
+        "purpose": "Loading counter; the scroll cue at .12."
       },
       {
-        "name": "paper-object-deep",
-        "value": "0 1px 2px rgba(21, 21, 21, .08), 0 14px 40px rgba(21, 21, 21, .1)",
-        "purpose": "The reply card."
+        "name": "hotspot",
+        "value": "0 6px 18px rgba(31, 28, 26, .22)",
+        "purpose": "Elle/Lui markers on the chair seats."
       },
       {
-        "name": "running-header",
-        "value": "0 1px 0 rgba(21, 21, 21, .18), 0 8px 24px rgba(21, 21, 21, .06)",
-        "purpose": "Fixed running header edge."
+        "name": "dialog",
+        "value": "0 24px 64px rgba(0, 0, 0, .3)",
+        "purpose": "Privacy dialog, over a night backdrop at 60%."
       },
       {
-        "name": "sticker-drop",
-        "value": "drop-shadow(0 6px 10px rgba(90, 20, 5, .3))",
-        "purpose": "Sticker filter on the cover."
+        "name": "open-status-halo",
+        "value": "0 0 0 3px rgba(95, 211, 138, .2)",
+        "purpose": "Green open-now dot in the call card."
+      },
+      {
+        "name": "chrome-glass",
+        "value": "background: rgba(31, 28, 26, .82); backdrop-filter: blur(14px)",
+        "purpose": "Header bar only; the mobile call bar uses .9. Never behind panel text."
       }
     ],
     "motion": [
       {
         "name": "ease",
-        "value": "cubic-bezier(.16, 1, .3, 1)",
-        "purpose": "The single easing for transforms and reveals."
+        "value": "cubic-bezier(.22, .8, .24, 1)",
+        "purpose": "The single easing for every transition."
       },
       {
-        "name": "hover-colour",
+        "name": "panel-reveal",
+        "value": "opacity + translateY(28px), .9s",
+        "purpose": "Panels enter once when 12% visible."
+      },
+      {
+        "name": "press",
+        "value": "scale(.97), .16s",
+        "purpose": "Button press; the call card presses to .98."
+      },
+      {
+        "name": "colour",
         "value": "200ms",
-        "purpose": "Colour and background hovers."
+        "purpose": "Background and colour hovers."
       },
       {
-        "name": "hover-move",
-        "value": "300-350ms",
-        "purpose": "Lift, slide and press transforms."
+        "name": "arrow-nudge",
+        "value": "translateX(4px), .25s",
+        "purpose": "Trailing arrow on hover (fine pointer)."
       },
       {
-        "name": "cover-assemble",
-        "value": "chair 1.1s fade / 1.4s rise; sticker .8s after .5s delay",
-        "purpose": "One-time cover entrance; removed under reduced motion."
+        "name": "mobile-bar",
+        "value": "translateY(110%) to 0, .3s",
+        "purpose": "Mobile call bar after 80% of the first viewport."
+      },
+      {
+        "name": "call-pulse",
+        "value": "2.4s infinite ring, 0 to 16px",
+        "purpose": "Copper call icon; removed under reduced motion."
+      },
+      {
+        "name": "camera",
+        "value": "smoothstep over the middle 80% of each stop, then exponential damping (k = 1 - exp(-dt * 3.4))",
+        "purpose": "Camera walk between the six stops; jumps under reduced motion."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all transitions and animations off",
+        "purpose": "Panels at rest, camera jumps, timeline fully filled."
       }
     ],
     "breakpoints": [
       {
-        "name": "compact",
-        "value": "900px"
+        "name": "burger",
+        "value": "1020px"
       },
       {
-        "name": "short-compact",
-        "value": "max-height 700px and max-width 900px"
+        "name": "phone",
+        "value": "760px"
+      },
+      {
+        "name": "3d-light-path",
+        "value": "max-width 900px or pointer coarse"
+      },
+      {
+        "name": "portrait-fov",
+        "value": "aspect < .9 (fov 66 instead of 52)"
       }
-    ]
+    ],
+    "scene": {
+      "renderer": "three@0.160, ACES Filmic tone mapping, exposure .98, sRGB output, RoomEnvironment env map at .55, background #eeebe6",
+      "lighting": [
+        {
+          "name": "sky",
+          "value": "HemisphereLight #ffffff / #8a6a55, 1.3"
+        },
+        {
+          "name": "sun",
+          "value": "DirectionalLight #fff4e6, 1.35, from the window side (-9, 5.5, 3)"
+        },
+        {
+          "name": "ceiling",
+          "value": "PointLight #fff6ea, 9 (6 on the light path) + second PointLight 5 (desktop only)"
+        }
+      ],
+      "shadows": "VSMShadowMap, 2048 map, radius 10, 16 blur samples; autoUpdate off, recomputed only when a chair swivels; render loop stops after about 30 still frames",
+      "materials": [
+        {
+          "name": "walls",
+          "value": "#f1efeb, roughness .9; ceiling #f7f6f3"
+        },
+        {
+          "name": "brick",
+          "value": "grey painted brick, canvas texture, #a7a7a3 mortar, offset courses, roughness .92"
+        },
+        {
+          "name": "floor",
+          "value": "brown 30 cm tiles, rgb(104-122, 70-82, 50-59), #7b6f66 joints, roughness .38"
+        },
+        {
+          "name": "barber-chair",
+          "value": "hexagon-quilted black capitonne, MeshPhysical #1a1a1a with normal map, sheen .25, clearcoat .08; leather #151515; chrome #e6e6e6; black lacquered base"
+        },
+        {
+          "name": "shell-chairs",
+          "value": "moulded one-piece shells #161616 / #f1f0ec on light-wood legs #c7a47d"
+        },
+        {
+          "name": "dryers",
+          "value": "smooth black vinyl chairs #151414 (never quilted), copper-metal hoods #b07a45 metalness .5, chrome stems"
+        },
+        {
+          "name": "woods-stone",
+          "value": "light wood #c7a47d, dark wood #4a3022, granite #2f2520, grey lambris counter"
+        },
+        {
+          "name": "outside",
+          "value": "painted window view: sky #bcd8ee to #eaf2f6, trees, lawn #9cbf72, boulevard #9a9c9d, sidewalk #9b9690"
+        }
+      ],
+      "lightPath": "max-width 900px or pointer coarse: pixel ratio 1.5 (else 2), no antialias, no shadow maps, metal-plane mirrors instead of Reflector, single ceiling light at 6",
+      "fallback": "demarrage.js imports salon.js; on failure or no WebGL the rendered poster img/salon-entree.webp stays (sans-3d); the poster also shows until first paint, then fades over .8s"
+    }
   },
   "components": [
     {
-      "name": "Call Button",
+      "name": "Copper Pill Button",
       "kind": "button",
-      "refersTo": "button-call",
-      "description": "Ink pill with phone icon; the running-header and primary call action.",
-      "html": "<a class=\"ds-appel\" href=\"tel:+14504292222\"><svg class=\"ds-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z\"/></svg><span>450 429-2222</span></a>",
-      "css": ".ds-appel{display:inline-flex;align-items:center;gap:.55em;background:#151515;color:#fff;text-decoration:none;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:16px;min-height:44px;padding:0 18px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap;transition:background .2s,transform .3s cubic-bezier(.16,1,.3,1)}.ds-appel:hover{background:#000;transform:translateY(-1px)}.ds-appel:active{transform:scale(.97)}.ds-appel:focus-visible{outline:3px solid #151515;outline-offset:3px}.ds-ico{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}"
+      "refersTo": "button-cuivre",
+      "description": "Primary action: the phone call and every booking button.",
+      "html": "<a class=\"ds-btn ds-btn-cuivre\" href=\"tel:+14504292222\"><svg class=\"ds-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z\"/></svg><span style=\"font-variant-numeric:tabular-nums;white-space:nowrap\">450 429-2222</span></a>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:52px;padding:0 24px;border:0;border-radius:999px;font:700 17px/1 Archivo,'Helvetica Neue',Arial,sans-serif;text-decoration:none;cursor:pointer;transition:background-color .2s var(--ease),transform .16s var(--ease)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}.ds-fleche{transition:transform .25s var(--ease)}.ds-btn:hover .ds-fleche{transform:translateX(4px)}.ds-ico{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round;stroke-linecap:round}.ds-btn-cuivre{background:var(--cuivre);color:#fff}.ds-btn-cuivre:hover{background:var(--cuivre-fonce)}"
     },
     {
-      "name": "Submit Button",
+      "name": "Ink Pill Button",
       "kind": "button",
-      "refersTo": "button-submit",
-      "description": "Square yellow stamp with Ink border; the reply-card submit.",
-      "html": "<button class=\"ds-envoyer\" type=\"button\">Demander un rappel</button>",
-      "css": ".ds-envoyer{min-height:52px;padding:0 26px;font:800 17px Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515;background:#ffd23a;border:2px solid #151515;border-radius:0;cursor:pointer;transition:background .2s,transform .3s cubic-bezier(.16,1,.3,1)}.ds-envoyer:hover{background:#ffdd66;transform:translateY(-1px)}.ds-envoyer:active{transform:scale(.97)}.ds-envoyer:focus-visible{outline:3px solid #151515;outline-offset:3px}"
+      "refersTo": "button-encre",
+      "description": "Secondary action on paper, with a sliding arrow.",
+      "html": "<a class=\"ds-btn ds-btn-encre\" href=\"#\">Entrer dans le salon <svg class=\"ds-ico ds-fleche\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:52px;padding:0 24px;border:0;border-radius:999px;font:700 17px/1 Archivo,'Helvetica Neue',Arial,sans-serif;text-decoration:none;cursor:pointer;transition:background-color .2s var(--ease),transform .16s var(--ease)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}.ds-fleche{transition:transform .25s var(--ease)}.ds-btn:hover .ds-fleche{transform:translateX(4px)}.ds-ico{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round;stroke-linecap:round}.ds-btn-encre{background:var(--lac);color:var(--papier)}.ds-btn-encre:hover{background:#000}"
     },
     {
-      "name": "Price Box Call",
+      "name": "Clear Pill Button",
+      "kind": "button",
+      "refersTo": "button-clair",
+      "description": "Outlined pill on dark surfaces (mobile call bar).",
+      "html": "<div style=\"background:#1f1c1a;padding:16px;display:inline-block\"><a class=\"ds-btn ds-btn-clair\" href=\"#\">Rendez-vous</a></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:52px;padding:0 24px;border:0;border-radius:999px;font:700 17px/1 Archivo,'Helvetica Neue',Arial,sans-serif;text-decoration:none;cursor:pointer;transition:background-color .2s var(--ease),transform .16s var(--ease)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}.ds-fleche{transition:transform .25s var(--ease)}.ds-btn:hover .ds-fleche{transform:translateX(4px)}.ds-ico{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round;stroke-linecap:round}.ds-btn-clair{background:transparent;color:var(--papier);box-shadow:inset 0 0 0 1.5px var(--papier)}"
+    },
+    {
+      "name": "Paper Panel with Fitted Title",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "The solid paper panel over the scene: kicker, three-line title (solid, outlined, copper), hairline, lede.",
+      "html": "<div class=\"ds-panneau\"><div class=\"ds-tete\"><p class=\"ds-kicker\">Les deux chaises</p><h2 class=\"ds-titre3\"><span>Une chaise</span><span class=\"ds-contour\">pour elle</span><span class=\"ds-accent\">une pour lui</span></h2></div><p class=\"ds-chapeau\">Coupes, couleur et dégradés, pour les femmes, les hommes et les jeunes.</p></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-panneau{width:min(500px,100%);background:var(--papier);color:var(--lac);border-radius:22px;padding:32px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 1px 2px rgba(31,28,26,.1),0 18px 48px rgba(31,28,26,.16)}.ds-tete{padding-bottom:18px;margin-bottom:20px;border-bottom:1px solid var(--filet)}.ds-kicker{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cuivre)}.ds-kicker::before{content:'';width:22px;height:2px;background:currentColor}.ds-titre3{margin:0;display:grid;font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;font-size:64px;font-stretch:72%}.ds-titre3 span{display:block;padding-top:.06em;white-space:nowrap}.ds-contour{color:transparent;-webkit-text-stroke:2px var(--lac)}.ds-accent{color:var(--cuivre)}.ds-chapeau{margin:14px 0 0;font-size:18px;font-weight:500;line-height:1.5}"
+    },
+    {
+      "name": "Call Card",
       "kind": "custom",
-      "refersTo": "price-box-call",
-      "description": "The cover's price box: label, phone numeral, barcode, call-back link; hover fills yellow.",
-      "html": "<div class=\"ds-prix\"><a class=\"ds-prix-appel\" href=\"tel:+14504292222\"><span class=\"ds-quoi\">Pour un rendez-vous, appelez</span><span class=\"ds-tel\">450 429-2222</span></a><a class=\"ds-rappel\" href=\"#\">ou demandez qu'on vous rappelle</a></div>",
-      "css": ".ds-prix{display:inline-grid;background:#fff;color:#151515;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 10px 28px rgba(90,20,5,.28),0 2px 6px rgba(90,20,5,.18)}.ds-prix-appel{display:grid;gap:2px;padding:12px 18px;color:inherit;text-decoration:none;transition:background .2s}.ds-prix-appel:hover{background:#ffd23a}.ds-prix-appel:focus-visible,.ds-rappel:focus-visible{outline:3px solid #151515;outline-offset:3px}.ds-quoi{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.ds-tel{font-weight:900;font-stretch:112%;font-size:40px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-rappel{font-size:14px;font-weight:600;color:inherit;padding:8px 18px 10px;border-top:1px dashed rgba(21,21,21,.18);text-decoration:underline;text-underline-offset:.2em;text-decoration-color:#e04a26}.ds-rappel:hover{text-decoration-color:#151515}"
+      "refersTo": "call-card",
+      "description": "Whole-surface tel: link on the night panel with pulsing copper icon, numeral phone and live status.",
+      "html": "<div style=\"background:#1a1614;padding:24px;border-radius:22px;max-width:560px\"><a class=\"ds-carte\" href=\"tel:+14504292222\"><span class=\"ds-onde\"><svg class=\"ds-ico\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z\"/></svg></span><span class=\"ds-txt\"><span class=\"ds-lib\">Appelez-nous directement</span><span class=\"ds-tel\">450 429-2222</span><span class=\"ds-statut ds-ouvert\"><i></i>Ouvert maintenant · jusqu'à 17 h</span></span></a></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-carte{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:18px;background:#2a2421;color:var(--papier);text-decoration:none;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;transition:background-color .2s,transform .16s var(--ease)}.ds-carte:hover{background:#352d29}.ds-carte:active{transform:scale(.98)}.ds-carte:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}.ds-onde{position:relative;flex:none;width:54px;height:54px;border-radius:50%;background:var(--cuivre);color:#fff;display:grid;place-items:center}.ds-onde::after{content:'';position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(180,68,29,.6);animation:ds-onde 2.4s var(--ease) infinite}@keyframes ds-onde{70%,100%{box-shadow:0 0 0 16px rgba(180,68,29,0)}}@media (prefers-reduced-motion:reduce){.ds-onde::after{animation:none}}.ds-onde .ds-ico{width:24px;height:24px}.ds-ico{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round;stroke-linecap:round}.ds-txt{display:grid;gap:2px}.ds-lib{font-size:14px;font-weight:600;color:var(--sur-nuit)}.ds-tel{font-weight:900;font-stretch:112%;font-size:34px;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-statut{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--sur-nuit)}.ds-statut i{width:9px;height:9px;border-radius:50%;background:var(--sur-nuit)}.ds-ouvert i{background:#5fd38a;box-shadow:0 0 0 3px rgba(95,211,138,.2)}"
     },
     {
-      "name": "Underline Field",
+      "name": "Elle / Lui Tabs",
+      "kind": "chip",
+      "refersTo": "tab",
+      "description": "Two-column pill tab track; selected tab fills Ink.",
+      "html": "<div class=\"ds-onglets\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">Elle</button><button role=\"tab\" aria-selected=\"false\">Lui</button></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-onglets{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;background:var(--teinte);border-radius:999px;max-width:440px}.ds-onglets button{min-height:44px;border:0;border-radius:999px;background:transparent;font:800 17px Archivo,'Helvetica Neue',Arial,sans-serif;font-stretch:112%;text-transform:uppercase;color:var(--gris);cursor:pointer;transition:background-color .2s var(--ease),color .2s}.ds-onglets button:hover{color:var(--lac)}.ds-onglets button[aria-selected=true]{background:var(--lac);color:var(--papier)}.ds-onglets button:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}"
+    },
+    {
+      "name": "Night Form Field and Type Chips",
       "kind": "input",
       "refersTo": "input-field",
-      "description": "Square transparent field with a single Ink bottom rule; red rule on focus.",
-      "html": "<label class=\"ds-champ\"><span>Votre nom</span><input class=\"ds-input\" autocomplete=\"name\"></label>",
-      "css": ".ds-champ{display:grid;gap:6px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515}.ds-champ span{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.ds-input{height:52px;width:100%;font:600 19px Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515;background:transparent;border:0;border-bottom:2px solid #151515;border-radius:0;padding:0 2px;transition:border-color .2s,background .2s}.ds-input:hover{background:rgba(21,21,21,.03)}.ds-input:focus{outline:none;border-bottom-color:#e04a26;background:rgba(224,74,38,.05)}"
+      "description": "Night-panel radio chips and rounded field; Foam on focus.",
+      "html": "<div class=\"ds-nuit\"><div class=\"ds-types\"><label><input type=\"radio\" name=\"t\" checked> Coupe femme</label><label><input type=\"radio\" name=\"t\"> Dégradé</label></div><div class=\"ds-champ\"><label for=\"ds-n\">Votre nom</label><input id=\"ds-n\" autocomplete=\"name\"></div></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-nuit{background:var(--nuit);color:var(--papier);padding:24px;border-radius:22px;display:grid;gap:16px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;max-width:480px}.ds-types{display:flex;flex-wrap:wrap;gap:8px}.ds-types label{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--filet-clair);font-size:15px;font-weight:600;cursor:pointer;transition:background-color .2s,border-color .2s,color .2s}.ds-types input{position:absolute;opacity:0;pointer-events:none}.ds-types label:has(input:checked){background:var(--papier);color:var(--lac);border-color:var(--papier)}.ds-types label:has(input:focus-visible){outline:3px solid var(--ecume);outline-offset:2px}.ds-champ{display:grid;gap:6px}.ds-champ label{font-size:14px;font-weight:700}.ds-champ input{height:52px;width:100%;box-sizing:border-box;border:1.5px solid var(--filet-clair);border-radius:12px;background:#2a2421;color:var(--papier);font:600 16px Archivo,'Helvetica Neue',Arial,sans-serif;padding:0 14px;transition:border-color .2s}.ds-champ input:focus{outline:none;border-color:var(--ecume)}"
     },
     {
-      "name": "Running Header Nav",
+      "name": "Header Bar",
       "kind": "nav",
       "refersTo": "",
-      "description": "Paper bar with red extended title, Soft Ink links, red underline on the current section.",
-      "html": "<nav class=\"ds-entete\"><a class=\"ds-titre\" href=\"#\">Elle &amp; Lui</a><a class=\"ds-lien\" href=\"#\" aria-current=\"true\">Services</a><a class=\"ds-lien\" href=\"#\">Le salon</a><a class=\"ds-lien\" href=\"#\">Questions</a></nav>",
-      "css": ".ds-entete{display:flex;align-items:center;gap:22px;padding:10px 20px;background:#f3f4f2;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 1px 0 rgba(21,21,21,.18),0 8px 24px rgba(21,21,21,.06)}.ds-titre{font-weight:900;font-stretch:125%;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:#b8381a;margin-right:auto}.ds-lien{font-size:15px;font-weight:600;text-decoration:none;padding:10px 0;color:#4d4a47;transition:color .2s}.ds-lien:hover,.ds-lien[aria-current=true]{color:#151515}.ds-lien[aria-current=true]{box-shadow:inset 0 -2px 0 #e04a26}.ds-lien:focus-visible,.ds-titre:focus-visible{outline:3px solid #151515;outline-offset:3px}"
+      "description": "Fixed translucent Ink bar with brand, links, phone, small copper pill and reading-progress line.",
+      "html": "<header class=\"ds-barre\"><a class=\"ds-marque\" href=\"#\"><span>Line Fortier</span><span class=\"ds-m2\">Coiffure Elle &amp; Lui</span></a><nav class=\"ds-menu\"><a href=\"#\" aria-current=\"true\">Services</a><a href=\"#\">Le salon</a><a href=\"#\">Avis</a></nav><a class=\"ds-pill\" href=\"#\">Rendez-vous</a><span class=\"ds-prog\"></span></header>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-barre{position:relative;height:64px;display:flex;align-items:center;gap:24px;padding:0 20px;background:rgba(31,28,26,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--papier);font-family:Archivo,'Helvetica Neue',Arial,sans-serif}.ds-marque{display:grid;line-height:1;text-decoration:none;text-transform:uppercase;color:inherit}.ds-marque span:first-child{font-weight:900;font-stretch:112%;font-size:19px;letter-spacing:-.01em}.ds-m2{font-weight:600;font-stretch:87%;font-size:12px;letter-spacing:.12em;color:var(--ecume);margin-top:4px}.ds-menu{display:flex;gap:22px;margin-left:auto}.ds-menu a{font-size:15px;font-weight:600;text-decoration:none;color:var(--sur-nuit);padding:8px 0;transition:color .2s}.ds-menu a:hover,.ds-menu a[aria-current=true]{color:#fff}.ds-menu a[aria-current=true]{box-shadow:inset 0 -2px 0 var(--ecume)}.ds-menu a:focus-visible,.ds-pill:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}.ds-pill{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:999px;background:var(--cuivre);color:#fff;font:700 15px/1 Archivo,'Helvetica Neue',Arial,sans-serif;text-decoration:none;transition:background-color .2s var(--ease)}.ds-pill:hover{background:var(--cuivre-fonce)}.ds-prog{position:absolute;left:0;bottom:0;height:2px;width:40%;background:var(--ecume)}"
     },
     {
-      "name": "Coverline",
-      "kind": "custom",
-      "refersTo": "coverline",
-      "description": "Condensed uppercase service toggle on the red cover; pressed state turns white with a yellow dot.",
-      "html": "<div class=\"ds-couv\"><button class=\"ds-tc\" aria-pressed=\"true\"><span class=\"ds-tc-nom\">Couleur</span><span class=\"ds-tc-ligne\">Coloration, mèches et balayage.</span></button><button class=\"ds-tc\" aria-pressed=\"false\"><span class=\"ds-tc-nom\">Dégradés</span><span class=\"ds-tc-ligne\">Low, mid ou skin fade.</span></button></div>",
-      "css": ".ds-couv{display:grid;gap:4px;background:#e04a26;padding:20px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif}.ds-tc{display:grid;gap:2px;text-align:left;font:inherit;color:#151515;background:none;border:0;cursor:pointer;padding:10px 14px 10px 0;transition:transform .35s cubic-bezier(.16,1,.3,1)}.ds-tc-nom{font-weight:900;font-stretch:75%;text-transform:uppercase;font-size:40px;line-height:.92;letter-spacing:-.01em;transition:color .2s}.ds-tc-ligne{font-size:16px;font-weight:500;line-height:1.35}.ds-tc:hover{transform:translateX(6px)}.ds-tc:hover .ds-tc-nom,.ds-tc[aria-pressed=true] .ds-tc-nom{color:#fff}.ds-tc[aria-pressed=true] .ds-tc-nom::after{content:'';display:inline-block;width:.32em;height:.32em;margin-left:.25em;vertical-align:.18em;border-radius:50%;background:#ffd23a;box-shadow:0 0 0 2px #151515}.ds-tc:focus-visible{outline:3px solid #151515;outline-offset:3px}"
-    },
-    {
-      "name": "Sticker",
-      "kind": "custom",
-      "refersTo": "sticker",
-      "description": "Yellow 24-point star burst rotated -8deg; answers the selected coverline.",
-      "html": "<div class=\"ds-pastille\"><svg viewBox=\"0 0 200 200\" aria-hidden=\"true\"><polygon points=\"100,1 111,12 126,4 133,18 150,13 152,29 169,29 166,45 182,50 174,64 188,74 176,85 188,100 176,115 188,126 174,136 182,150 166,155 169,171 152,171 150,187 133,182 126,196 111,188 100,199 89,188 74,196 67,182 50,187 48,171 31,171 34,155 18,150 26,136 12,126 24,115 12,100 24,85 12,74 26,64 18,50 34,45 31,29 48,29 50,13 67,18 74,4 89,12\"/></svg><div class=\"ds-p-txt\"><b>30 ans</b><span>sur le boulevard Cadieux</span></div></div>",
-      "css": ".ds-pastille{position:relative;width:180px;aspect-ratio:1;display:grid;place-items:center;transform:rotate(-8deg);font-family:Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515}.ds-pastille svg{position:absolute;inset:0;width:100%;height:100%;fill:#ffd23a;filter:drop-shadow(0 6px 10px rgba(90,20,5,.3))}.ds-p-txt{position:relative;display:grid;justify-items:center;text-align:center;padding:0 18%;line-height:1.1}.ds-p-txt b{font-weight:900;font-stretch:112%;font-size:38px;line-height:.95;letter-spacing:-.02em}.ds-p-txt span{font-size:13px;font-weight:700;margin-top:4px}"
-    },
-    {
-      "name": "Salon Sheet",
-      "kind": "card",
-      "refersTo": "salon-sheet",
-      "description": "White paper object with a 3px Ink heading rule and hairline definition rows.",
-      "html": "<aside class=\"ds-fiche\"><h3>La fiche du salon</h3><dl><div><dt>Adresse</dt><dd>749, boulevard Cadieux</dd></div><div><dt>Téléphone</dt><dd>450 429-2222</dd></div></dl></aside>",
-      "css": ".ds-fiche{background:#fff;color:#151515;padding:28px;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;box-shadow:0 1px 2px rgba(21,21,21,.08),0 12px 32px rgba(21,21,21,.08)}.ds-fiche h3{margin:0;font-weight:900;font-stretch:112%;font-size:22px;letter-spacing:-.01em;padding-bottom:12px;border-bottom:3px solid #151515}.ds-fiche dl{margin:0;display:grid;grid-template-columns:1fr 1fr;column-gap:32px}.ds-fiche dl div{display:grid;gap:2px;padding:12px 0;border-bottom:1px solid rgba(21,21,21,.18)}.ds-fiche dt{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#b8381a}.ds-fiche dd{margin:0;font-size:17px;font-weight:600}"
-    },
-    {
-      "name": "Rate Row",
-      "kind": "custom",
+      "name": "Mobile Call Bar",
+      "kind": "nav",
       "refersTo": "",
-      "description": "Ruled service list with dotted leader and tabular duration.",
-      "html": "<ul class=\"ds-tarifs\"><li><span>Coupe et brushing</span><span class=\"ds-pointe\"></span><span class=\"ds-duree\">45 min</span></li><li><span>Coloration</span><span class=\"ds-pointe\"></span><span class=\"ds-duree\">1 h 30</span></li></ul>",
-      "css": ".ds-tarifs{list-style:none;margin:0;padding:0;font-family:Archivo,'Helvetica Neue',Arial,sans-serif;color:#151515;background:#f3f4f2}.ds-tarifs li{display:flex;align-items:baseline;gap:10px;padding:13px 0;border-top:1px solid rgba(21,21,21,.18);font-size:18px;font-weight:600}.ds-tarifs li:last-child{border-bottom:1px solid rgba(21,21,21,.18)}.ds-pointe{flex:1;min-width:20px;border-bottom:2px dotted rgba(21,21,21,.35);transform:translateY(-4px)}.ds-duree{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}"
+      "description": "Fixed two-up bar on phones: copper Appeler and clear Rendez-vous.",
+      "html": "<div class=\"ds-barre-mobile\"><a class=\"ds-b ds-c\" href=\"tel:+14504292222\">Appeler</a><a class=\"ds-b ds-k\" href=\"#\">Rendez-vous</a></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-barre-mobile{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 20px;background:rgba(31,28,26,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);max-width:390px}.ds-b{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;font:700 17px/1 Archivo,'Helvetica Neue',Arial,sans-serif;text-decoration:none;transition:transform .16s var(--ease)}.ds-b:active{transform:scale(.97)}.ds-b:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}.ds-c{background:var(--cuivre);color:#fff}.ds-k{color:var(--papier);box-shadow:inset 0 0 0 1.5px var(--papier)}"
+    },
+    {
+      "name": "Chair Hotspot",
+      "kind": "custom",
+      "refersTo": "hotspot",
+      "description": "Paper pill with copper target pinned to a barber-chair seat; Ink when pressed.",
+      "html": "<div style=\"background:#eeebe6;padding:20px;display:flex;gap:12px\"><button class=\"ds-point\" aria-pressed=\"true\">Elle</button><button class=\"ds-point\" aria-pressed=\"false\">Lui</button></div>",
+      "css": ":host{--papier:#f6f5f2;--teinte:#ebebe9;--lac:#1f1c1a;--nuit:#1a1614;--cuivre:#b4441d;--cuivre-fonce:#973818;--ecume:#f2b49a;--gris:#5e5853;--sur-nuit:#bdb4ab;--filet:rgba(31,28,26,.16);--filet-clair:rgba(246,245,242,.18);--ease:cubic-bezier(.22,.8,.24,1)}.ds-point{display:flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 6px;border:0;border-radius:999px;background:var(--papier);color:var(--lac);font:800 15px Archivo,'Helvetica Neue',Arial,sans-serif;text-transform:uppercase;box-shadow:0 6px 18px rgba(31,28,26,.22);cursor:pointer;transition:background-color .2s}.ds-point::before{content:'';width:32px;height:32px;border-radius:50%;background:radial-gradient(circle,var(--cuivre) 0 6px,rgba(180,68,29,.22) 7px 100%)}.ds-point[aria-pressed=true]{background:var(--lac);color:var(--papier)}.ds-point:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px}"
     }
   ],
   "narrative": {
-    "northStar": "The Waiting-Room Magazine",
-    "overview": "The site is set like an issue of the salon's own hairstyle magazine. The first viewport is a full-bleed cover on a saturated copper-red seamless: a white, extended-black masthead, black condensed coverlines down the left, the black leather barber chair as cover star, a yellow round sticker, and the phone number boxed where a cover price would sit. Past the cover, the inside pages are plain, matte paper with black ink and red folios, ruled like print rather than boxed like an app. The back cover returns to red.\n\nDensity is editorial: very large display type against generous page margins, then tight ruled lists (rates, table of contents, letters) with hairline rows. One variable family, Archivo, carries every voice by changing width, from 62% condensed numerals to 125% extended mastheads. The world is light only. Imagery is the rendered 3D chair and its renders; there are no salon photos.",
+    "northStar": "The Daylight Visit",
+    "overview": "The site is the salon itself, by day. A fixed WebGL scene rebuilds the real room (white walls, a grey painted-brick back wall with the sign, brown 30 cm floor tiles, two black quilted barber chairs marked Elle and Lui, bonnet dryers along the windows, moulded shell waiting chairs, big windows with sky and the boulevard behind). Scrolling walks the camera from the sidewalk through six stops: entrance, chairs, salon, waiting corner, counter, contact. At each stop one solid paper panel holds the words. The panel sits on the left or the right, and the camera shifts the room away from it.\n\nDensity is low: one panel per stop, about 500px wide, with long scroll between stops so the room carries the page. Everything in a panel is plain, matte paper with charcoal ink and one copper accent. The only dark surface is the contact panel (and the footer and mobile menu that extend it). The room stays in daylight even at the contact stop. One variable family, Archivo, carries every voice on its width axis. Section titles follow the house standard: three fitted uppercase lines, the second outlined and the third in copper, under a small copper kicker. The imagery is the rendered room. There are no salon photos, no video and no old logo.",
     "keyCharacteristics": [
-      "Copper-red cover and back cover; flat light paper for every inside page.",
-      "One typeface, many widths: Archivo variable (wdth 62 to 125, wght 100 to 900).",
-      "Print devices used natively: folios, running head, drop cap, pull quote, double-page gutter, dotted leaders, tear-out reply card with a dashed cut line.",
-      "Yellow is the answer colour: the sticker, and the hover state of every call surface.",
-      "The phone number is always the loudest actionable element on the screen."
+      "A daylight 3D room fills the viewport; solid paper panels float over it, never glass.",
+      "One typeface, many widths: Archivo variable (wdth 62 to 125, wght 100 to 900), self-hosted.",
+      "Fitted three-line titles: solid, outlined, copper.",
+      "Copper is the action colour: pill buttons, kicker, rules that fill, the call icon.",
+      "Night lives only in the contact panel, the footer and the mobile menu.",
+      "The phone number is tabular, never wraps, and is reachable from every viewport."
     ],
     "rules": [
       {
-        "name": "The Folio Red Rule",
-        "body": "Red text on paper is always Folio Red (5.3:1 on paper). Copper Seamless Red measures 3.7:1 on paper and is reserved for fields, rules and underlines.",
+        "name": "The Copper Acts Rule",
+        "body": "Copper marks what you can do or where you are: buttons, the kicker, underlines, the filling timeline, the active dot. It is never a panel or section fill.",
         "section": "colors"
       },
       {
-        "name": "The White-On-Red Is Display Rule",
-        "body": "White type on the red field appears only at display and coverline sizes (4.1:1). Running text and small labels on red are Ink (4.5:1).",
+        "name": "The Foam On Night Rule",
+        "body": "On night surfaces every copper role switches to Copper Foam. Copper text on night measures 3.24:1 and is not used. The copper call icon on the night card is a filled graphic with a white glyph, not text.",
         "section": "colors"
       },
       {
-        "name": "The Yellow Answers Rule",
-        "body": "Yellow marks response: the sticker that answers a coverline, the hover of a call box, the submit button, the selected marker. It is never a section background.",
+        "name": "The Night Is Contained Rule",
+        "body": "The world is light. Night is a panel, never the room: the contact stop keeps the 3D salon in daylight, and only the contact panel, footer and mobile menu turn dark.",
         "section": "colors"
       },
       {
         "name": "The One Family Rule",
-        "body": "Every voice is Archivo; contrast comes from width (wdth 62 to 125) and weight, never from a second typeface.",
+        "body": "Every voice is Archivo. Contrast comes from width (wdth 62 to 125) and weight, never from a second typeface or a system display face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Fitted Title Rule",
+        "body": "Every panel's title is exactly three lines, each fitted to the column width: solid, outlined, accent. Set it with the `.ajuste` fitting script; never with a fixed width or by hand.",
+        "section": "typography"
+      },
+      {
+        "name": "The Kicker Rule",
+        "body": "Per the user's house standard (site-3d-interactif-pme), each fitted title sits under one kicker: a short copper dash and a place or role in spaced capitals (\"749, boulevard Cadieux\", \"Les deux chaises\"). One kicker per panel, and it names the stop, not a marketing tag.",
         "section": "typography"
       },
       {
         "name": "The Tabular Phone Rule",
-        "body": "Phone numbers, durations and page numbers are tabular and never wrap.",
+        "body": "Phone numbers and durations are tabular and never wrap.",
         "section": "typography"
       },
       {
-        "name": "The Flat Page Rule",
-        "body": "Inside pages are plain matte paper: no gloss, sheen, gradients or texture on the page itself. Only objects laid on it lift.",
+        "name": "The Solid Panel Rule",
+        "body": "Content panels are opaque paper (or opaque night). Never put glass or blur behind words over the scene. Translucency belongs to the header and the mobile call bar alone.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Daylight Room Rule",
+        "body": "The 3D room is always lit by day, at every stop, including contact. Mood never comes from darkening the scene.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** set every inside page on flat Inside Paper (#f3f4f2) with Ink text, and reserve Copper Seamless Red fields for the cover and back cover (and figure plates).",
-      "**Do** use Folio Red for any red letterform on paper; use Copper Seamless Red only for fields, rules and underlines.",
-      "**Do** keep the phone number tabular, unwrapped, and the loudest action on every viewport.",
-      "**Do** separate content with rules (1px hairline rows, 1.5px Ink between pages) rather than tinted boxes.",
-      "**Do** change voice through Archivo's width axis: extended for mastheads, condensed for coverlines and numerals.",
-      "**Do** close each inside page with a folio: Folio Red page number, Soft Ink running title."
+      "**Do** put every block of words on one solid paper panel (Panel Paper, 22px corners, panel shadow) over the 3D room, aligned left or right, one panel per stop.",
+      "**Do** head each panel with one copper kicker and a three-line fitted title: solid, outlined, copper (Foam on night).",
+      "**Do** make every action a pill: Copper for the call and booking, Ink for moving on, Clear on dark.",
+      "**Do** switch every copper role to Copper Foam on night surfaces.",
+      "**Do** keep the phone number tabular, unwrapped, and one tap away on every viewport (header, hero, call card, mobile bar).",
+      "**Do** change voice through Archivo's width axis: condensed and fitted for titles, extended for the brand and the number.",
+      "**Do** keep the room in daylight at every stop and keep the lighter mobile 3D path (no shadow maps, pixel ratio 1.5, metal-plane mirrors, one ceiling light).",
+      "**Do** use the single easing `cubic-bezier(.22, .8, .24, 1)` and honour reduced motion everywhere."
     ],
     "donts": [
-      "**Don't** describe or render the inside pages as glossy: no sheen, gloss gradient or texture on paper.",
+      "**Don't** put glass, blur or translucency behind panel text; translucency is for the header and mobile bar only.",
+      "**Don't** darken the room or make night the world; night is the contact panel, the footer and the mobile menu.",
       "**Don't** add a second typeface or fall back to a system display face.",
-      "**Don't** put white text on red below coverline size, or Copper Seamless Red text on paper.",
-      "**Don't** round paper objects or fields; the pill belongs to the Ink call button alone.",
-      "**Don't** use yellow as a section background; it marks the sticker and responses.",
-      "**Don't** go dark, and don't introduce salon photos, video or the old logo; imagery is the rendered chair.",
-      "**Don't** add hard offset shadows or small uppercase kickers above headlines; the magazine's labels are its dateline, folios and call-box lines."
+      "**Don't** set Copper text on night (3.24:1); use Copper Foam.",
+      "**Don't** fill a panel or section with copper.",
+      "**Don't** quilt the dryer chairs; capitonné belongs to the two barber chairs.",
+      "**Don't** add hard offset shadows; elevation is the soft Ink-tinted ambient shadow.",
+      "**Don't** introduce salon photos, video or the old logo, and never present renders as real work; the imagery is the rendered room.",
+      "**Don't** invent reviews, ratings, years or services; the review carousel stays hidden until exact review texts are supplied, and every figure must be one the salon has confirmed."
     ]
   }
 }
