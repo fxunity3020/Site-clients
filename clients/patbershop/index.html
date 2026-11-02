@@ -553,6 +553,30 @@ body.apres-hero .ambiance{opacity:1}
 .mains.ch.att>.main{transform:perspective(1100px) translate3d(0,40px,0) rotateX(-18deg)}
 .mains.ch.att.in.fini>.main{transition:transform .7s var(--e-sortie)}
 .mains.ch.att.in.fini>.main.suit{transition:transform .12s linear}
+/* ---------- 6. Ta chaise t'attend : le mur du shop, en profondeur ---------- */
+.final{position:relative;overflow:hidden;display:grid;align-items:end;min-height:clamp(540px,82svh,860px);padding-block:clamp(70px,9vw,130px);background:#0d0e10;isolation:isolate}
+.final-fond{position:absolute;inset:-6%;z-index:-2;background:url("img/seq/f145.webp") center 40%/cover no-repeat;transform:translate3d(calc(var(--mx,0) * -22px),calc(var(--fy,0px) + var(--my,0) * -14px),0) scale(1.06);transition:transform .9s var(--e-sortie);will-change:transform}
+.final::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(13,14,16,.6) 0%,rgba(13,14,16,.35) 30%,rgba(13,14,16,.9) 80%,#0d0e10 100%),radial-gradient(ellipse 78% 66% at 50% 60%,rgba(5,5,10,.84) 0%,rgba(5,5,10,.66) 48%,transparent 80%)}
+.final .kicker{padding:9px 14px;border-radius:999px;background:rgba(8,8,15,.76);border:1px solid rgba(96,96,126,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.final .wrap{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
+.final .kicker{margin:0;justify-content:center}
+.final h2{margin:0;font:900 clamp(60px,11vw,168px)/.82 var(--f-titre);text-transform:uppercase;letter-spacing:-.01em;text-shadow:var(--tshadow)}
+.final h2 span{display:block}
+.final h2 span:last-child{color:var(--ambre)}
+.final p.sous{margin:0;max-width:44ch;font-size:clamp(17px,1.5vw,20px);color:var(--creme);text-shadow:var(--tshadow)}
+.final .boutons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.final .btn{text-shadow:none}
+.poussieres{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.poussieres i{position:absolute;bottom:-10px;width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:rgba(240,176,98,.7);box-shadow:0 0 8px rgba(240,176,98,.6);opacity:0;animation:monte var(--d,14s) linear var(--dl,-3s) infinite}
+@keyframes monte{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:.7}85%{opacity:.5}100%{transform:translate3d(var(--x,20px),-70vh,0);opacity:0}}
+:root{--tshadow:0 1px 2px rgba(5,5,10,.95),0 3px 12px rgba(5,5,10,.78),0 10px 44px rgba(5,5,10,.8)}
+.final .profond{transform:translate3d(calc(var(--mx,0) * 12px),calc(var(--my,0) * 8px),0);transition:transform .9s var(--e-sortie)}
+.final .final-pied{position:relative;margin-top:clamp(56px,9vh,96px);padding-top:20px;border-top:1px solid rgba(236,228,211,.16);display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:center;font-size:14px;color:var(--chrome);text-shadow:var(--tshadow)}
+.final .final-pied img{width:110px;height:auto}
+.final .final-pied button{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;min-height:32px}
+.final .final-pied a{color:inherit}
+@media (max-width:760px){.final{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}.final::before{background:linear-gradient(180deg,rgba(13,14,16,.72) 0%,rgba(13,14,16,.66) 35%,rgba(13,14,16,.9) 72%,#0d0e10 100%),radial-gradient(ellipse 90% 60% at 50% 55%,rgba(5,5,10,.55),transparent 80%)}}
+@media (prefers-reduced-motion:reduce){.poussieres{display:none}.poussieres i{animation:none!important}.final-fond,.final .profond{transform:none!important;transition:none}}
 /* un élément vivant par section, à voix basse (10k) */
 .ecran b::after{content:"";position:absolute;inset:-6px -10px;border-radius:8px;background:radial-gradient(closest-side,rgba(240,176,98,.22),transparent);animation:lueur 4.8s ease-in-out -1.3s infinite;pointer-events:none}
 @keyframes lueur{0%,100%{opacity:.35}50%{opacity:1}}
@@ -966,10 +990,10 @@ body.apres-hero .ambiance{opacity:1}
 
 <!-- ============ 5. TA CHAISE T'ATTEND (3D : le plan posé sur la table) ============ -->
 <section class="sec visite-c vivant" id="visite" aria-labelledby="t-fin">
-  <div class="wrap pied-pad">
+  <div class="wrap">
     <div class="fin-grille ch">
       <div>
-        <h2 class="fin-titre" id="t-fin"><span>Ta chaise</span><span>t'attend.</span></h2>
+        <h2 class="fin-titre" id="t-fin"><span>Viens</span><span>nous voir.</span></h2>
         <p class="chapeau">Au 7, rue du Marché, au centre-ville de Salaberry-de-Valleyfield. Réserve en ligne, 24 heures sur 24, ou appelle au shop.</p>
         <div class="fin-actions"><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="#numero">Prends un numéro</a></div>
         <a class="appel" href="tel:+14508017467">
@@ -987,7 +1011,20 @@ body.apres-hero .ambiance{opacity:1}
         <div class="plan3d__bas"><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC" target="_blank" rel="noopener noreferrer">Ouvrir dans Google Maps<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="https://www.google.com/maps/dir/?api=1&amp;destination=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC" target="_blank" rel="noopener noreferrer">Itinéraire</a></div>
       </div>
     </div>
-    <div class="fin-pied">
+  </div>
+</section>
+<!-- ============ 6. TA CHAISE T'ATTEND (3D : le mur du shop en profondeur) ============ -->
+<section class="final vivant" id="rendez-vous" aria-labelledby="t-final">
+  <div class="final-fond" aria-hidden="true"></div>
+  <div class="poussieres" aria-hidden="true"><i style="left:12%;--d:15s;--dl:-2s;--x:24px"></i><i style="left:22%;--d:12s;--dl:-7s;--s:2px;--x:-18px"></i><i style="left:34%;--d:17s;--dl:-11s;--x:30px"></i><i style="left:47%;--d:13s;--dl:-4s;--s:2px;--x:-12px"></i><i style="left:58%;--d:16s;--dl:-9s;--x:16px"></i><i style="left:69%;--d:14s;--dl:-1s;--s:2px;--x:-26px"></i><i style="left:79%;--d:18s;--dl:-13s;--x:20px"></i><i style="left:89%;--d:12.5s;--dl:-6s;--s:2px;--x:-14px"></i></div>
+  <div class="wrap ch profond">
+    <p class="kicker">Patbershop · Valleyfield</p>
+    <h2 id="t-final"><span>Ta chaise</span><span>t'attend.</span></h2>
+    <p class="sous">Pat et son équipe, au 7, rue du Marché. Réserve en ligne, 24 heures sur 24.</p>
+    <div class="boutons"><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="#visite">Voir l'adresse</a></div>
+  </div>
+  <div class="wrap">
+    <div class="final-pied">
       <img src="img/logo-patbershop.webp" alt="Patbershop" width="1108" height="520" loading="lazy">
       <span>© 2026 Patbershop · Barbier et soins, hommes et femmes</span>
       <a href="https://www.facebook.com/patbershop" target="_blank" rel="noopener noreferrer">Facebook</a>
@@ -1441,9 +1478,21 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     plan.addEventListener('pointerleave', () => { plan.classList.add('repos'); plan.style.setProperty('--rx', '0deg'); plan.style.setProperty('--ry', '0deg'); });
   }
 
+  /* F. Le mur du shop : il recule quand la souris bouge, le titre avance ; au défilement, le mur glisse plus lentement */
+  const fin = $('rendez-vous'), mur = fin && fin.querySelector('.final-fond');
+  function murDefil(){
+    if (!fin || reduit) return; const r = fin.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    const t = clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1), v = ((.5 - t) * 70).toFixed(1) + 'px';
+    if (mur._v !== v) { mur._v = v; fin.style.setProperty('--fy', v); }
+  }
+  if (fin) {
+    fin.addEventListener('pointermove', e => { if (reduit || !FIN.matches) return; fin.style.setProperty('--mx', ((e.clientX / innerWidth) - .5).toFixed(3)); fin.style.setProperty('--my', ((e.clientY / innerHeight) - .5).toFixed(3)); });
+    fin.addEventListener('pointerleave', () => { fin.style.setProperty('--mx', 0); fin.style.setProperty('--my', 0); });
+  }
+
   /* défilement : une seule écoute, écritures seulement si ça change */
   let tic = false;
-  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
+  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
   addEventListener('resize', auDefil); auDefil();
 
