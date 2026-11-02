@@ -583,7 +583,7 @@ body.apres-hero .ambiance{opacity:1}
 
 
 /* ---------- Les classiques : la tondeuse qui tourne (scrub 10k) ---------- */
-.tond{position:relative;height:580vh;background:#0e0d0c}
+.tond{position:relative;height:680vh;background:#0d0e10}
 .tond__scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .tond__affiche,.tond__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0e0d0c center/cover no-repeat}
 .tond__video{opacity:0;transition:opacity .5s var(--e-sortie);transform:translateZ(0)}
@@ -594,6 +594,7 @@ body.apres-hero .ambiance{opacity:1}
 .tond__lueur i[data-c="2"]{background:radial-gradient(38% 52% at 50% 46%,rgba(70,120,210,.34),transparent 70%)}
 .tond__lueur i[data-c="3"]{background:radial-gradient(38% 52% at 50% 46%,rgba(236,228,211,.26),transparent 70%)}
 .tond__lueur i.on{opacity:1}
+.tond__nuit{position:absolute;inset:0;background:#0d0e10;pointer-events:none;opacity:var(--nuit,1)}
 .tond__voile{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 45%,rgba(10,10,12,0) 40%,rgba(10,10,12,.6) 100%)}
 .tband{position:absolute;top:50%;width:min(34vw,460px);opacity:0;transform:translateY(-50%);text-shadow:0 1px 2px rgba(5,5,10,.95),0 3px 12px rgba(5,5,10,.78),0 10px 44px rgba(5,5,10,.8);pointer-events:none}
 .tband.actif{pointer-events:auto}
@@ -611,7 +612,7 @@ body.apres-hero .ambiance{opacity:1}
   .tond{height:auto;padding-block:0 48px}
   .tond__scene{position:relative;height:auto;overflow:visible;display:grid;gap:26px;padding:0 var(--gout-d) 0 var(--gout)}
   .tond__affiche{position:relative;inset:auto;width:auto;height:auto;aspect-ratio:16/10;margin:0 calc(-1 * var(--gout-d)) 0 calc(-1 * var(--gout));background-size:cover}
-  .tond__video,.tond__lueur,.tond__voile{display:none}
+  .tond__video,.tond__lueur,.tond__voile,.tond__nuit{display:none}
   .tband{position:relative;top:auto;left:auto;right:auto;width:auto;transform:none;opacity:1;text-align:left;pointer-events:auto;text-shadow:none}
   .tband::before{display:none}
   .tband__t{font-size:clamp(40px,11vw,64px)}
@@ -879,21 +880,22 @@ body.apres-hero .ambiance{opacity:1}
     <canvas class="tond__video" id="tond-canvas" aria-hidden="true"></canvas>
     <div class="tond__lueur" aria-hidden="true"><i data-c="0"></i><i data-c="1"></i><i data-c="2"></i><i data-c="3"></i></div>
     <div class="tond__voile" aria-hidden="true"></div>
+    <div class="tond__nuit" id="tond-nuit" aria-hidden="true"></div>
     <h2 class="sr" id="t-classiques">Les classiques de la maison</h2>
-    <div class="tband tband--g" data-band="0.00 0.25">
+    <div class="tband tband--g" data-band="0.12 0.32">
       <p class="tband__k">Les classiques</p>
       <p class="tband__t"><span class="w">Fade</span> <span class="w">Flash.</span></p>
       <p class="tband__s">45 min. Le classique de la maison.</p>
     </div>
-    <div class="tband tband--d" data-band="0.27 0.50">
+    <div class="tband tband--d" data-band="0.34 0.54">
       <p class="tband__t"><span class="w">Barbe</span> <span class="w">en</span> <span class="w">Panique.</span></p>
       <p class="tband__s">45 min. Le trime de barbe.</p>
     </div>
-    <div class="tband tband--g" data-band="0.52 0.75">
+    <div class="tband tband--g" data-band="0.56 0.76">
       <p class="tband__t"><span class="w">Full</span> <span class="w">set</span> <span class="w">de</span> <span class="w">la</span> <span class="w">face.</span></p>
       <p class="tband__s">1 h 15. Coupe et barbe.</p>
     </div>
-    <div class="tband tband--d tband--fin" data-band="0.77 1.00">
+    <div class="tband tband--d tband--fin" data-band="0.78 1.00">
       <p class="tband__t"><span class="w">Une</span> <span class="w">trentaine</span> <span class="w">de</span> <span class="w">services.</span></p>
       <p class="tband__s">Coupes, barbes, rasages et massages, avec cinq barbiers.</p>
       <div class="tband__b"><a class="btn" href="#carte">Voir toute la carte<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy</a></div>
@@ -1723,17 +1725,20 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     suite();
   }
 
+  const nuit = document.getElementById('tond-nuit'); let derNuit = '';
   function bandesMaj(p){
-    let c = 0;
+    const nv = (1 - lisse(p, .015, .11)).toFixed(3); if (nv !== derNuit) { derNuit = nv; nuit.style.setProperty('--nuit', nv); }
+    let c = -1;
     bandes.forEach((B, n) => {
-      const f = Math.min(.05, (B.b - B.a) / 3);
-      const op = (n === 0 ? 1 : lisse(p, B.a, B.a + f)) * (n === bandes.length - 1 ? 1 : 1 - lisse(p, B.b - f, B.b));
+      const f = Math.min(.032, (B.b - B.a) / 3);
+      const op = lisse(p, B.a, B.a + f) * (n === bandes.length - 1 ? 1 : 1 - lisse(p, B.b - f, B.b));
       const k = clamp((p - B.a) / Math.min(.06, (B.b - B.a) * .35), 0, 1);
-      const o = op.toFixed(3), kk = (n === 0 ? 1 : k).toFixed(3);
+      const o = op.toFixed(3), kk = k.toFixed(3);
       if (o !== B.op) { B.op = o; B.el.style.opacity = o; B.el.classList.toggle('actif', op > .6); }
       if (kk !== B.k) { B.k = kk; B.el.style.setProperty('--k', kk); }
       if (p >= B.a) c = n;
     });
+    if (c < 0 && p > .08) c = 0;
     if (c !== coul) { coul = c; lueurs.forEach((l, i) => l.classList.toggle('on', i === c)); }
   }
   const prog = () => { const r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1); };
