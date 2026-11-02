@@ -1,11 +1,19 @@
 <title>Patbershop · v2</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Patbershop, barbier à Salaberry-de-Valleyfield : fade, barbe, coupe homme, femme et enfant au 7 rue du Marché. 5,0 sur 897 avis Booksy. Réserve en ligne 24/7.">
+<meta name="theme-color" content="#16171a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23ece4d3'/%3E%3Crect x='12' y='5' width='8' height='22' rx='2' fill='%2316171a'/%3E%3Cpath d='M12 9l8-3M12 14l8-3M12 19l8-3M12 24l8-3' stroke='%23b5602a' stroke-width='2'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Patbershop · Barbier à Valleyfield">
+<meta property="og:description" content="Coupe, barbe et jasette au 7, rue du Marché. 5,0 sur 897 avis Booksy.">
+<!-- DEPLOY STEP : remplacer og:image et og:url par l'adresse finale du site -->
+<meta property="og:image" content="img/seq/f145.webp">
+<meta property="og:url" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Rye&display=swap">
 <style>
-/* Concept : l'intérieur du shop — murs charbon, bois de grange, cuir cognac, chrome, lumière d'ampoule Edison.
+/* Concept : l'intérieur du shop : murs charbon, bois de grange, cuir cognac, chrome, lumière d'ampoule Edison.
    Sections qui alternent charbon / crème « Sharp à l'os », la carte des services comme un billet de caisse. */
 :root{
   --charbon:#16171a;   /* murs du shop */
@@ -14,9 +22,9 @@
   --creme:#ece4d3;     /* papier de marque « Sharp à l'os » */
   --creme-2:#e2d8c3;   /* fond alterné clair */
   --encre:#16171a;     /* texte sur crème */
-  --cognac:#b5602a;    /* cuir des fauteuils — accent, boutons */
+  --cognac:#b5602a;    /* cuir des fauteuils, accent, boutons */
   --cognac-f:#8f4a1f;  /* survol */
-  --ambre:#f0b062;     /* ampoule Edison — accent sur fond sombre */
+  --ambre:#f0b062;     /* ampoule Edison, accent sur fond sombre */
   --chrome:#b9bec4;    /* texte atténué sur sombre */
   --gris:#5b5650;      /* texte atténué sur crème */
   --filet:rgba(22,23,26,.16);
@@ -528,20 +536,64 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 .shop .shop-grille .commodites{margin-top:0;padding-top:0;border-top:0}
 @media (min-width:1200px){.tete .wrap{position:relative}.nav{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}.tete-actions{margin-left:auto}}
 
-/* ===== v2 · Bande « poteau de barbier » qui défile entre les sections ===== */
-.poteau{position:relative;overflow:hidden;background:#0d0e10;padding-block:22px}
-.poteau::before,.poteau::after{content:"";position:absolute;left:0;right:0;height:7px;background:repeating-linear-gradient(-45deg,var(--cognac) 0 12px,var(--creme) 12px 24px,#1f3d6b 24px 36px,var(--creme) 36px 48px);animation:rayure 1.4s linear infinite}
+/* ===================== 10K · la jasette (sous le héros) ===================== */
+:root{--e-sortie:cubic-bezier(.16,1,.3,1);--e-doux:cubic-bezier(.45,0,.2,1);--tshadow:0 1px 2px rgba(5,5,10,.95),0 3px 12px rgba(5,5,10,.78),0 10px 44px rgba(5,5,10,.8)}
+html{overflow-x:hidden;overflow-x:clip}
+.skip{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:calc(env(safe-area-inset-top,0px) + 10px);z-index:80;padding:13px 18px;border-radius:999px;background:var(--creme);color:var(--encre);font:600 14px/1 var(--f-texte);text-decoration:none;transform:translateY(-180%);transition:transform .35s var(--e-sortie)}
+.skip:focus{transform:none}
+@media (pointer:coarse){.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+
+/* l'environnement : une lueur d'ampoule qui dérive derrière la page, seulement après le héros */
+.ambiance{position:fixed;inset:-25%;z-index:40;pointer-events:none;opacity:0;transition:opacity 1.4s var(--e-doux);background:radial-gradient(26% 20% at 28% 38%,rgba(240,176,98,.055),transparent 70%),radial-gradient(22% 18% at 74% 64%,rgba(181,96,42,.05),transparent 70%);animation:derive 72s var(--e-doux) -18s infinite alternate}
+body.apres-hero .ambiance{opacity:1}
+@keyframes derive{0%{transform:translate3d(-4%,-3%,0)}50%{transform:translate3d(3%,2%,0)}100%{transform:translate3d(-2%,4%,0)}}
+
+/* entrées chorégraphiées : les enfants arrivent un après l'autre, puis les délais sont retirés */
+.ch.att>*{opacity:0;transform:translate3d(0,26px,0)}
+.ch.att.in>*{opacity:1;transform:none;transition:opacity .9s var(--e-sortie) calc(var(--i,0) * 90ms),transform .9s var(--e-sortie) calc(var(--i,0) * 90ms)}
+.ch.att.in.fini>*{transition-delay:0s!important}
+
+/* signature : la rayure du poteau tourne avec le défilement */
+.poteau{position:relative;overflow:hidden;background:#0d0e10;padding-block:24px}
+.poteau::before,.poteau::after,.couture{content:"";position:absolute;left:0;right:0;height:7px;background:repeating-linear-gradient(-45deg,var(--cognac) 0 12px,var(--creme) 12px 24px,#1f3d6b 24px 36px,var(--creme) 36px 48px);background-position:calc(var(--pole,0) * 1px) 0}
 .poteau::before{top:0}
-.poteau::after{bottom:0;animation-direction:reverse}
-@keyframes rayure{to{background-position:67.88px 0}}
-.poteau-piste{display:flex;width:max-content;animation:filer 38s linear infinite}
+.poteau::after{bottom:0;background-position:calc(var(--pole,0) * -1px) 0}
+.couture{top:0;z-index:2}
+.poteau-piste{display:flex;width:max-content;transform:translate3d(calc(var(--file,0) * -1px),0,0);will-change:transform}
 .poteau-piste span{display:flex;align-items:center;gap:clamp(18px,2.4vw,34px);padding-right:clamp(18px,2.4vw,34px);white-space:nowrap;font:900 clamp(30px,4.4vw,58px)/1 var(--f-titre);text-transform:uppercase;letter-spacing:.01em;color:var(--creme)}
 .poteau-piste span:nth-child(even) b{color:transparent;-webkit-text-stroke:1.5px var(--creme)}
-.poteau-piste b{font-weight:900}
 .poteau-piste i{width:12px;height:12px;flex:none;border-radius:50%;background:var(--ambre);box-shadow:0 0 16px rgba(240,176,98,.6)}
-@keyframes filer{to{transform:translateX(-50%)}}
 
-/* ===== v2 · Prends un numéro : 3 questions, un billet imprimé ===== */
+/* ---------- 1. La jasette ---------- */
+.jasette{background:radial-gradient(90% 70% at 12% 0%,rgba(240,176,98,.12),transparent 60%),var(--bois)}
+.jas-grille{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(36px,6vw,96px);align-items:center}
+.jas-grille>*{min-width:0}
+.jasette .kicker{gap:12px}
+.ampoule{position:relative;width:12px;height:12px;border-radius:50%;background:var(--ambre)}
+.ampoule::after{content:"";position:absolute;inset:-9px;border-radius:50%;background:radial-gradient(circle,rgba(240,176,98,.55),transparent 70%);animation:lueur 5.2s ease-in-out -2.1s infinite}
+@keyframes lueur{0%,100%{opacity:.35}50%{opacity:1}}
+.jasette .kicker::before{display:none}
+.jas-titre{margin:0;font-family:var(--f-titre);font-weight:900;text-transform:uppercase;line-height:.88;font-size:clamp(52px,7.4vw,112px);letter-spacing:-.005em}
+.jas-titre span{display:block}
+.jas-titre span:nth-child(2){color:transparent;-webkit-text-stroke:2px var(--creme)}
+.jas-titre span:nth-child(3){color:var(--ambre)}
+.jas-lede{margin:28px 0 0;font-size:clamp(18px,1.6vw,21px);line-height:1.55;color:var(--chrome);max-width:44ch}
+.jas-devise{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--filet-clair);max-width:40ch;font:400 clamp(19px,1.7vw,23px)/1.25 var(--f-enseigne);color:var(--creme)}
+.jas-devise em{font-style:normal;color:var(--ambre)}
+.jas-devise small{display:block;margin-top:10px;font:500 12px/1.3 var(--f-mono);letter-spacing:.06em;color:var(--chrome)}
+.miroir{display:grid;gap:18px}
+.note{position:relative;margin:0;padding:22px 24px 18px;border-radius:4px;background:#f6efe0;color:var(--encre);box-shadow:0 20px 34px -22px rgba(0,0,0,.8);rotate:var(--rot,0deg)}
+.note:nth-child(1){--rot:-1.6deg;margin-right:12%}
+.note:nth-child(2){--rot:1.3deg;margin-left:14%}
+.note:nth-child(3){--rot:-.7deg;margin-right:5%}
+.note::before{content:"";position:absolute;top:-9px;left:50%;width:58px;height:17px;translate:-50% 0;rotate:-3deg;background:rgba(240,176,98,.6);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.note blockquote{margin:0;font:400 clamp(21px,2vw,26px)/1.22 var(--f-enseigne)}
+.note figcaption{margin-top:12px;display:flex;align-items:baseline;gap:8px;font:500 12px/1.3 var(--f-mono);letter-spacing:.06em;color:var(--gris)}
+.note figcaption .etoiles{gap:2px;color:var(--cognac)}
+.note figcaption .etoiles svg{width:12px;height:12px}
+@media (max-width:860px){.jas-grille{grid-template-columns:1fr}.note:nth-child(n){margin-inline:0}}
+
+/* ---------- 4. Prends un numéro (le moment interactif) ---------- */
 .numero{background:radial-gradient(70% 60% at 88% 18%,rgba(181,96,42,.2),transparent 62%),var(--ardoise)}
 .num-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,88px);align-items:start}
 .num-grille>*{min-width:0}
@@ -551,7 +603,7 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 .q legend span{flex:none;font:500 12px/1 var(--f-mono);letter-spacing:.14em;color:var(--ambre)}
 .choix{clear:both;display:flex;flex-wrap:wrap;gap:8px}
 .choix input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
-.choix label{display:inline-flex;align-items:baseline;gap:8px;padding:12px 17px;border-radius:999px;border:1px solid var(--filet-clair);background:rgba(0,0,0,.2);font:600 15px/1 var(--f-texte);color:var(--chrome);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .3s var(--courbe),color .25s,border-color .25s,transform .3s var(--courbe)}
+.choix label{display:inline-flex;align-items:baseline;gap:8px;padding:12px 17px;border-radius:999px;border:1px solid rgba(236,228,211,.3);background:rgba(0,0,0,.2);font:600 15px/1 var(--f-texte);color:var(--chrome);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .3s var(--e-sortie),color .25s var(--e-doux),border-color .25s var(--e-doux),transform .3s var(--e-sortie)}
 .choix label small{font:500 11.5px/1 var(--f-mono);letter-spacing:.04em;opacity:.75}
 .choix label:hover{border-color:rgba(240,176,98,.6);color:var(--creme)}
 .choix label:active{transform:scale(.97)}
@@ -561,22 +613,28 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 .distrib{position:sticky;top:calc(var(--hh) + 28px);display:flex;flex-direction:column;align-items:center}
 .machine{position:relative;z-index:1;width:min(100%,380px);padding:20px 20px 0;border-radius:30px 30px 16px 16px;background:linear-gradient(180deg,#c86c30 0%,#a9551f 55%,#8f4a1f 100%);box-shadow:inset 0 2px 0 rgba(255,247,236,.28),inset 0 -8px 0 rgba(0,0,0,.18),0 34px 60px -30px rgba(0,0,0,.85)}
 .machine::before{content:"";position:absolute;left:18px;right:18px;top:-9px;height:9px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#d9dde1,#9aa0a7)}
-.ecran{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#0d0e10;box-shadow:inset 0 3px 10px rgba(0,0,0,.85)}
+.ecran{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#0d0e10;box-shadow:inset 0 3px 10px rgba(0,0,0,.85)}
 .ecran small{font:500 11px/1.25 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--chrome)}
-.ecran b{font:900 46px/1 var(--f-titre);font-variant-numeric:tabular-nums;color:var(--ambre);text-shadow:0 0 18px rgba(240,176,98,.55)}
+.ecran b{position:relative;font:900 46px/1 var(--f-titre);font-variant-numeric:tabular-nums;color:var(--ambre);text-shadow:0 0 18px rgba(240,176,98,.45)}
+.ecran b::after{content:"";position:absolute;inset:-6px -10px;border-radius:8px;background:radial-gradient(closest-side,rgba(240,176,98,.22),transparent);animation:lueur 4.8s ease-in-out -1.3s infinite;pointer-events:none}
 .machine-pied{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 14px}
 .machine-pied p{margin:0;font:400 22px/1 var(--f-enseigne);color:#fff7ec}
-.tirer{flex:none;display:inline-flex;align-items:center;gap:8px;padding:10px 14px 10px 10px;border:0;border-radius:999px;background:#0d0e10;color:var(--creme);font:600 13px/1 var(--f-texte);cursor:pointer;box-shadow:inset 0 -3px 0 rgba(255,255,255,.08);transition:transform .2s var(--courbe)}
-.tirer i{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd29a,var(--ambre) 45%,#b5602a);box-shadow:0 0 12px rgba(240,176,98,.6)}
-.tirer:hover{color:var(--ambre)}
-.tirer:active{transform:translateY(2px)}
+.tenir{position:relative;overflow:hidden;flex:none;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:10px 16px 10px 10px;border:0;border-radius:999px;background:#0d0e10;color:var(--creme);font:600 13.5px/1 var(--f-texte);cursor:pointer;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;box-shadow:inset 0 -3px 0 rgba(255,255,255,.08);transition:transform .2s var(--e-sortie),color .25s var(--e-doux)}
+.tenir .jauge{position:absolute;inset:0;background:linear-gradient(90deg,rgba(181,96,42,.55),rgba(240,176,98,.45));transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.tenir>span,.tenir>i{position:relative}
+.tenir i{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd29a,var(--ambre) 45%,#b5602a);box-shadow:0 0 12px rgba(240,176,98,.6)}
+.tenir:hover{color:var(--ambre)}
+.tenir.appuye{transform:translateY(2px)}
+.tenir.attend i{animation:appel 1.6s var(--e-doux) infinite}
+@keyframes appel{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 .fente{height:14px;margin:0 22px;border-radius:8px 8px 0 0;background:#0d0e10;box-shadow:inset 0 4px 6px rgba(0,0,0,.9)}
+.num-aide{margin:12px 0 0;min-height:2.6em;text-align:center;max-width:32ch;font:500 12.5px/1.35 var(--f-mono);color:var(--chrome)}
 .sortie{width:min(calc(100% - 70px),312px);overflow:hidden;padding:0 10px 30px;margin-top:-1px}
-.ticket{position:relative;padding:20px 20px 30px;background:#fbf7ee;color:var(--encre);text-align:center;box-shadow:0 22px 30px -20px rgba(0,0,0,.75);transform-origin:50% 0;rotate:-1.2deg;-webkit-mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x;mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x}
-.ticket.imprime{animation:imprime 1s var(--courbe)}
-@keyframes imprime{0%{transform:translateY(-104%)}70%{transform:translateY(3%)}100%{transform:none}}
+.ticket{position:relative;padding:20px 20px 30px;background:#fbf7ee;color:var(--encre);text-align:center;box-shadow:0 22px 30px -20px rgba(0,0,0,.75);rotate:-1.2deg;transform:translate3d(0,calc((var(--p,1) - 1) * 104%),0);-webkit-mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x;mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x}
+.ticket .lum{opacity:.18;transition:opacity .5s var(--e-doux),transform .6s var(--e-sortie);transform:translate3d(0,6px,0)}
+.ticket.complet .lum{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 110ms)}
 .t-haut{display:flex;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1.5px dashed rgba(22,23,26,.3);font:500 10.5px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
-.t-num{margin:14px 0 2px;font:500 11px/1 var(--f-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--cognac)}
+.t-num{margin:14px 0 2px;font:500 11px/1 var(--f-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--cognac-f)}
 .t-num b{display:block;margin-top:6px;font:900 clamp(72px,8vw,92px)/.85 var(--f-titre);letter-spacing:0;font-variant-numeric:tabular-nums;color:var(--encre)}
 .t-svc{margin:16px 0 6px;padding-top:14px;border-top:1.5px dashed rgba(22,23,26,.3);font:400 clamp(22px,2.2vw,26px)/1.1 var(--f-enseigne);text-wrap:balance}
 .t-avec{margin:0;font:500 13px/1.4 var(--f-mono);color:var(--gris)}
@@ -584,14 +642,56 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 .ticket .btn{margin-top:18px;width:100%;justify-content:center}
 .t-pied{margin:12px 0 0;font:500 10.5px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
 @media (max-width:900px){.num-grille{grid-template-columns:1fr}.distrib{position:static}}
-@media (prefers-reduced-motion:reduce){.poteau::before,.poteau::after,.poteau-piste,.ticket.imprime{animation:none}}
 
-/* ===== v2 · Chiffres du shop et FAQ ===== */
-.shop .chiffres{margin:8px 0 56px}
-.chiffre b em{font-style:normal}
-.chiffre b small{font-size:.45em;margin-left:4px;color:var(--creme)}
-.faq-grille{margin-inline:auto}
+/* ---------- 5. Trois temps, une chaise ---------- */
+.etapes-s{background:var(--charbon);overflow:hidden}
+.e-tete{text-align:center;max-width:780px;margin:0 auto clamp(44px,5vw,68px)}
+.e-tete .kicker{justify-content:center}
+.e-tete h2{margin:0;font:400 clamp(40px,5.4vw,74px)/1.02 var(--f-enseigne);color:var(--creme);text-wrap:balance}
+.e-tete p{margin:18px auto 0;max-width:46ch;color:var(--chrome);font-size:clamp(17px,1.4vw,19px)}
+.e-corps{position:relative;--gap:clamp(20px,3vw,44px)}
+.e-liste{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+.e-fil{position:absolute;left:28px;top:8px;width:calc((100% + var(--gap)) * 2 / 3);height:40px;overflow:visible;pointer-events:none}
+.e-fil path{fill:none;stroke:var(--ambre);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--t,0))}
+.e-pas{position:relative;display:flex;flex-direction:column;gap:14px;min-width:0}
+.e-num{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--charbon);border:2px solid var(--ambre);font:800 24px/1 var(--f-titre);color:var(--ambre);font-variant-numeric:tabular-nums}
+.e-photo{margin:4px 0 0;aspect-ratio:4/5;max-width:100%;border-radius:12px;overflow:hidden;background:#1b1d21;box-shadow:0 26px 50px -30px rgba(0,0,0,.9)}
+.e-photo img{width:100%;height:100%;object-fit:cover;display:block;max-width:none}
+.e-pas h3{margin:8px 0 0;font:800 clamp(28px,2.6vw,36px)/1 var(--f-titre);text-transform:uppercase;letter-spacing:.01em}
+.e-pas p{margin:0;color:var(--chrome);max-width:34ch}
+@media (max-width:860px){.e-liste{grid-template-columns:1fr;gap:48px}.e-fil{display:none}.e-photo{aspect-ratio:4/3}}
+
+/* ---------- 7. Les vraies questions ---------- */
 .faq .rep strong{color:var(--encre)}
+.faq-grille{margin-inline:auto}
+
+/* ---------- 8. Ta chaise t'attend ---------- */
+.final{position:relative;overflow:hidden;display:grid;align-items:end;min-height:clamp(540px,82svh,860px);padding-block:clamp(70px,9vw,130px);background:#0d0e10;isolation:isolate}
+.final-fond{position:absolute;inset:0;z-index:-2;background:url("img/seq/f145.webp") center 40%/cover no-repeat}
+.final::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(13,14,16,.6) 0%,rgba(13,14,16,.35) 30%,rgba(13,14,16,.9) 80%,#0d0e10 100%),radial-gradient(ellipse 78% 66% at 50% 60%,rgba(5,5,10,.84) 0%,rgba(5,5,10,.66) 48%,transparent 80%)}
+.final .kicker{padding:9px 14px;border-radius:999px;background:rgba(8,8,15,.76);border:1px solid rgba(96,96,126,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.final .wrap{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
+.final .kicker{margin:0;justify-content:center}
+.final h2{margin:0;font:900 clamp(60px,11vw,168px)/.82 var(--f-titre);text-transform:uppercase;letter-spacing:-.01em;text-shadow:var(--tshadow)}
+.final h2 span{display:block}
+.final h2 span:last-child{color:var(--ambre)}
+.final p.sous{margin:0;max-width:44ch;font-size:clamp(17px,1.5vw,20px);color:var(--creme);text-shadow:var(--tshadow)}
+.final .boutons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.final .btn{text-shadow:none}
+.poussieres{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.poussieres i{position:absolute;bottom:-10px;width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:rgba(240,176,98,.7);box-shadow:0 0 8px rgba(240,176,98,.6);opacity:0;animation:monte var(--d,14s) linear var(--dl,-3s) infinite}
+@keyframes monte{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:.7}85%{opacity:.5}100%{transform:translate3d(var(--x,20px),-70vh,0);opacity:0}}
+
+/* pauses : hors écran et onglet caché */
+.hors *,.hors::before,.hors::after,body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+
+@media (prefers-reduced-motion:reduce){
+  .ambiance,.ampoule::after,.ecran b::after,.tenir.attend i,.poussieres i{animation:none!important}
+  .ch.att>*,.ch.att.in>*{opacity:1;transform:none;transition:none}
+  .ticket,.ticket .lum,.choix label,.tenir,.skip{transition:none!important}
+  .e-fil{--t:1!important}
+  .poussieres{display:none}
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -630,6 +730,8 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
   </defs>
 </svg>
 
+<a class="skip" href="#le-shop">Aller au contenu</a>
+<div class="ambiance" aria-hidden="true"></div>
 <div class="prog" aria-hidden="true"></div>
 <header class="tete">
   <div class="wrap">
@@ -695,6 +797,24 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 </section>
 
 
+<!-- ============ 10K · 1. LA JASETTE ============ -->
+<section class="sec jasette vivant" id="le-shop" aria-labelledby="t-jasette">
+  <div class="deco" aria-hidden="true"><svg class="d" style="width:360px;height:110px;left:-60px;bottom:8%;--r:18deg"><use href="#d-peigne"/></svg><svg class="d" style="width:300px;height:108px;right:-50px;top:6%;--r:-24deg"><use href="#d-rasoir"/></svg></div>
+  <div class="wrap jas-grille">
+    <div class="ch">
+      <p class="kicker"><span class="ampoule" aria-hidden="true"></span>Coupe, barbe &amp; jasette</p>
+      <h2 class="jas-titre" id="t-jasette"><span>Tu parles.</span><span>On écoute.</span><span>Tu sors sharp.</span></h2>
+      <p class="jas-lede">Ta coupe commence par une jasette. Tu montres une photo, tu dis ce que tu veux et ce que tu ne veux pas. Ensuite seulement, la tondeuse part.</p>
+      <p class="jas-devise">« Enfin un vrai barber shop… sauf que maintenant on appelle ça un <em>PatBershop</em>. »<small>Tirée de la page Facebook du shop</small></p>
+    </div>
+    <div class="miroir ch" aria-label="Ce qu'en disent les clients sur Booksy">
+      <figure class="note"><blockquote>Très professionnel et minutieux.</blockquote><figcaption><span class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></span>Stephanie · avec Antoine</figcaption></figure>
+      <figure class="note"><blockquote>Toujours agréable et le service est impeccable.</blockquote><figcaption><span class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></span>Simon · avec Marylène</figcaption></figure>
+      <figure class="note"><blockquote>Top notch comme d'habitude!</blockquote><figcaption><span class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></span>Dominic · avec Antoine</figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 2. LA CARTE ============ -->
 <section class="sec clair" id="carte" aria-labelledby="t-carte">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:300px;height:140px;left:-70px;top:42%;--r:-28deg"><use href="#d-ciseaux"/></svg><svg class="d" style="width:340px;height:122px;right:-90px;top:30%;--r:22deg"><use href="#d-rasoir"/></svg><svg class="d" style="width:280px;height:86px;right:2%;bottom:6%;--r:-8deg"><use href="#d-peigne"/></svg></div>
@@ -739,24 +859,24 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
   </div>
 </section>
 
-<!-- ============ v2 · BANDE POTEAU ============ -->
-<div class="poteau" aria-hidden="true">
-  <div class="poteau-piste"><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span></div>
+<!-- ============ 10K · BANDE POTEAU (signature) ============ -->
+<div class="poteau" data-pole aria-hidden="true">
+  <div class="poteau-piste"><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span></div>
 </div>
 
-<!-- ============ v2 · PRENDS UN NUMÉRO ============ -->
-<section class="sec numero" id="numero" aria-labelledby="t-numero">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:110px;height:275px;right:4%;bottom:6%;--r:12deg"><use href="#d-tondeuse"/></svg><svg class="d" style="width:300px;height:92px;left:-60px;top:10%;--r:-18deg"><use href="#d-peigne"/></svg></div>
+<!-- ============ 10K · 4. PRENDS UN NUMÉRO (moment interactif) ============ -->
+<section class="sec numero vivant" id="numero" aria-labelledby="t-numero">
+  <div class="deco" aria-hidden="true"><svg class="d" style="width:110px;height:275px;right:4%;bottom:6%;--r:12deg"><use href="#d-tondeuse"/></svg></div>
   <div class="wrap">
     <div class="s-tete">
       <div>
         <p class="kicker">Ta coupe en 3 questions</p>
         <h2 class="titre" id="t-numero"><span class="lh ajuste">Prends</span><span class="lh ajuste l2">un</span><span class="lh ajuste l3">numéro.</span></h2>
       </div>
-      <p class="chapeau">Réponds à trois questions. Le distributeur imprime le service et le barbier qui te conviennent, avec le lien pour réserver sur Booksy.</p>
+      <p class="chapeau">Réponds à trois questions, puis tiens le bouton du distributeur. Ton billet sort avec le service et le barbier qui te conviennent.</p>
     </div>
     <div class="num-grille">
-      <form class="questions-num" id="f-numero" aria-label="Trouve ton service">
+      <form id="f-numero" aria-label="Trouve ton service">
         <fieldset class="q">
           <legend><span>1 / 3</span>Qu'est-ce qu'on fait?</legend>
           <div class="choix">
@@ -790,21 +910,42 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
       <div class="distrib">
         <div class="machine">
           <div class="ecran"><small>On sert<br>le numéro</small><b id="ecran-num">042</b></div>
-          <div class="machine-pied"><p>Patbershop</p><button class="tirer" type="button" id="tirer"><i aria-hidden="true"></i>Tire un numéro</button></div>
+          <div class="machine-pied"><p>Patbershop</p><button class="tenir" type="button" id="tenir" aria-describedby="num-aide"><span class="jauge" aria-hidden="true"></span><i aria-hidden="true"></i><span>Tiens pour imprimer</span></button></div>
           <div class="fente" aria-hidden="true"></div>
         </div>
         <div class="sortie">
-          <div class="ticket" id="ticket" aria-live="polite">
+          <div class="ticket complet" id="ticket">
             <div class="t-haut"><span>Patbershop</span><span>7, rue du Marché</span></div>
             <p class="t-num">Ton numéro<b id="t-num">042</b></p>
-            <p class="t-svc" id="t-svc">Full set de la face</p>
-            <p class="t-avec" id="t-avec">Premier barbier libre · 1 h 15</p>
-            <p class="t-note" id="t-note">Coupe et barbe, le combo de la maison. Booksy te propose la première chaise libre.</p>
-            <a class="btn" id="t-lien" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver ce service<svg><use href="#i-fleche"/></svg></a>
-            <p class="t-pied">Prix et places libres sur Booksy</p>
+            <p class="t-svc lum" style="--i:0" id="t-svc">Full set de la face</p>
+            <p class="t-avec lum" style="--i:1" id="t-avec">Premier barbier libre · 1 h 15</p>
+            <p class="t-note lum" style="--i:2" id="t-note">Coupe et barbe, le combo de la maison. Booksy te propose la première chaise libre.</p>
+            <a class="btn lum" style="--i:3" id="t-lien" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver ce service<svg><use href="#i-fleche"/></svg></a>
+            <p class="t-pied lum" style="--i:4">Prix et places libres sur Booksy</p>
           </div>
         </div>
+        <p class="num-aide" id="num-aide" aria-live="polite">Imprimé. Change une réponse pour un autre billet.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10K · 5. TROIS TEMPS, UNE CHAISE ============ -->
+<section class="sec etapes-s" id="etapes" aria-labelledby="t-etapes">
+  <div class="couture" data-pole aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="e-tete ch">
+      <p class="kicker">Comment ça se passe</p>
+      <h2 id="t-etapes">Trois temps, une chaise.</h2>
+      <p>Pas de surprise dans le miroir. Voici comment se passe une visite chez Pat.</p>
+    </div>
+    <div class="e-corps">
+    <svg class="e-fil" id="e-fil" viewBox="0 0 800 40" aria-hidden="true"><path pathLength="1" d="M0 20 C 112 6, 176 34, 288 20 S 464 6, 560 20 S 704 34, 800 20"/></svg>
+    <ol class="e-liste ch" id="e-liste">
+      <li class="e-pas"><span class="e-num" aria-hidden="true">1</span><figure class="e-photo"><img src="img/real/09-au-travail.webp" alt="Un barbier du Patbershop au travail sur une barbe" width="540" height="720" loading="lazy" decoding="async"></figure><h3>On jase</h3><p>Tu montres une photo ou tu décris ta coupe. Ton barbier te dit ce qui marche avec tes cheveux, et jusqu'où monte le dégradé.</p></li>
+      <li class="e-pas"><span class="e-num" aria-hidden="true">2</span><figure class="e-photo"><img src="img/real/01-fade-mi-haut.webp" alt="Dégradé mi-haut bien fondu avec une ligne au rasoir" width="586" height="720" loading="lazy" decoding="async"></figure><h3>On coupe</h3><p>Tondeuse, ciseaux, rasoir. On prend le temps de bien fondre le dégradé, sans ligne dure.</p></li>
+      <li class="e-pas"><span class="e-num" aria-hidden="true">3</span><figure class="e-photo"><img src="img/real/10-pompadour-barbe.webp" alt="Pompadour dégradé et barbe sculptée, résultat final" width="720" height="720" loading="lazy" decoding="async"></figure><h3>Tu repars sharp</h3><p>Coiffé, la barbe nette. Une coupe faite pour rester belle les semaines d'après.</p></li>
+    </ol>
     </div>
   </div>
 </section>
@@ -929,64 +1070,40 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
   </div>
 </section>
 
-<!-- ============ 5. LE SHOP (POURQUOI NOUS) ============ -->
-<section class="sec shop" id="le-shop" aria-labelledby="t-shop">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:360px;height:110px;left:-60px;top:12%;--r:24deg"><use href="#d-peigne"/></svg><svg class="d" style="width:300px;height:108px;right:-40px;bottom:10%;--r:-30deg"><use href="#d-rasoir"/></svg><svg class="d" style="width:200px;height:92px;right:30%;top:8%;--r:-60deg"><use href="#d-ciseaux"/></svg></div>
-  <div class="wrap">
-    <div class="s-tete">
-      <div>
-        <p class="kicker">Le shop</p>
-        <h2 class="titre" id="t-shop"><span class="lh ajuste">Coupe,</span><span class="lh ajuste l2">barbe</span><span class="lh ajuste l3">&amp; jasette.</span></h2>
-      </div>
-      <div class="devise-bloc">
-        <p class="devise">« Enfin un vrai barber shop… sauf que maintenant on appelle ça un <em>PatBershop</em>. »</p>
-        <p class="devise-src">Tirée de la page Facebook du shop</p>
-      </div>
-    </div>
-    <div class="chiffres rv" aria-label="Le shop en chiffres">
-      <div class="chiffre"><b><em data-compte="5,0">5,0</em></b><span>Moyenne sur Booksy</span></div>
-      <div class="chiffre"><b><em data-compte="897">897</em></b><span>Avis de clients sur Booksy</span></div>
-      <div class="chiffre"><b><em data-compte="100">100</em><small>%</small></b><span>Recommandent le shop sur Facebook</span></div>
-      <div class="chiffre"><b><em data-compte="5">5</em></b><span>Barbiers, chacun avec son horaire</span></div>
-    </div>
-    <div class="shop-grille">
-      <div>
-        <p class="chapeau">Le barbier du centre-ville de Valleyfield. Fades, barbes au rasoir et coupes pour toute la famille, dans une vraie ambiance de barber shop.</p>
-      </div>
-      <div>
-        <ul class="commodites" aria-label="Commodités">
-          <li><svg><use href="#i-p"/></svg>Stationnement</li>
-          <li><svg><use href="#i-carte"/></svg>Cartes de crédit</li>
-          <li><svg><use href="#i-acces"/></svg>Accessible</li>
-          <li><svg><use href="#i-enfant"/></svg>Enfants bienvenus</li>
-          <li><svg><use href="#i-wifi"/></svg>Wi-Fi</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ v2 · QUESTIONS ============ -->
+<!-- ============ 10K · 7. LES VRAIES QUESTIONS ============ -->
 <section class="sec clair" id="questions" aria-labelledby="t-faq">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:320px;height:148px;right:-70px;top:14%;--r:-20deg"><use href="#d-ciseaux"/></svg></div>
   <div class="wrap">
     <div class="s-tete">
       <div>
         <p class="kicker">Questions</p>
-        <h2 class="titre" id="t-faq"><span class="lh ajuste">Ce qu'on</span><span class="lh ajuste l2">nous demande</span><span class="lh ajuste l3">au shop.</span></h2>
+        <h2 class="titre" id="t-faq"><span class="lh ajuste">Avant de</span><span class="lh ajuste l2">t'asseoir,</span><span class="lh ajuste l3">on répond.</span></h2>
       </div>
-      <p class="chapeau">Les réponses courtes. Pour le reste, appelle au 450 801-7467 ou écris à patbershop@gmail.com.</p>
+      <p class="chapeau">Les questions qu'on entend le plus souvent au shop. Pour le reste, appelle au 450 801-7467.</p>
     </div>
     <div class="faq-grille">
-      <div class="faq">
-        <details open><summary>Faut-il réserver?<i aria-hidden="true"></i></summary><div class="rep"><p>C'est le plus sûr. Chaque barbier a son propre horaire sur Booksy et tu peux réserver en ligne 24 heures sur 24. Tu peux aussi appeler directement au shop.</p></div></details>
+      <div class="faq ch">
+        <details open><summary>J'ai peur que mon dégradé monte trop haut.<i aria-hidden="true"></i></summary><div class="rep"><p>On en jase avant de commencer. Montre une photo de ce que tu aimes, ou dis jusqu'où tu veux que ça monte : bas, mi ou haut. Ton barbier te dit ce qui va avec ta tête, puis il coupe ça.</p></div></details>
+        <details><summary>Faut-il réserver?<i aria-hidden="true"></i></summary><div class="rep"><p>C'est le plus sûr. Chaque barbier a son propre horaire sur Booksy, et tu peux réserver en ligne 24 heures sur 24. Tu peux aussi appeler au shop.</p></div></details>
+        <details><summary>Je peux choisir mon barbier?<i aria-hidden="true"></i></summary><div class="rep"><p>Oui. Pat, Marylène, Antoine, Mélissa et Mel ont chacun leur page Booksy. Prends ton préféré, ou le premier libre si t'es pressé.</p></div></details>
         <details><summary>Vous coupez les cheveux des femmes?<i aria-hidden="true"></i></summary><div class="rep"><p>Oui. Pat fait la <strong>coupe femme</strong> (45 min) et la <strong>coupe mi-long et long</strong> (1 h).</p></div></details>
         <details><summary>Et les enfants?<i aria-hidden="true"></i></summary><div class="rep"><p>Bienvenus. Antoine fait la <strong>coupe garçon de moins de 12 ans</strong> (30 min). Marylène offre aussi un forfait coupe et trim de barbe pour toi, plus un enfant (1 h 30).</p></div></details>
-        <details><summary>Le massage crânio-facial, c'est avec qui?<i aria-hidden="true"></i></summary><div class="rep"><p>Avec Marylène. Elle l'ajoute à une coupe, à un trime de barbe ou au rasage ultime. Compte de 50 min à 1 h 45 selon le combo.</p></div></details>
-        <details><summary>Où je me stationne?<i aria-hidden="true"></i></summary><div class="rep"><p>Il y a du stationnement sur place, au 7, rue du Marché, à deux rues du Vieux-Canal. L'entrée est accessible.</p></div></details>
-        <details><summary>Comment je paie?<i aria-hidden="true"></i></summary><div class="rep"><p>Les cartes de crédit sont acceptées. Et il y a du Wi-Fi pendant que tu attends.</p></div></details>
+        <details><summary>Stationnement, paiement, Wi-Fi?<i aria-hidden="true"></i></summary><div class="rep"><p>Stationnement sur place au 7, rue du Marché, et l'entrée est accessible. Les cartes de crédit sont acceptées. Et il y a du Wi-Fi pendant que t'attends.</p></div></details>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ 10K · 8. TA CHAISE T'ATTEND ============ -->
+<section class="final vivant" id="rendez-vous" aria-labelledby="t-final">
+  <div class="couture" data-pole aria-hidden="true"></div>
+  <div class="final-fond" aria-hidden="true"></div>
+  <div class="poussieres" aria-hidden="true"><i style="left:12%;--d:15s;--dl:-2s;--x:24px"></i><i style="left:22%;--d:12s;--dl:-7s;--s:2px;--x:-18px"></i><i style="left:34%;--d:17s;--dl:-11s;--x:30px"></i><i style="left:47%;--d:13s;--dl:-4s;--s:2px;--x:-12px"></i><i style="left:58%;--d:16s;--dl:-9s;--x:16px"></i><i style="left:69%;--d:14s;--dl:-1s;--s:2px;--x:-26px"></i><i style="left:79%;--d:18s;--dl:-13s;--x:20px"></i><i style="left:89%;--d:12.5s;--dl:-6s;--s:2px;--x:-14px"></i></div>
+  <div class="wrap ch">
+    <p class="kicker">Patbershop · Valleyfield</p>
+    <h2 id="t-final"><span>Ta chaise</span><span>t'attend.</span></h2>
+    <p class="sous">Pat et son équipe, au 7, rue du Marché. Réserve en ligne, 24 heures sur 24.</p>
+    <div class="boutons"><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="#numero">Prends un numéro d'abord</a></div>
   </div>
 </section>
 
@@ -1051,7 +1168,7 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
     <p class="pied-titre" aria-hidden="true"><span>On se voit</span><span>au shop.</span></p>
     <div class="pied-cols">
       <img class="pied-logo" src="img/logo-patbershop.webp" alt="Patbershop" width="1108" height="520" loading="lazy">
-      <div><h4>Explorer</h4><ul><li><a href="#carte">La carte</a></li><li><a href="#equipe">L'équipe</a></li><li><a href="#avis">Avis</a></li><li><a href="#le-shop">Le shop</a></li><li><a href="#numero">Prends un numéro</a></li><li><a href="#questions">Questions</a></li></ul></div>
+      <div><h4>Explorer</h4><ul><li><a href="#carte">La carte</a></li><li><a href="#equipe">L'équipe</a></li><li><a href="#avis">Avis</a></li><li><a href="#le-shop">Le shop</a></li><li><a href="#numero">Prends un numéro</a></li><li><a href="#questions">Questions</a></li><li><a href="#rendez-vous">Réserver</a></li></ul></div>
       <div><h4>Nous joindre</h4><ul><li><a href="tel:+14508017467">450 801-7467</a></li><li><a href="mailto:patbershop@gmail.com">patbershop@gmail.com</a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Booksy</a></li></ul></div>
       <div><h4>Nous trouver</h4><ul><li>7, rue du Marché</li><li>Salaberry-de-Valleyfield (Québec)</li><li>J6T 1P1</li></ul></div>
     </div>
@@ -1406,58 +1523,147 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
 })();
 </script>
 <script>
-/* v2 · Prends un numéro : 3 réponses → le service et le barbier, imprimés sur un billet.
-   Services et durées tirés de Booksy (oct. 2026), les mêmes que dans les cartes de l'équipe. */
+/* ===== 10K · la jasette : entrées, poteau au défilement, fil des étapes, distributeur à tenir, pauses ===== */
 (() => {
-  const f = document.getElementById('f-numero'); if (!f) return;
-  const B = 'https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield';
-  const ID = { pat: 9440, marylene: 21602, antoine: 38149, melissa: 41081, mel: 44619 };
-  const NOM = { pat: 'Pat', marylene: 'Marylène', antoine: 'Antoine', melissa: 'Mélissa', mel: 'Mel' };
-  const S = {
-    libre: { cheveux: ['Fade Flash', '45 min'], barbe: ['Barbe en Panique', '45 min'], deux: ['Full set de la face', '1 h 15'] },
-    pat: { cheveux: ['Coupe de cheveux régulière', '30 min'], barbe: ['Trime de barbe', '30 min'], deux: ['Coupe régulière + taille de barbe', '45 min'], femme: ['Coupe femme', '45 min'] },
-    marylene: { cheveux: ['Coupe ou rasage crânien', '40 min'], barbe: ['Trime de barbe', '35 min'], deux: ['Coupe avec trime de barbe', '1 h'], enfant: ['Coupe, trim de barbe + 1 enfant', '1 h 30'],
-      'cheveux+m': ['Coupe ou rasage crânien et massage crânio-facial', '1 h'], 'barbe+m': ['Trime de barbe avec massage crânio-facial', '50 min'], 'deux+m': ['Coupe, trime de barbe et massage crânio-facial', '1 h 30'] },
-    antoine: { cheveux: ['Coupe de cheveux homme', '45 min'], barbe: ['Trim de barbe', '30 min'], deux: ['Coupe et trim de barbe', '1 h 15'], enfant: ['Coupe garçon (moins de 12 ans)', '30 min'] },
-    melissa: { cheveux: ['Coupe de cheveux', '1 h'], barbe: ['Trime de barbe', '45 min'], deux: ['Coupe et barbe', '1 h 30'] },
-    mel: { cheveux: ['Coupe de cheveux', '1 h'], barbe: ['Trim de barbe', '45 min'], deux: ['Coupe et trim de barbe', '1 h 30'] }
+  const $ = id => document.getElementById(id), QA = s => [...document.querySelectorAll(s)];
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  let reduit = RM.matches;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+  /* 1. Entrées chorégraphiées : seuls les groupes sous la ligne de flottaison attendent */
+  const ioCh = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const c = e.target; c.classList.add('in'); ioCh.unobserve(c);
+    setTimeout(() => c.classList.add('fini'), 900 + c.children.length * 90);
+  }), { rootMargin: '0px 0px -10% 0px' }) : null;
+  QA('.ch').forEach(c => {
+    [...c.children].forEach((k, i) => k.style.setProperty('--i', i));
+    if (ioCh && !reduit && c.getBoundingClientRect().top > innerHeight) { c.classList.add('att'); ioCh.observe(c); }
+  });
+
+  /* 2. Poteaux qui tournent et fil des étapes, pilotés par le défilement (écritures seulement si ça change) */
+  const poles = QA('[data-pole]'), piste = document.querySelector('.poteau-piste'), fil = $('e-fil'), liste = $('e-liste');
+  const vu = new WeakMap();
+  const ioVu = 'IntersectionObserver' in window ? new IntersectionObserver(es => { es.forEach(e => vu.set(e.target, e.isIntersecting)); if (typeof auDefil === 'function') requestAnimationFrame(auDefil); }) : null;
+  poles.forEach(p => ioVu ? ioVu.observe(p) : vu.set(p, true));
+  if (liste) ioVu ? ioVu.observe(liste) : vu.set(liste, true);
+  let moitie = 1; const mesurer = () => {
+    if (piste) moitie = piste.scrollWidth / 2 || 1;
+    /* le fil est redessiné à sa vraie largeur, pour un trait net et continu */
+    if (fil && fil.clientWidth) { const W = Math.round(fil.clientWidth), q = W / 8;
+      fil.setAttribute('viewBox', `0 0 ${W} 40`);
+      fil.firstElementChild.setAttribute('d', `M0 20 C ${q} 6, ${q * 2} 34, ${q * 3} 20 S ${q * 5} 6, ${q * 6} 20 S ${q * 7.5} 34, ${W} 20`); }
   };
-  const MAISON = { cheveux: 'Le classique de la maison.', barbe: 'Le trime de barbe de la maison.', deux: 'Coupe et barbe, le combo de la maison.' };
-  const PREF = { enfant: ['antoine', 'marylene'], femme: ['pat'] };
+  mesurer(); addEventListener('resize', mesurer);
+  let tic = false, derT = -1;
+  function auDefil(){
+    tic = false;
+    const y = scrollY;
+    poles.forEach(p => {
+      if (!vu.get(p)) return;
+      const v = (y * .5 % 67.88).toFixed(1);
+      if (p._v !== v) { p._v = v; p.style.setProperty('--pole', v); }
+      if (p === poles[0] && piste) { const f = (y * .4 % moitie).toFixed(1); if (piste._f !== f) { piste._f = f; piste.style.setProperty('--file', f); } }
+    });
+    if (fil && liste && (vu.get(liste) || derT < 0)) {
+      const r = liste.getBoundingClientRect();
+      const t = reduit ? 1 : clamp((innerHeight * .85 - r.top) / (r.height * .6), 0, 1);
+      if (Math.abs(t - derT) > .008 || (t === 1 && derT !== 1)) { derT = t; fil.style.setProperty('--t', t.toFixed(3)); }
+    }
+  }
+  addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
+  auDefil();
 
-  function choisir(quoi, massage, qui){
-    const notes = [];
-    let cle = quoi;
-    if (massage) { if (quoi === 'femme' || quoi === 'enfant') notes.push('Le massage se prend avec une coupe homme ou une barbe, chez Marylène.'); else cle = quoi + '+m'; }
-    if (qui === 'libre' && S.libre[cle]) return { qui, s: S.libre[cle], notes: [MAISON[cle] + ' Booksy te propose la première chaise libre.'] };
-    if (qui !== 'libre' && S[qui][cle]) return { qui, s: S[qui][cle], notes };
-    const liste = cle.endsWith('+m') ? ['marylene'] : (PREF[cle] || Object.keys(ID));
-    const autre = liste.find(b => S[b][cle]);
-    if (qui === 'libre') notes.push(cle.endsWith('+m') ? 'Le massage crânio-facial, c\'est Marylène.' : cle === 'enfant' ? 'Antoine s\'occupe des coupes d\'enfants.' : 'Pat fait les coupes femme.');
-    else notes.push(`${NOM[qui]} n'offre pas ce service sur Booksy. ${NOM[autre]}, oui.`);
-    return { qui: autre, s: S[autre][cle], notes };
+  /* 3. Le distributeur : 3 réponses, puis on tient le bouton et le billet sort */
+  const f = $('f-numero');
+  if (f) {
+    const B = 'https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield';
+    const ID = { pat: 9440, marylene: 21602, antoine: 38149, melissa: 41081, mel: 44619 };
+    const NOM = { pat: 'Pat', marylene: 'Marylène', antoine: 'Antoine', melissa: 'Mélissa', mel: 'Mel' };
+    /* services et durées tirés de Booksy (oct. 2026), les mêmes que dans les cartes de l'équipe */
+    const S = {
+      libre: { cheveux: ['Fade Flash', '45 min'], barbe: ['Barbe en Panique', '45 min'], deux: ['Full set de la face', '1 h 15'] },
+      pat: { cheveux: ['Coupe de cheveux régulière', '30 min'], barbe: ['Trime de barbe', '30 min'], deux: ['Coupe régulière + taille de barbe', '45 min'], femme: ['Coupe femme', '45 min'] },
+      marylene: { cheveux: ['Coupe ou rasage crânien', '40 min'], barbe: ['Trime de barbe', '35 min'], deux: ['Coupe avec trime de barbe', '1 h'], enfant: ['Coupe, trim de barbe + 1 enfant', '1 h 30'],
+        'cheveux+m': ['Coupe ou rasage crânien et massage crânio-facial', '1 h'], 'barbe+m': ['Trime de barbe avec massage crânio-facial', '50 min'], 'deux+m': ['Coupe, trime de barbe et massage crânio-facial', '1 h 30'] },
+      antoine: { cheveux: ['Coupe de cheveux homme', '45 min'], barbe: ['Trim de barbe', '30 min'], deux: ['Coupe et trim de barbe', '1 h 15'], enfant: ['Coupe garçon (moins de 12 ans)', '30 min'] },
+      melissa: { cheveux: ['Coupe de cheveux', '1 h'], barbe: ['Trime de barbe', '45 min'], deux: ['Coupe et barbe', '1 h 30'] },
+      mel: { cheveux: ['Coupe de cheveux', '1 h'], barbe: ['Trim de barbe', '45 min'], deux: ['Coupe et trim de barbe', '1 h 30'] }
+    };
+    const MAISON = { cheveux: 'Le classique de la maison.', barbe: 'Le trime de barbe de la maison.', deux: 'Coupe et barbe, le combo de la maison.' };
+    const PREF = { enfant: ['antoine', 'marylene'], femme: ['pat'] };
+    function choisir(quoi, massage, qui){
+      const notes = []; let cle = quoi;
+      if (massage) { if (quoi === 'femme' || quoi === 'enfant') notes.push('Le massage se prend avec une coupe homme ou une barbe, chez Marylène.'); else cle = quoi + '+m'; }
+      if (qui === 'libre' && S.libre[cle]) return { qui, s: S.libre[cle], notes: [MAISON[cle] + ' Booksy te propose la première chaise libre.'] };
+      if (qui !== 'libre' && S[qui][cle]) return { qui, s: S[qui][cle], notes };
+      const autre = (cle.endsWith('+m') ? ['marylene'] : (PREF[cle] || Object.keys(ID))).find(b => S[b][cle]);
+      if (qui === 'libre') notes.push(cle.endsWith('+m') ? 'Le massage crânio-facial, c\'est Marylène.' : cle === 'enfant' ? 'Antoine s\'occupe des coupes d\'enfants.' : 'Pat fait les coupes femme.');
+      else notes.push(`${NOM[qui]} n'offre pas ce service sur Booksy. ${NOM[autre]}, oui.`);
+      return { qui: autre, s: S[autre][cle], notes };
+    }
+    const tk = $('ticket'), btn = $('tenir'), aide = $('num-aide'), ecran = $('ecran-num'), tNum = $('t-num');
+    const AIDE_TENIR = 'Tiens le bouton enfoncé. Le billet sort pendant que tu tiens.', AIDE_FINI = 'Imprimé. Change une réponse pour un autre billet.';
+    let n = 42, p = 1, tient = false, complet = true, raf = null, t0 = 0, derP = -1, toucheTenue = false;
+    function remplir(){
+      const d = new FormData(f), r = choisir(d.get('quoi'), d.get('massage') === 'oui', d.get('qui'));
+      $('t-svc').textContent = r.s[0];
+      $('t-avec').textContent = (r.qui === 'libre' ? 'Premier barbier libre' : 'Avec ' + NOM[r.qui]) + ' · ' + r.s[1];
+      const nt = $('t-note'); nt.textContent = r.notes.join(' '); nt.hidden = !r.notes.length;
+      const l = $('t-lien'); l.href = r.qui === 'libre' ? B : `${B}/staffer/${ID[r.qui]}`; l.setAttribute('aria-label', `Réserver ${r.s[0]} sur Booksy`);
+    }
+    const ecrireP = () => { if (Math.abs(p - derP) > .002 || p === 0 || p === 1) { if (p !== derP) { derP = p; tk.style.setProperty('--p', p.toFixed(3)); btn.style.setProperty('--p', complet ? 0 : p.toFixed(3)); } } };
+    function finir(){
+      tient = false; complet = true; p = 1; n = n >= 999 ? 1 : n + 1;
+      const num = String(n).padStart(3, '0'); ecran.textContent = num; tNum.textContent = num;
+      tk.classList.add('complet'); btn.classList.remove('attend', 'appuye'); aide.textContent = AIDE_FINI;
+      derP = -1; ecrireP();
+    }
+    function boucle(now){
+      const dt = Math.min(100, now - (t0 || now)); t0 = now;
+      if (tient) { p = Math.min(1, p + dt / 1000); if (p >= 1) { finir(); raf = null; t0 = 0; return; } }
+      else { p += (0 - p) * (1 - Math.pow(1 - .14, dt / 16.667)); if (p < .002) p = 0; }
+      ecrireP();
+      if (tient || p > 0) raf = requestAnimationFrame(boucle); else { raf = null; t0 = 0; }
+    }
+    const lancer = () => { if (raf === null) raf = requestAnimationFrame(boucle); };
+    function rentrer(){ /* une réponse change : le billet rentre dans la fente, en attente d'une nouvelle impression */
+      remplir(); complet = false; tient = false; tk.classList.remove('complet');
+      btn.classList.add('attend'); aide.textContent = AIDE_TENIR;
+      if (reduit) { p = 0; derP = -1; ecrireP(); } else lancer();
+    }
+    function appuyer(){
+      if (reduit) { remplir(); finir(); return; }
+      if (complet) { complet = false; tk.classList.remove('complet'); remplir(); p = 0; }
+      tient = true; btn.classList.add('appuye'); aide.textContent = AIDE_TENIR; lancer();
+    }
+    const relacher = () => { if (!tient) return; tient = false; btn.classList.remove('appuye'); lancer(); };
+    f.addEventListener('change', rentrer);
+    f.addEventListener('submit', e => e.preventDefault());
+    btn.addEventListener('pointerdown', e => { if (e.button > 0) return; btn.setPointerCapture && btn.setPointerCapture(e.pointerId); appuyer(); });
+    btn.addEventListener('pointerup', relacher); btn.addEventListener('pointercancel', relacher); btn.addEventListener('lostpointercapture', relacher);
+    btn.addEventListener('contextmenu', e => e.preventDefault());
+    btn.addEventListener('keydown', e => { if (e.key === ' ' && !e.repeat) { e.preventDefault(); toucheTenue = true; appuyer(); } });
+    btn.addEventListener('keyup', e => { if (e.key === ' ') { e.preventDefault(); relacher(); setTimeout(() => toucheTenue = false, 0); } });
+    /* Entrée au clavier ou lecteur d'écran (clic sans pointeur) : impression immédiate */
+    btn.addEventListener('click', e => { if (e.detail === 0 && !toucheTenue && !complet) { remplir(); finir(); } });
+    remplir();
+    window.__numeroFinir = () => { if (!complet) { remplir(); finir(); } };
   }
 
-  const $ = id => document.getElementById(id);
-  const ecran = $('ecran-num'), tk = $('ticket'), tNum = $('t-num'), tSvc = $('t-svc'), tAvec = $('t-avec'), tNote = $('t-note'), tLien = $('t-lien');
-  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let n = 41;
-  function imprimer(anim){
-    const d = new FormData(f), r = choisir(d.get('quoi'), d.get('massage') === 'oui', d.get('qui'));
-    n = n >= 999 ? 1 : n + 1;
-    const num = String(n).padStart(3, '0');
-    ecran.textContent = num; tNum.textContent = num;
-    tSvc.textContent = r.s[0];
-    tAvec.textContent = (r.qui === 'libre' ? 'Premier barbier libre' : 'Avec ' + NOM[r.qui]) + ' · ' + r.s[1];
-    tNote.textContent = r.notes.join(' '); tNote.hidden = !r.notes.length;
-    tLien.href = r.qui === 'libre' ? B : `${B}/staffer/${ID[r.qui]}`;
-    tLien.setAttribute('aria-label', `Réserver ${r.s[0]} sur Booksy`);
-    if (anim && !reduit) { tk.classList.remove('imprime'); void tk.offsetWidth; tk.classList.add('imprime'); }
+  /* 4. Pauses : sections hors écran et onglet caché */
+  if ('IntersectionObserver' in window) {
+    const ioV = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('hors', !e.isIntersecting)));
+    QA('.vivant').forEach(s => ioV.observe(s));
   }
-  f.addEventListener('change', () => imprimer(true));
-  f.addEventListener('submit', e => e.preventDefault());
-  $('tirer').addEventListener('click', () => imprimer(true));
-  imprimer(false);
+  document.addEventListener('visibilitychange', () => document.body.classList.toggle('paused', document.hidden));
+
+  /* 5. Mouvement réduit, en direct et dans les deux sens */
+  RM.addEventListener('change', e => {
+    reduit = e.matches;
+    if (reduit) { QA('.ch').forEach(c => c.classList.add('in', 'fini')); window.__numeroFinir && window.__numeroFinir(); }
+    derT = -1; auDefil();
+  });
 })();
 </script>
 <script>
