@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "clients/line-fortier-barbier/index.html"
+        ],
+        "createdAt": "2026-11-02T12:35:51.428Z",
+        "reason": "Claude, per the user's 10k-websites skill: its design bar requires one fixed background environment layer cycling at 60s or longer; .env::after is that whisper-level 70s light drift, not content"
+      }
+    ]
+  }
+}
