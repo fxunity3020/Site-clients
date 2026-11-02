@@ -578,29 +578,9 @@ body.apres-hero .ambiance{opacity:1}
 @media (max-width:760px){.final{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}.final::before{background:linear-gradient(180deg,rgba(13,14,16,.72) 0%,rgba(13,14,16,.66) 35%,rgba(13,14,16,.9) 72%,#0d0e10 100%),radial-gradient(ellipse 90% 60% at 50% 55%,rgba(5,5,10,.55),transparent 80%)}}
 @media (prefers-reduced-motion:reduce){.poussieres{display:none}.poussieres i{animation:none!important}.final-fond,.final .profond{transform:none!important;transition:none}}
 
-/* ---------- Le poteau de barbier en 3D, présent tout au long de la page ---------- */
-.poteau3d{--fw:8px;--r:calc(var(--fw) * 2.5137);position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;z-index:45;display:flex;flex-direction:column;align-items:center;width:calc(var(--r) * 2 + 10px);padding:0;border:0;background:none;cursor:pointer;opacity:0;pointer-events:none;transform:translate3d(24px,-50%,0);transition:opacity .5s var(--e-sortie),transform .6s var(--e-sortie);-webkit-tap-highlight-color:transparent}
-body.p3-on .poteau3d{opacity:1;pointer-events:auto;transform:translate3d(0,-50%,0)}
-body.menu-ouvert .poteau3d{opacity:0;pointer-events:none}
-.poteau3d:focus-visible{outline:2px solid var(--ambre);outline-offset:6px;border-radius:12px}
-.p3-cap{position:relative;width:calc(var(--r) * 2 + 8px);height:12px;border-radius:7px;background:linear-gradient(90deg,#6f747a,#e9ecef 38%,#9aa0a7 60%,#55595e);box-shadow:0 2px 4px rgba(0,0,0,.4)}
-.p3-cap--haut{border-radius:calc(var(--r) + 4px) calc(var(--r) + 4px) 5px 5px;height:calc(var(--r) * .9 + 8px)}
-.p3-cap--haut::after{content:"";position:absolute;left:50%;top:calc(var(--r) * -.55);width:calc(var(--r) * 1.1);height:calc(var(--r) * 1.1);margin-left:calc(var(--r) * -.55);border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff3d6,var(--ambre) 45%,#b5602a 80%);box-shadow:0 0 14px rgba(240,176,98,.75);animation:lueur 4.6s ease-in-out -2s infinite}
-.p3-verre{position:relative;width:calc(var(--r) * 2);height:min(42vh,340px);perspective:520px}
-.p3-cyl{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(var(--spin,0deg))}
-.p3-cyl i{position:absolute;top:0;bottom:0;left:50%;width:calc(var(--fw) + .6px);margin-left:calc(var(--fw) / -2);backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(calc(var(--k) * 22.5deg)) translateZ(var(--r));background:linear-gradient(45deg,#b3262c 0 12.5%,#f4efe6 12.5% 25%,#1f3d6b 25% 37.5%,#f4efe6 37.5% 50%,#b3262c 50% 62.5%,#f4efe6 62.5% 75%,#1f3d6b 75% 87.5%,#f4efe6 87.5%) 0 0/calc(var(--fw) * 8) calc(var(--fw) * 8);background-position:calc(var(--k) * var(--fw) * -1) 0}
-.p3-verre::after{content:"";position:absolute;inset:0;border-radius:3px;pointer-events:none;background:linear-gradient(90deg,rgba(10,10,12,.62),rgba(10,10,12,0) 30%,rgba(255,255,255,.38) 40%,rgba(255,255,255,0) 52%,rgba(10,10,12,0) 68%,rgba(10,10,12,.7))}
-.p3-bague{position:absolute;left:-3px;right:-3px;top:0;height:5px;z-index:2;border-radius:3px;background:linear-gradient(90deg,#55595e,#f1f3f5 40%,#8a9097);box-shadow:0 1px 3px rgba(0,0,0,.5);transform:translate3d(0,calc(var(--prog,0) * (min(42vh,340px) - 5px)),0)}
-.p3-bulle{position:absolute;right:calc(100% + 10px);top:50%;padding:7px 11px;border-radius:99px;background:rgba(13,14,16,.88);color:var(--creme);font:600 12px/1 var(--f-texte);white-space:nowrap;opacity:0;transform:translate3d(6px,-50%,0);transition:opacity .2s var(--e-doux),transform .2s var(--e-sortie);pointer-events:none}
-@media (hover:hover) and (pointer:fine){.poteau3d:hover .p3-bulle{opacity:1;transform:translate3d(0,-50%,0)}}
-.poteau3d:active .p3-verre{transform:scale(.97)}
-@media (max-width:1360px){.poteau3d{--fw:6px;right:max(4px,env(safe-area-inset-right,0px))}}
-@media (max-width:899px){.poteau3d{--fw:2.9px;right:max(1px,env(safe-area-inset-right,0px));width:calc(var(--r) * 2 + 4px)}.p3-cap{width:calc(var(--r) * 2 + 4px)}.p3-verre{height:min(34vh,260px)}.p3-bague{transform:translate3d(0,calc(var(--prog,0) * (min(34vh,260px) - 5px)),0)}.p3-bulle{display:none}}
-@media (max-height:520px){.poteau3d{display:none}}
-
 /* ---------- Les grands titres basculent en 3D en entrant ---------- */
 .titre3d{transform-origin:50% 100%;transform:perspective(900px) rotateX(var(--tx,0deg));will-change:transform}
-@media (prefers-reduced-motion:reduce){.titre3d{transform:none!important}.p3-cap--haut::after{animation:none}}
+@media (prefers-reduced-motion:reduce){.titre3d{transform:none!important}}
 /* un élément vivant par section, à voix basse (10k) */
 .ecran b::after{content:"";position:absolute;inset:-6px -10px;border-radius:8px;background:radial-gradient(closest-side,rgba(240,176,98,.22),transparent);animation:lueur 4.8s ease-in-out -1.3s infinite;pointer-events:none}
 @keyframes lueur{0%,100%{opacity:.35}50%{opacity:1}}
@@ -790,7 +770,6 @@ body.menu-ouvert .poteau3d{opacity:0;pointer-events:none}
 
 <a class="skip" href="#carte">Aller au contenu</a>
 <div class="ambiance" aria-hidden="true"></div>
-<button class="poteau3d" id="poteau3d" type="button" aria-label="Aller à la section suivante"><span class="p3-cap p3-cap--haut"></span><span class="p3-verre"><span class="p3-cyl" id="p3-cyl"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i></span><span class="p3-bague" id="p3-bague"></span><span class="p3-bulle" id="p3-bulle">Section suivante</span></span><span class="p3-cap"></span></button>
 <div class="prog" aria-hidden="true"></div>
 <header class="tete">
   <div class="wrap">
@@ -1515,36 +1494,6 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     fin.addEventListener('pointerleave', () => { fin.style.setProperty('--mx', 0); fin.style.setProperty('--my', 0); });
   }
 
-  /* G. Le poteau de barbier : tourne avec le défilement (plus vite si on défile vite), tourne doucement au repos,
-        la bague suit la progression, et un clic mène à la section suivante */
-  const p3 = $('poteau3d'), cyl = $('p3-cyl'), bague = $('p3-bague'), bulle = $('p3-bulle');
-  const SECS = ['carte', 'numero', 'equipe', 'avis', 'visite', 'rendez-vous'].map($).filter(Boolean);
-  const NOMS = { carte: 'La carte', numero: 'Ton numéro', equipe: "L'équipe", avis: 'Les avis', visite: 'Viens nous voir', 'rendez-vous': "Ta chaise t'attend" };
-  let spin = 0, vit = 0, yDer = scrollY, tP = 0, rafP = null, derSpin = '', derProg = '';
-  function suivante(){ const y = scrollY + 24; return SECS.find(sc => sc.offsetTop > y) || null; }
-  function poleTic(t){
-    rafP = null;
-    const dt = Math.min(64, t - (tP || t)); tP = t;
-    const dy = scrollY - yDer; yDer = scrollY;
-    vit += (dy * .55 - vit) * .2;
-    if (reduit) vit = 0;
-    spin += (reduit ? 0 : .02 * dt + vit);
-    const v = (spin % 360).toFixed(1); if (v !== derSpin) { derSpin = v; cyl.style.setProperty('--spin', v + 'deg'); }
-    const h = document.documentElement.scrollHeight - innerHeight, hero = document.querySelector('.hero');
-    const debut = hero ? hero.offsetTop + hero.offsetHeight - innerHeight : 0;
-    const on = scrollY > debut + innerHeight * .65; if (on !== document.body.classList.contains('p3-on')) document.body.classList.toggle('p3-on', on);
-    const pr = clamp((scrollY - debut) / Math.max(1, h - debut), 0, 1).toFixed(3); if (pr !== derProg) { derProg = pr; bague.style.setProperty('--prog', pr); }
-    if (document.body.classList.contains('p3-on') && !document.hidden && !reduit) rafP = requestAnimationFrame(poleTic);
-  }
-  const poleGo = () => { if (rafP === null && p3) rafP = requestAnimationFrame(poleTic); };
-  if (p3) {
-    p3.addEventListener('click', () => { const s = suivante(); vit += reduit ? 0 : 14; poleGo(); (s ? s : document.getElementById('top')).scrollIntoView({ behavior: reduit ? 'auto' : 'smooth' }); });
-    const majBulle = () => { const s = suivante(); const txt = s ? 'Suivant : ' + NOMS[s.id] : 'Retour en haut'; if (bulle.textContent !== txt) { bulle.textContent = txt; p3.setAttribute('aria-label', s ? 'Aller à : ' + NOMS[s.id] : 'Retour en haut de page'); } };
-    p3.addEventListener('pointerenter', majBulle); p3.addEventListener('focus', majBulle);
-    new MutationObserver(poleGo).observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    document.addEventListener('visibilitychange', poleGo);
-  }
-
   /* H. Les grands titres : couchés en arrivant, ils se redressent avec le défilement (et se recouchent si on remonte) */
   const titres = QA('.titre3d');
   function titresDefil(){
@@ -1555,7 +1504,7 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
 
   /* défilement : une seule écoute, écritures seulement si ça change */
   let tic = false;
-  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); poleGo(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
+  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
   addEventListener('resize', auDefil); auDefil();
 
