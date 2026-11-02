@@ -1598,9 +1598,50 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     relais.style.transformOrigin = '50% 50%';
   }
 
+  /* K. Les transitions 3D entre sections : un genre différent à chaque passage (cube, page, cube de côté, volet, plongée).
+        La section qui part et celle qui arrive sont liées ; à plat pendant la lecture, réversible en remontant. */
+  const TRANS = [
+    { a: 'carte', b: 'numero', genre: 'cube' },
+    { a: 'numero', b: 'equipe', genre: 'page' },
+    { a: 'equipe', b: 'avis', genre: 'cubeCote' },
+    { a: 'avis', b: 'visite', genre: 'volet' },
+    { a: 'visite', b: 'rendez-vous', genre: 'plongee' }
+  ];
+  const TELT = matchMedia('(max-width: 760px)');
+  const regle = (el, tf, or, op, z) => {
+    if (el._tf === tf && el._op === op) return; el._tf = tf; el._op = op;
+    el.style.transform = tf; el.style.transformOrigin = or; el.style.opacity = op; el.style.zIndex = z; el.style.borderRadius = tf ? '28px' : '';
+  };
+  function transDefil(){
+    const vh = innerHeight, amp = TELT.matches ? .6 : 1, etats = new Map();
+    TRANS.forEach(T => {
+      const A = $(T.a), B = $(T.b); if (!A || !B) return;
+      const k = reduit ? 0 : clamp((vh * .92 - B.getBoundingClientRect().top) / (vh * .72), 0, 1);
+      if (k <= 0 || k >= 1) return;
+      const e = k * k * (3 - 2 * k), u = 1 - e, P = 'perspective(1500px) ';
+      if (T.genre === 'cube') {
+        etats.set(A, [P + `rotateX(${(e * 52 * amp).toFixed(2)}deg)`, '50% 100%', '', '1']);
+        etats.set(B, [P + `rotateX(${(-u * 52 * amp).toFixed(2)}deg)`, '50% 0%', '', '2']);
+      } else if (T.genre === 'page') {
+        etats.set(A, [P + `rotateY(${(-e * 64 * amp).toFixed(2)}deg)`, '0% 100%', '', '3']);
+        etats.set(B, [P + `translate3d(0,0,${(-u * 320 * amp).toFixed(0)}px) rotateX(${(u * 10 * amp).toFixed(2)}deg)`, '50% 0%', '', '1']);
+      } else if (T.genre === 'cubeCote') {
+        etats.set(A, [P + `rotateY(${(e * 40 * amp).toFixed(2)}deg)`, '0% 100%', '', '1']);
+        etats.set(B, [P + `rotateY(${(-u * 40 * amp).toFixed(2)}deg)`, '100% 0%', '', '2']);
+      } else if (T.genre === 'volet') {
+        etats.set(A, [P + `rotateX(${(-e * 68 * amp).toFixed(2)}deg)`, '50% 0%', '', '3']);
+        etats.set(B, [P + `rotateX(${(u * 24 * amp).toFixed(2)}deg) translate3d(0,0,${(-u * 180 * amp).toFixed(0)}px)`, '50% 100%', '', '1']);
+      } else if (T.genre === 'plongee') {
+        etats.set(A, [P + `translate3d(0,0,${(e * 280 * amp).toFixed(0)}px)`, '50% 100%', (1 - e * .9).toFixed(3), '3']);
+        etats.set(B, [P + `translate3d(0,0,${(-u * 420 * amp).toFixed(0)}px)`, '50% 0%', '', '1']);
+      }
+    });
+    profs.forEach(el => { const st = etats.get(el); if (st) regle(el, st[0], st[1], st[2], st[3]); else regle(el, '', '', '', ''); });
+  }
+
   /* défilement : une seule écoute, écritures seulement si ça change */
   let tic = false;
-  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); profDefil(); relaisDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
+  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); profDefil(); transDefil(); relaisDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
   addEventListener('resize', auDefil); auDefil();
 
