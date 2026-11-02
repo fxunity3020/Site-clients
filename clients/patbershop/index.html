@@ -492,7 +492,8 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 
 /* ===== Outils de barbier en filigrane dans l'arrière-plan ===== */
 .deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.deco .d{position:absolute;transform:rotate(var(--r,0deg));color:var(--creme);opacity:.1}
+.deco .d{position:absolute;transform:rotate(var(--r,0deg));color:var(--creme);opacity:.1;translate:0 calc(var(--s,0) * var(--pv,-80px));rotate:calc(var(--s,0) * var(--pr,24deg));transition:translate .5s var(--e-sortie),rotate .5s var(--e-sortie)}
+.deco .d:nth-child(2){--pv:60px;--pr:-30deg}.deco .d:nth-child(3){--pv:-130px;--pr:18deg}
 .clair .deco .d,.clair-2 .deco .d{color:var(--encre);opacity:.09}
 .sec:has(> .deco) > :not(.deco){position:relative;z-index:1}
 @media (max-width:1100px){.deco .d{opacity:.16}.clair .deco .d,.clair-2 .deco .d{opacity:.13}}
@@ -549,7 +550,7 @@ body.apres-hero .ambiance{opacity:1}
 .ch.att>*{opacity:0;transform:translate3d(0,26px,0)}
 .ch.att.in>*{opacity:1;transform:none;transition:opacity .9s var(--e-sortie) calc(var(--i,0) * 90ms),transform .9s var(--e-sortie) calc(var(--i,0) * 90ms)}
 .ch.att.in.fini>*{transition-delay:0s!important}
-.mains.ch.att.in>.main{transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry))}
+.mains>.main,.mains.ch.att.in>.main{transform:perspective(1100px) translate3d(0,calc(var(--s,0) * (var(--i,2) - 2) * 16px),0) rotateX(var(--rx)) rotateY(calc(var(--ry) + var(--s,0) * (var(--i,2) - 2) * -8deg))}
 .mains.ch.att>.main{transform:perspective(1100px) translate3d(0,40px,0) rotateX(-18deg)}
 .mains.ch.att.in.fini>.main{transition:transform .7s var(--e-sortie)}
 .mains.ch.att.in.fini>.main.suit{transition:transform .12s linear}
@@ -580,7 +581,7 @@ body.apres-hero .ambiance{opacity:1}
 
 /* ---------- Les sections en profondeur : chacune arrive de l'arrière et recule quand on passe à la suivante ---------- */
 .prof{transform:perspective(1600px) translate3d(0,0,var(--z,0px)) rotateX(var(--a,0deg));transform-origin:50% var(--oy,50%);border-radius:var(--br,0px);backface-visibility:hidden}
-@media (prefers-reduced-motion:reduce){.prof{transform:none!important;border-radius:0!important}}
+@media (prefers-reduced-motion:reduce){.prof{transform:none!important;border-radius:0!important}.deco .d,.pile-zone,.avis-grille2 .note-bloc,.fin-grille .appel{translate:none!important;rotate:none!important}}
 
 /* ---------- Les grands titres basculent en 3D en entrant ---------- */
 .titre3d{transform-origin:50% 100%;transform:perspective(900px) rotateX(var(--tx,0deg));will-change:transform}
@@ -595,7 +596,7 @@ body.apres-hero .ambiance{opacity:1}
 .hors *,.hors::before,.hors::after,body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
 
 /* bascule 3D commune : suit la souris, ou le défilement sur écran tactile */
-.t3d{--rx:0deg;--ry:0deg;--gx:50%;--gy:30%;transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .7s var(--e-sortie);will-change:transform}
+.t3d{--rx:0deg;--ry:0deg;--gx:50%;--gy:30%;transform:perspective(1100px) rotateX(calc(var(--rx) + var(--s,0) * -3deg)) rotateY(calc(var(--ry) + var(--s,0) * 7deg));transform-style:preserve-3d;transition:transform .7s var(--e-sortie);will-change:transform}
 .t3d.suit{transition:transform .12s linear}
 .t3d.reflet::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(60% 50% at var(--gx) var(--gy),rgba(255,247,236,.16),transparent 70%);opacity:0;transition:opacity .4s var(--e-doux)}
 .t3d.reflet.suit::after{opacity:1}
@@ -693,7 +694,10 @@ body.apres-hero .ambiance{opacity:1}
 /* ---------- 4. Les avis : une pile de cartes ---------- */
 .avis-grille2{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,80px);align-items:center}
 .avis-grille2>*{min-width:0}
-.pile-zone{display:flex;flex-direction:column;align-items:center;gap:20px}
+.pile-zone{display:flex;flex-direction:column;align-items:center;gap:20px;rotate:y calc(var(--s,0) * -12deg);translate:0 calc(var(--s,0) * 14px);transition:rotate .5s var(--e-sortie),translate .5s var(--e-sortie)}
+.avis-grille2{perspective:1200px}
+.avis-grille2 .note-bloc{translate:0 calc(var(--s,0) * -28px);transition:translate .5s var(--e-sortie)}
+.fin-grille .appel{translate:0 calc(var(--s,0) * -20px)}
 .pile{position:relative;width:min(100%,460px);height:clamp(270px,30vw,320px);perspective:1200px;touch-action:pan-y}
 .pile .un-avis{position:absolute;inset:0;margin:0;cursor:grab;-webkit-user-select:none;user-select:none;transform-origin:50% 120%;transition:transform .55s var(--e-sortie),opacity .45s var(--e-doux);box-shadow:0 18px 34px -22px rgba(22,23,26,.55)}
 .pile .un-avis.tire{transition:none;cursor:grabbing}
@@ -713,7 +717,7 @@ body.apres-hero .ambiance{opacity:1}
 .fin-titre span:last-child{color:var(--ambre)}
 .fin-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 26px}
 .plan3d{perspective:1300px;perspective-origin:50% 0}
-.plan3d__table{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--filet-clair);background:#1b1d21;transform-origin:50% 100%;transform:rotateX(var(--px,0deg)) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));box-shadow:0 40px 60px -30px rgba(0,0,0,.85);transition:transform .12s linear}
+.plan3d__table{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--filet-clair);background:#1b1d21;transform-origin:50% 100%;transform:rotateX(var(--px,0deg)) rotateY(calc(var(--ry,0deg) + var(--s,0) * 8deg)) rotateX(var(--rx,0deg));box-shadow:0 40px 60px -30px rgba(0,0,0,.85);transition:transform .12s linear}
 .plan3d__table.repos{transition:transform .7s var(--e-sortie)}
 .plan3d .plan-svg{display:block;width:100%;height:auto}
 .plan3d__bas{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
@@ -971,6 +975,7 @@ body.apres-hero .ambiance{opacity:1}
 
 <!-- ============ 4. LES AVIS (3D : pile de cartes) ============ -->
 <section class="prof sec clair-2 vivant" id="avis" aria-labelledby="t-avis">
+  <div class="deco" aria-hidden="true"><svg class="d" style="width:380px;height:137px;left:-80px;bottom:10%;--r:-16deg"><use href="#d-rasoir"/></svg><svg class="d" style="width:240px;height:111px;right:38%;top:6%;--r:12deg"><use href="#d-ciseaux"/></svg></div>
   <div class="wrap">
     <div class="s-tete ch">
       <div><p class="kicker">Avis clients</p><h2 class="titre titre3d" id="t-avis"><span class="lh ajuste">897 avis.</span><span class="lh ajuste l2">Cinq</span><span class="lh ajuste l3">étoiles.</span></h2></div>
@@ -998,6 +1003,7 @@ body.apres-hero .ambiance{opacity:1}
 
 <!-- ============ 5. TA CHAISE T'ATTEND (3D : le plan posé sur la table) ============ -->
 <section class="prof sec visite-c vivant" id="visite" aria-labelledby="t-fin">
+  <div class="deco" aria-hidden="true"><svg class="d" style="width:360px;height:110px;left:-60px;top:12%;--r:24deg"><use href="#d-peigne"/></svg><svg class="d" style="width:110px;height:275px;right:3%;bottom:8%;--r:-14deg"><use href="#d-tondeuse"/></svg></div>
   <div class="wrap">
     <div class="fin-grille ch">
       <div>
@@ -1520,6 +1526,9 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
       const oy = Math.round(vh / 2 - r.top) + 'px', br = Math.round((entre + sort) * 32) + 'px';
       if (el._z !== z || el._a !== a) { el._z = z; el._a = a; el.style.setProperty('--z', z); el.style.setProperty('--a', a); el.style.setProperty('--br', br); }
       if (el._oy !== oy) { el._oy = oy; el.style.setProperty('--oy', oy); }
+      /* le mouvement continu : --s va de -1 (la section arrive) à 1 (elle part), et toute la section s'en sert */
+      const sv = reduit ? '0' : ((clamp((vh - r.top) / (vh + r.height), 0, 1) - .5) * 2).toFixed(3);
+      if (el._s !== sv) { el._s = sv; el.style.setProperty('--s', sv); }
     });
   }
 
