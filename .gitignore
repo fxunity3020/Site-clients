@@ -1,3 +1,7 @@
 .impeccable/review/
 .impeccable/config.local.json
 clients/line-fortier-barbier-review/
+clients/patbershop-review/*.mp4
+clients/patbershop-review/*.png
+clients/patbershop-review/cadres/
+clients/patbershop-review/*.webp

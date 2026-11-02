@@ -581,6 +581,44 @@ body.apres-hero .ambiance{opacity:1}
 .ench-cible.bouge{will-change:transform}
 @media (prefers-reduced-motion:reduce){.ench-cible{transform:none!important}}
 
+
+/* ---------- Les classiques : la tondeuse qui tourne (scrub 10k) ---------- */
+.tond{position:relative;height:580vh;background:#0e0d0c}
+.tond__scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.tond__affiche,.tond__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0e0d0c center/cover no-repeat}
+.tond__video{opacity:0;transition:opacity .5s var(--e-sortie);transform:translateZ(0)}
+.tond.pret .tond__video{opacity:1}
+.tond__lueur i{position:absolute;inset:0;opacity:0;mix-blend-mode:screen;transition:opacity .9s var(--e-doux);pointer-events:none}
+.tond__lueur i[data-c="0"]{background:radial-gradient(38% 52% at 50% 46%,rgba(240,176,98,.34),transparent 70%)}
+.tond__lueur i[data-c="1"]{background:radial-gradient(38% 52% at 50% 46%,rgba(214,72,48,.32),transparent 70%)}
+.tond__lueur i[data-c="2"]{background:radial-gradient(38% 52% at 50% 46%,rgba(70,120,210,.34),transparent 70%)}
+.tond__lueur i[data-c="3"]{background:radial-gradient(38% 52% at 50% 46%,rgba(236,228,211,.26),transparent 70%)}
+.tond__lueur i.on{opacity:1}
+.tond__voile{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 45%,rgba(10,10,12,0) 40%,rgba(10,10,12,.6) 100%)}
+.tband{position:absolute;top:50%;width:min(34vw,460px);opacity:0;transform:translateY(-50%);text-shadow:0 1px 2px rgba(5,5,10,.95),0 3px 12px rgba(5,5,10,.78),0 10px 44px rgba(5,5,10,.8);pointer-events:none}
+.tband.actif{pointer-events:auto}
+.tband--g{left:max(48px,6vw)}
+.tband--d{right:max(48px,6vw);text-align:right}
+.tband::before{content:"";position:absolute;inset:-30% -24%;z-index:-1;pointer-events:none;opacity:calc(.3 + .7 * var(--k,1));background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(5,5,10,.6) 0%,rgba(5,5,10,.4) 46%,rgba(5,5,10,0) 76%)}
+.tband__k{margin:0 0 14px;font:600 13px/1 var(--f-texte);letter-spacing:.24em;text-transform:uppercase;color:var(--ambre)}
+.tband__t{margin:0;font:900 clamp(52px,6.4vw,104px)/.88 var(--f-titre);text-transform:uppercase;letter-spacing:-.005em;color:var(--creme);text-wrap:balance}
+.tband__t .w{display:inline-block;--kc:clamp(0,(var(--k,0) - var(--th,0)) * 3,1);opacity:var(--kc);transform:translate3d(0,calc((1 - var(--kc)) * 26px),0)}
+.tband__s{margin:16px 0 0;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--creme);--ks:clamp(0,(var(--k,0) - .55) * 3,1);opacity:var(--ks)}
+.tband__b{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end;margin-top:22px;--kb:clamp(0,(var(--k,0) - .7) * 4,1);opacity:var(--kb)}
+.tband .btn{text-shadow:none}
+/* héros statique : téléphones, tablettes en portrait, mouvement réduit (les 5 portes du skill, identiques en JS) */
+@media (max-width:720px),(orientation:portrait) and (max-width:1024px),(orientation:portrait) and (pointer:coarse),(orientation:landscape) and (pointer:coarse) and (max-height:560px),(prefers-reduced-motion:reduce){
+  .tond{height:auto;padding-block:0 48px}
+  .tond__scene{position:relative;height:auto;overflow:visible;display:grid;gap:26px;padding:0 var(--gout-d) 0 var(--gout)}
+  .tond__affiche{position:relative;inset:auto;width:auto;height:auto;aspect-ratio:16/10;margin:0 calc(-1 * var(--gout-d)) 0 calc(-1 * var(--gout));background-size:cover}
+  .tond__video,.tond__lueur,.tond__voile{display:none}
+  .tband{position:relative;top:auto;left:auto;right:auto;width:auto;transform:none;opacity:1;text-align:left;pointer-events:auto;text-shadow:none}
+  .tband::before{display:none}
+  .tband__t{font-size:clamp(40px,11vw,64px)}
+  .tband__t .w,.tband__s,.tband__b{opacity:1;transform:none}
+  .tband__b{justify-content:flex-start}
+}
+
 /* un élément vivant par section, à voix basse (10k) */
 .ecran b::after{content:"";position:absolute;inset:-6px -10px;border-radius:8px;background:radial-gradient(closest-side,rgba(240,176,98,.22),transparent);animation:lueur 4.8s ease-in-out -1.3s infinite;pointer-events:none}
 @keyframes lueur{0%,100%{opacity:.35}50%{opacity:1}}
@@ -833,6 +871,36 @@ body.apres-hero .ambiance{opacity:1}
     </div>
   </div>
 </section>
+
+<!-- ============ LES CLASSIQUES : la tondeuse qui tourne au défilement (scrub 10k, niveau 1) ============ -->
+<section class="tond" id="classiques" aria-labelledby="t-classiques">
+  <div class="tond__scene" id="tond-scene">
+    <div class="tond__affiche" id="tond-affiche"></div>
+    <video class="tond__video" id="tond-video" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <div class="tond__lueur" aria-hidden="true"><i data-c="0"></i><i data-c="1"></i><i data-c="2"></i><i data-c="3"></i></div>
+    <div class="tond__voile" aria-hidden="true"></div>
+    <h2 class="sr" id="t-classiques">Les classiques de la maison</h2>
+    <div class="tband tband--g" data-band="0.00 0.25">
+      <p class="tband__k">Les classiques</p>
+      <p class="tband__t"><span class="w">Fade</span> <span class="w">Flash.</span></p>
+      <p class="tband__s">45 min. Le classique de la maison.</p>
+    </div>
+    <div class="tband tband--d" data-band="0.27 0.50">
+      <p class="tband__t"><span class="w">Barbe</span> <span class="w">en</span> <span class="w">Panique.</span></p>
+      <p class="tband__s">45 min. Le trime de barbe.</p>
+    </div>
+    <div class="tband tband--g" data-band="0.52 0.75">
+      <p class="tband__t"><span class="w">Full</span> <span class="w">set</span> <span class="w">de</span> <span class="w">la</span> <span class="w">face.</span></p>
+      <p class="tband__s">1 h 15. Coupe et barbe.</p>
+    </div>
+    <div class="tband tband--d tband--fin" data-band="0.77 1.00">
+      <p class="tband__t"><span class="w">Une</span> <span class="w">trentaine</span> <span class="w">de</span> <span class="w">services.</span></p>
+      <p class="tband__s">Coupes, barbes, rasages et massages, avec cinq barbiers.</p>
+      <div class="tband__b"><a class="btn" href="#carte">Voir toute la carte<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy</a></div>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -1612,6 +1680,69 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
 
   /* mouvement réduit, en direct dans les deux sens */
   RM.addEventListener('change', e => { reduit = e.matches; if (reduit) { QA('.ch').forEach(c => c.classList.add('in', 'fini')); window.__numeroFinir && window.__numeroFinir(); QA('.t3d').forEach(el => { el.classList.remove('suit'); el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); }); } auDefil(); annGo(); });
+})();
+</script>
+<script>
+/* ===== Les classiques : la tondeuse que le défilement fait tourner (standard 10k : Blob, lissage, seeks gardés) ===== */
+(() => {
+  const sec = document.getElementById('classiques'); if (!sec) return;
+  const scene = document.getElementById('tond-scene'), video = document.getElementById('tond-video'), affiche = document.getElementById('tond-affiche');
+  const bandes = [...sec.querySelectorAll('.tband')].map(el => { const [a, b] = el.dataset.band.split(' ').map(Number); return { el, a, b, op: -1, k: -1 }; });
+  const lueurs = [...sec.querySelectorAll('.tond__lueur i')];
+  const GATES = ['(max-width: 720px)', '(orientation: portrait) and (max-width: 1024px)', '(orientation: portrait) and (pointer: coarse)', '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)', '(prefers-reduced-motion: reduce)'];
+  const MQLS = GATES.map(q => matchMedia(q));
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v)), lisse = (p, a, b) => { const t = clamp((p - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  /* l'affiche est posée par le code, seulement là où elle sert */
+  affiche.style.backgroundImage = "url('img/tondeuse-affiche.webp')";
+  /* entrée par mots : seuil ordonné */
+  bandes.forEach(B => [...B.el.querySelectorAll('.w')].forEach((w, i, all) => w.style.setProperty('--th', (i / all.length * .32).toFixed(3))));
+
+  const prog = () => { const r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1); };
+  let cible = 0, montre = 0, raf = null, tDer = 0, vu = false, coul = -1;
+  let occupe = false, enAttente = null;
+  function chercher(t){ if (!video.duration) return; if (occupe) { enAttente = t; return; } occupe = true; video.currentTime = t; }
+  video.addEventListener('seeked', () => { occupe = false; if (enAttente !== null) { const t = enAttente; enAttente = null; chercher(t); } });
+  video.addEventListener('error', () => { occupe = false; enAttente = null; sec.classList.remove('pret'); });
+
+  function bandesMaj(p){
+    let c = 0;
+    bandes.forEach((B, n) => {
+      const f = Math.min(.05, (B.b - B.a) / 3);
+      const op = (n === 0 ? 1 : lisse(p, B.a, B.a + f)) * (n === bandes.length - 1 ? 1 : 1 - lisse(p, B.b - f, B.b));
+      const k = clamp((p - B.a) / Math.min(.06, (B.b - B.a) * .35), 0, 1);
+      const o = op.toFixed(3), kk = (n === 0 ? Math.max(k, 1) : k).toFixed(3);
+      if (o !== B.op) { B.op = o; B.el.style.opacity = o; B.el.classList.toggle('actif', op > .6); }
+      if (Math.abs(kk - B.k) > .008 || (kk == 1 && B.k != 1)) { B.k = kk; B.el.style.setProperty('--k', kk); }
+      if (p >= B.a) c = n;
+    });
+    if (c !== coul) { coul = c; lueurs.forEach((l, i) => l.classList.toggle('on', i === c)); }
+  }
+  function tic(now){
+    const dt = Math.min(100, now - (tDer || now)); tDer = now;
+    montre += (cible - montre) * (1 - Math.pow(1 - .16, dt / 16.667));
+    if (Math.abs(cible - montre) < .0005) { montre = cible; raf = null; tDer = 0; } else raf = requestAnimationFrame(tic);
+    if (video.duration) chercher(montre * (video.duration - .05));
+    bandesMaj(montre);
+  }
+  function auDefil(){ cible = prog(); if (raf === null && vu) raf = requestAnimationFrame(tic); }
+
+  let charge = false;
+  async function chargerVideo(){
+    if (charge) return; charge = true;
+    try {
+      const ctrl = new AbortController(), garde = setTimeout(() => ctrl.abort(), 20000);
+      const res = await fetch('img/tondeuse-scrub.mp4', { signal: ctrl.signal }); clearTimeout(garde);
+      if (!res.ok) throw new Error('vidéo absente');
+      video.src = URL.createObjectURL(await res.blob()); video.load();
+      video.addEventListener('loadeddata', () => { sec.classList.add('pret'); chercher(montre * (video.duration - .05)); }, { once: true });
+    } catch (e) { charge = false; sec.classList.remove('pret'); }
+  }
+  let actifScrub = false;
+  const io = new IntersectionObserver(es => { vu = es[0].isIntersecting; if (vu && actifScrub) { chargerVideo(); auDefil(); } }, { rootMargin: '100% 0px' });
+  function activer(){ if (actifScrub) return; actifScrub = true; addEventListener('scroll', auDefil, { passive: true }); bandes.forEach(B => { B.op = -1; B.k = -1; }); coul = -1; io.observe(sec); auDefil(); }
+  function desactiver(){ if (!actifScrub) return; actifScrub = false; removeEventListener('scroll', auDefil); io.unobserve(sec); if (raf !== null) { cancelAnimationFrame(raf); raf = null; } bandes.forEach(B => { B.el.style.opacity = ''; B.el.style.removeProperty('--k'); }); }
+  function mode(){ if (MQLS.some(m => m.matches)) desactiver(); else activer(); }
+  MQLS.forEach(m => m.addEventListener('change', mode)); mode();
 })();
 </script>
 <script>
