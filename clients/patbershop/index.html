@@ -580,8 +580,29 @@ body.apres-hero .ambiance{opacity:1}
 @media (prefers-reduced-motion:reduce){.poussieres{display:none}.poussieres i{animation:none!important}.final-fond,.final .profond{transform:none!important;transition:none}}
 
 /* ---------- Les sections en profondeur : chacune arrive de l'arrière et recule quand on passe à la suivante ---------- */
-.prof{transform:perspective(1600px) translate3d(0,0,var(--z,0px)) rotateX(var(--a,0deg));transform-origin:50% var(--oy,50%);border-radius:var(--br,0px);backface-visibility:hidden}
-@media (prefers-reduced-motion:reduce){.prof{transform:none!important;border-radius:0!important}.deco .d,.pile-zone,.avis-grille2 .note-bloc,.fin-grille .appel{translate:none!important;rotate:none!important}}
+@media (prefers-reduced-motion:reduce){.deco .d,.pile-zone,.avis-grille2 .note-bloc,.fin-grille .appel{translate:none!important;rotate:none!important}}
+
+
+/* ---------- Le relais : l'objet 3D d'une section s'envole et devient celui de la suivante ---------- */
+.relais{position:fixed;left:0;top:0;z-index:46;pointer-events:none;transform-style:preserve-3d;transform-origin:0 0;visibility:hidden;will-change:transform}
+.relais.vu{visibility:visible}
+.relais__f{position:absolute;inset:0;border-radius:12px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 30px 50px -24px rgba(0,0,0,.7)}
+.relais__f img{width:100%;height:100%;object-fit:cover;display:block;max-width:none}
+.relais__ar{transform:rotateY(180deg)}
+.relais.axe-x .relais__ar{transform:rotateX(180deg)}
+.rf-ticket{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#fbf7ee;color:var(--encre);font:500 11px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase}
+.rf-ticket b{font:900 clamp(56px,7vw,92px)/.85 var(--f-titre);letter-spacing:0;color:var(--encre)}
+.rf-pat{position:relative;height:100%}
+.rf-pat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,14,16,.95))}
+.rf-pat span{position:absolute;left:16px;bottom:16px;z-index:1;font:800 24px/1 var(--f-titre);text-transform:uppercase;color:var(--creme)}
+.rf-avis{height:100%;padding:22px;background:#fbf7ee;color:var(--encre);display:flex;flex-direction:column;gap:12px}
+.rf-avis i{font-style:normal;color:var(--ambre);letter-spacing:3px}
+.rf-avis p{margin:0;font-size:clamp(16px,1.5vw,20px);line-height:1.35}
+.rf-plan{height:100%;background:#1b1d21}
+.rf-plan svg{width:100%;height:100%;display:block}
+.rf-mur{height:100%;background:linear-gradient(180deg,rgba(13,14,16,.45),rgba(13,14,16,.7)),url("img/seq/f145.webp") center 40%/cover no-repeat}
+.relais-cache{opacity:0!important}
+@media (prefers-reduced-motion:reduce){.relais{display:none}.relais-cache{opacity:1!important}}
 
 /* ---------- Les grands titres basculent en 3D en entrant ---------- */
 .titre3d{transform-origin:50% 100%;transform:perspective(900px) rotateX(var(--tx,0deg));will-change:transform}
@@ -778,6 +799,7 @@ body.apres-hero .ambiance{opacity:1}
 
 <a class="skip" href="#carte">Aller au contenu</a>
 <div class="ambiance" aria-hidden="true"></div>
+<div class="relais" id="relais" aria-hidden="true"><div class="relais__f relais__av"></div><div class="relais__f relais__ar"></div></div>
 <div class="prog" aria-hidden="true"></div>
 <header class="tete">
   <div class="wrap">
@@ -1520,21 +1542,65 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     const vh = innerHeight, amp = TELP.matches ? .55 : 1;
     profs.forEach(el => {
       const r = el.getBoundingClientRect(); if (r.bottom < -vh * .2 || r.top > vh * 1.2) return;
-      const entre = reduit ? 0 : 1 - doux(clamp((vh - r.top) / (vh * .85), 0, 1));
-      const sort = reduit || el.id === 'rendez-vous' ? 0 : doux(clamp((vh * .35 - r.bottom) / (vh * .6), 0, 1));
-      const z = (-(entre * 300 + sort * 220) * amp).toFixed(1) + 'px', a = ((entre * 9 - sort * 7) * amp).toFixed(2) + 'deg';
-      const oy = Math.round(vh / 2 - r.top) + 'px', br = Math.round((entre + sort) * 32) + 'px';
-      if (el._z !== z || el._a !== a) { el._z = z; el._a = a; el.style.setProperty('--z', z); el.style.setProperty('--a', a); el.style.setProperty('--br', br); }
-      if (el._oy !== oy) { el._oy = oy; el.style.setProperty('--oy', oy); }
       /* le mouvement continu : --s va de -1 (la section arrive) à 1 (elle part), et toute la section s'en sert */
       const sv = reduit ? '0' : ((clamp((vh - r.top) / (vh + r.height), 0, 1) - .5) * 2).toFixed(3);
       if (el._s !== sv) { el._s = sv; el.style.setProperty('--s', sv); }
     });
   }
 
+  /* J. Le relais : pendant qu'une section entre, l'objet 3D de la précédente s'envole, se retourne
+        et atterrit à la place de l'objet de la suivante. Réversible : en remontant, il refait le chemin. */
+  const relais = $('relais'), rAv = relais.querySelector('.relais__av'), rAr = relais.querySelector('.relais__ar');
+  const devant = () => { if (!figs.length) return null; let best = figs[0], m = -2; figs.forEach((f, i) => { const c = Math.cos((i * 30 + rot) * Math.PI / 180); if (c > m) { m = c; best = f; } }); return best; };
+  const dessusPile = () => pile ? cartes[ordre[0]] : null;
+  const premiereMain = () => document.querySelector('.main');
+  const ecranFin = () => { const f = $('rendez-vous'); if (!f) return null; const r = f.getBoundingClientRect(); const t = Math.max(0, r.top), b2 = Math.min(innerHeight, r.bottom); return { el: f.querySelector('.final-fond'), r: { left: 0, top: t, width: innerWidth, height: Math.max(40, b2 - t) } }; };
+  const FACES = {
+    photo: () => { const f = devant(); return f ? `<img src="${f.querySelector('img').getAttribute('src')}" alt="">` : ''; },
+    ticket: () => `<div class="rf-ticket">Ton numéro<b>${$('t-num') ? $('t-num').textContent : '042'}</b>Patbershop</div>`,
+    pat: () => `<div class="rf-pat"><img src="img/equipe-pat.webp" alt="" style="object-position:62% 30%"><span>Pat Clermont</span></div>`,
+    avis: () => { const c = dessusPile(); const t = c ? c.querySelector('blockquote').textContent.trim() : ''; return `<div class="rf-avis"><i>★★★★★</i><p>${t.length > 120 ? t.slice(0, 118) + '…' : t}</p></div>`; },
+    plan: () => `<div class="rf-plan">${plan ? plan.innerHTML : ''}</div>`,
+    mur: () => '<div class="rf-mur"></div>'
+  };
+  const PASSAGES = [
+    { b: 'numero', de: () => devant(), vers: () => $('ticket'), fa: 'photo', fb: 'ticket', axe: 'y', tour: 1 },
+    { b: 'equipe', de: () => $('ticket'), vers: () => premiereMain(), fa: 'ticket', fb: 'pat', axe: 'x', tour: -1 },
+    { b: 'avis', de: () => premiereMain(), vers: () => dessusPile(), fa: 'pat', fb: 'avis', axe: 'y', tour: -1 },
+    { b: 'visite', de: () => dessusPile(), vers: () => plan, fa: 'avis', fb: 'plan', axe: 'x', tour: 1 },
+    { b: 'rendez-vous', de: () => plan, vers: () => ecranFin(), fa: 'plan', fb: 'mur', axe: 'y', tour: 1 }
+  ];
+  let actif = null, caches = [];
+  const montrer = () => { caches.forEach(e => e && e.classList.remove('relais-cache')); caches = []; };
+  function relaisDefil(){
+    if (!relais || reduit) { if (actif !== null) { actif = null; relais.classList.remove('vu'); montrer(); } return; }
+    const vh = innerHeight; let pass = null, t = 0;
+    for (const P of PASSAGES) { const sec = $(P.b); if (!sec) continue; const top = sec.getBoundingClientRect().top;
+      const k = clamp((vh * .92 - top) / (vh * .72), 0, 1); if (k > 0 && k < 1) { pass = P; t = k; break; } }
+    if (!pass) { if (actif !== null) { actif = null; relais.classList.remove('vu'); montrer(); } return; }
+    if (actif !== pass) {
+      const d0 = pass.de(), c0 = pass.vers(); if (!d0 || !c0) return;
+      montrer(); actif = pass; pass._de = d0; pass._v = c0.el || c0; rAv.innerHTML = FACES[pass.fa](); rAr.innerHTML = FACES[pass.fb]();
+      relais.classList.toggle('axe-x', pass.axe === 'x'); caches = [pass._de, pass._v]; caches.forEach(e => e.classList.add('relais-cache')); relais.classList.add('vu');
+    }
+    const deEl = pass._de, cible = pass.b === 'rendez-vous' ? ecranFin() : pass._v;
+    const r1 = deEl.getBoundingClientRect(), r2 = cible.r || cible.getBoundingClientRect();
+    const e = t * t * (3 - 2 * t), arc = Math.sin(Math.PI * e);
+    const W = r2.width, H = r2.height;
+    relais.style.width = W + 'px'; relais.style.height = H + 'px';
+    const lim = v => clamp(v, -vh * .25, vh * 1.25); /* le vol reste près de l'écran, même si l'arrivée est loin */
+    const y1 = lim(r1.top + r1.height / 2), y2 = lim(r2.top + r2.height / 2);
+    const cx = r1.left + r1.width / 2 + ((r2.left + r2.width / 2) - (r1.left + r1.width / 2)) * e, cy = y1 + (y2 - y1) * e;
+    const x = cx - W / 2, y = cy - H / 2 - arc * Math.min(140, vh * .14);
+    const sx = (r1.width + (r2.width - r1.width) * e) / W, sy = (r1.height + (r2.height - r1.height) * e) / H;
+    const flip = (e * 180 * pass.tour).toFixed(1), rz = (arc * 9 * pass.tour).toFixed(2), z = (arc * 160).toFixed(0);
+    relais.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${sx.toFixed(4)}, ${sy.toFixed(4)}) perspective(1200px) translateZ(${z}px) rotateZ(${rz}deg) ${pass.axe === 'x' ? 'rotateX' : 'rotateY'}(${flip}deg)`;
+    relais.style.transformOrigin = '50% 50%';
+  }
+
   /* défilement : une seule écoute, écritures seulement si ça change */
   let tic = false;
-  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); profDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
+  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); profDefil(); relaisDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
   addEventListener('resize', auDefil); auDefil();
 
