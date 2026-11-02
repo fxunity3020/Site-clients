@@ -536,101 +536,76 @@ dialog.politique::backdrop{background:rgba(0,0,0,.6)}
 .shop .shop-grille .commodites{margin-top:0;padding-top:0;border-top:0}
 @media (min-width:1200px){.tete .wrap{position:relative}.nav{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}.tete-actions{margin-left:auto}}
 
-/* ===================== 10K · la jasette (sous le héros) ===================== */
-:root{--e-sortie:cubic-bezier(.16,1,.3,1);--e-doux:cubic-bezier(.45,0,.2,1);--tshadow:0 1px 2px rgba(5,5,10,.95),0 3px 12px rgba(5,5,10,.78),0 10px 44px rgba(5,5,10,.8)}
+/* ===================== v2 · 5 sections, toutes en 3D (skill 10k) ===================== */
+:root{--e-sortie:cubic-bezier(.16,1,.3,1);--e-doux:cubic-bezier(.45,0,.2,1)}
 html{overflow-x:hidden;overflow-x:clip}
 .skip{position:fixed;left:max(12px,env(safe-area-inset-left,0px));top:calc(env(safe-area-inset-top,0px) + 10px);z-index:80;padding:13px 18px;border-radius:999px;background:var(--creme);color:var(--encre);font:600 14px/1 var(--f-texte);text-decoration:none;transform:translateY(-180%);transition:transform .35s var(--e-sortie)}
 .skip:focus{transform:none}
 @media (pointer:coarse){.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
-
-/* l'environnement : une lueur d'ampoule qui dérive derrière la page, seulement après le héros */
-.ambiance{position:fixed;inset:-25%;z-index:40;pointer-events:none;opacity:0;transition:opacity 1.4s var(--e-doux);background:radial-gradient(26% 20% at 28% 38%,rgba(240,176,98,.055),transparent 70%),radial-gradient(22% 18% at 74% 64%,rgba(181,96,42,.05),transparent 70%);animation:derive 72s var(--e-doux) -18s infinite alternate}
+.ambiance{position:fixed;inset:-25%;z-index:40;pointer-events:none;opacity:0;transition:opacity 1.4s var(--e-doux);background:radial-gradient(26% 20% at 28% 38%,rgba(240,176,98,.05),transparent 70%),radial-gradient(22% 18% at 74% 64%,rgba(181,96,42,.045),transparent 70%);animation:derive 72s var(--e-doux) -18s infinite alternate}
 body.apres-hero .ambiance{opacity:1}
 @keyframes derive{0%{transform:translate3d(-4%,-3%,0)}50%{transform:translate3d(3%,2%,0)}100%{transform:translate3d(-2%,4%,0)}}
+.hors *,.hors::before,.hors::after,body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
 
-/* entrées chorégraphiées : les enfants arrivent un après l'autre, puis les délais sont retirés */
-.ch.att>*{opacity:0;transform:translate3d(0,26px,0)}
-.ch.att.in>*{opacity:1;transform:none;transition:opacity .9s var(--e-sortie) calc(var(--i,0) * 90ms),transform .9s var(--e-sortie) calc(var(--i,0) * 90ms)}
-.ch.att.in.fini>*{transition-delay:0s!important}
+/* bascule 3D commune : suit la souris, ou le défilement sur écran tactile */
+.t3d{--rx:0deg;--ry:0deg;--gx:50%;--gy:30%;transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .7s var(--e-sortie);will-change:transform}
+.t3d.suit{transition:transform .12s linear}
+.t3d.reflet::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(60% 50% at var(--gx) var(--gy),rgba(255,247,236,.16),transparent 70%);opacity:0;transition:opacity .4s var(--e-doux)}
+.t3d.reflet.suit::after{opacity:1}
 
-/* signature : la rayure du poteau tourne avec le défilement */
-.poteau{position:relative;overflow:hidden;background:#0d0e10;padding-block:24px}
-.poteau::before,.poteau::after,.couture{content:"";position:absolute;left:0;right:0;height:7px;background:repeating-linear-gradient(-45deg,var(--cognac) 0 12px,var(--creme) 12px 24px,#1f3d6b 24px 36px,var(--creme) 36px 48px);background-position:calc(var(--pole,0) * 1px) 0}
-.poteau::before{top:0}
-.poteau::after{bottom:0;background-position:calc(var(--pole,0) * -1px) 0}
-.couture{top:0;z-index:2}
-.poteau-piste{display:flex;width:max-content;transform:translate3d(calc(var(--file,0) * -1px),0,0);will-change:transform}
-.poteau-piste span{display:flex;align-items:center;gap:clamp(18px,2.4vw,34px);padding-right:clamp(18px,2.4vw,34px);white-space:nowrap;font:900 clamp(30px,4.4vw,58px)/1 var(--f-titre);text-transform:uppercase;letter-spacing:.01em;color:var(--creme)}
-.poteau-piste span:nth-child(even) b{color:transparent;-webkit-text-stroke:1.5px var(--creme)}
-.poteau-piste i{width:12px;height:12px;flex:none;border-radius:50%;background:var(--ambre);box-shadow:0 0 16px rgba(240,176,98,.6)}
+/* ---------- 1. La carte : l'enseigne et l'anneau des réalisations ---------- */
+#carte .enseigne{margin-top:8px}
+.anneau-tete{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:clamp(48px,6vw,72px) 0 8px}
+.anneau-tete h3{margin:0;font:800 26px/1 var(--f-titre);text-transform:uppercase}
+.anneau-tete p{margin:0;color:var(--gris);font-size:15px}
+.anneau{--w:clamp(150px,17vw,230px);--r:calc(var(--w) * 1.94);position:relative;height:calc(var(--w) * 1.62);perspective:1500px;perspective-origin:50% 40%;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none;margin-top:clamp(28px,4vw,48px)}
+.anneau.tire{cursor:grabbing}
+.anneau__pivot{position:absolute;left:50%;top:0;width:var(--w);height:100%;margin-left:calc(var(--w) / -2);transform-style:preserve-3d;transform:translateZ(calc(var(--r) * -1)) rotateY(var(--rot,0deg))}
+.anneau figure{position:absolute;inset:0;margin:0;border-radius:10px;overflow:hidden;background:#16171a;transform:rotateY(calc(var(--i) * 30deg)) translateZ(var(--r));box-shadow:0 18px 34px -18px rgba(0,0,0,.6);backface-visibility:hidden}
+.anneau figure img{width:100%;height:100%;object-fit:cover;max-width:none;display:block;pointer-events:none}
+.anneau figcaption{position:absolute;left:10px;bottom:10px;padding:5px 10px;border-radius:99px;background:rgba(13,14,16,.74);color:#f3ede2;font:500 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.anneau-nav{display:flex;justify-content:center;gap:12px;margin-top:22px}
+.anneau-nav button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(22,23,26,.3);background:transparent;color:var(--encre);display:grid;place-items:center;cursor:pointer;transition:background .16s,color .16s,transform .16s var(--e-sortie)}
+.anneau-nav button:hover{background:var(--encre);color:var(--creme)}
+.anneau-nav button:active{transform:scale(.95)}
+.anneau-nav svg{width:18px;height:18px}
 
-/* ---------- 1. La jasette ---------- */
-.jasette{background:radial-gradient(90% 70% at 12% 0%,rgba(240,176,98,.12),transparent 60%),var(--bois)}
-.jas-grille{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(36px,6vw,96px);align-items:center}
-.jas-grille>*{min-width:0}
-.jasette .kicker{gap:12px}
-.ampoule{position:relative;width:12px;height:12px;border-radius:50%;background:var(--ambre)}
-.ampoule::after{content:"";position:absolute;inset:-9px;border-radius:50%;background:radial-gradient(circle,rgba(240,176,98,.55),transparent 70%);animation:lueur 5.2s ease-in-out -2.1s infinite}
-@keyframes lueur{0%,100%{opacity:.35}50%{opacity:1}}
-.jasette .kicker::before{display:none}
-.jas-titre{margin:0;font-family:var(--f-titre);font-weight:900;text-transform:uppercase;line-height:.88;font-size:clamp(52px,7.4vw,112px);letter-spacing:-.005em}
-.jas-titre span{display:block}
-.jas-titre span:nth-child(2){color:transparent;-webkit-text-stroke:2px var(--creme)}
-.jas-titre span:nth-child(3){color:var(--ambre)}
-.jas-lede{margin:28px 0 0;font-size:clamp(18px,1.6vw,21px);line-height:1.55;color:var(--chrome);max-width:44ch}
-.jas-devise{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--filet-clair);max-width:40ch;font:400 clamp(19px,1.7vw,23px)/1.25 var(--f-enseigne);color:var(--creme)}
-.jas-devise em{font-style:normal;color:var(--ambre)}
-.jas-devise small{display:block;margin-top:10px;font:500 12px/1.3 var(--f-mono);letter-spacing:.06em;color:var(--chrome)}
-.miroir{display:grid;gap:18px}
-.note{position:relative;margin:0;padding:22px 24px 18px;border-radius:4px;background:#f6efe0;color:var(--encre);box-shadow:0 20px 34px -22px rgba(0,0,0,.8);rotate:var(--rot,0deg)}
-.note:nth-child(1){--rot:-1.6deg;margin-right:12%}
-.note:nth-child(2){--rot:1.3deg;margin-left:14%}
-.note:nth-child(3){--rot:-.7deg;margin-right:5%}
-.note::before{content:"";position:absolute;top:-9px;left:50%;width:58px;height:17px;translate:-50% 0;rotate:-3deg;background:rgba(240,176,98,.6);box-shadow:0 1px 2px rgba(0,0,0,.15)}
-.note blockquote{margin:0;font:400 clamp(21px,2vw,26px)/1.22 var(--f-enseigne)}
-.note figcaption{margin-top:12px;display:flex;align-items:baseline;gap:8px;font:500 12px/1.3 var(--f-mono);letter-spacing:.06em;color:var(--gris)}
-.note figcaption .etoiles{gap:2px;color:var(--cognac)}
-.note figcaption .etoiles svg{width:12px;height:12px}
-@media (max-width:860px){.jas-grille{grid-template-columns:1fr}.note:nth-child(n){margin-inline:0}}
-
-/* ---------- 4. Prends un numéro (le moment interactif) ---------- */
+/* ---------- 2. Prends un numéro : le distributeur en 3D ---------- */
 .numero{background:radial-gradient(70% 60% at 88% 18%,rgba(181,96,42,.2),transparent 62%),var(--ardoise)}
 .num-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,5vw,88px);align-items:start}
 .num-grille>*{min-width:0}
-.q{border:0;margin:0;padding:0 0 26px;min-width:0}
-.q+.q{padding-top:26px;border-top:1px dashed var(--filet-clair)}
+.q{border:0;margin:0;padding:0 0 24px;min-width:0}
+.q+.q{padding-top:24px;border-top:1px dashed var(--filet-clair)}
 .q legend{float:left;width:100%;display:flex;align-items:baseline;gap:14px;margin:0 0 16px;padding:0;font:800 clamp(24px,2.4vw,32px)/1.05 var(--f-titre);text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
 .q legend span{flex:none;font:500 12px/1 var(--f-mono);letter-spacing:.14em;color:var(--ambre)}
-.choix{clear:both;display:flex;flex-wrap:wrap;gap:8px}
+.choix{clear:both;display:flex;flex-wrap:wrap;gap:8px;perspective:600px}
 .choix input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
-.choix label{display:inline-flex;align-items:baseline;gap:8px;padding:12px 17px;border-radius:999px;border:1px solid rgba(236,228,211,.3);background:rgba(0,0,0,.2);font:600 15px/1 var(--f-texte);color:var(--chrome);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .3s var(--e-sortie),color .25s var(--e-doux),border-color .25s var(--e-doux),transform .3s var(--e-sortie)}
+.choix label{display:inline-flex;align-items:baseline;gap:8px;padding:12px 17px;border-radius:999px;border:1px solid rgba(236,228,211,.3);background:rgba(0,0,0,.2);font:600 15px/1 var(--f-texte);color:var(--chrome);cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 0 0 rgba(0,0,0,0);transition:background .25s var(--e-sortie),color .2s,border-color .2s,transform .3s var(--e-sortie),box-shadow .3s var(--e-sortie)}
 .choix label small{font:500 11.5px/1 var(--f-mono);letter-spacing:.04em;opacity:.75}
-.choix label:hover{border-color:rgba(240,176,98,.6);color:var(--creme)}
+@media (hover:hover) and (pointer:fine){.choix label:hover{border-color:rgba(240,176,98,.6);color:var(--creme);transform:translateY(-2px) rotateX(10deg)}}
 .choix label:active{transform:scale(.97)}
-.choix input:checked+label{background:var(--creme);border-color:var(--creme);color:var(--encre)}
+.choix input:checked+label{background:var(--creme);border-color:var(--creme);color:var(--encre);transform:translateY(-3px) rotateX(14deg);box-shadow:0 10px 16px -10px rgba(0,0,0,.8)}
 .choix input:focus-visible+label{outline:2px solid var(--ambre);outline-offset:3px}
-
-.distrib{position:sticky;top:calc(var(--hh) + 28px);display:flex;flex-direction:column;align-items:center}
+.distrib{position:sticky;top:calc(var(--hh) + 28px);display:flex;flex-direction:column;align-items:center;perspective:1000px}
 .machine{position:relative;z-index:1;width:min(100%,380px);padding:20px 20px 0;border-radius:30px 30px 16px 16px;background:linear-gradient(180deg,#c86c30 0%,#a9551f 55%,#8f4a1f 100%);box-shadow:inset 0 2px 0 rgba(255,247,236,.28),inset 0 -8px 0 rgba(0,0,0,.18),0 34px 60px -30px rgba(0,0,0,.85)}
-.machine::before{content:"";position:absolute;left:18px;right:18px;top:-9px;height:9px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#d9dde1,#9aa0a7)}
-.ecran{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#0d0e10;box-shadow:inset 0 3px 10px rgba(0,0,0,.85)}
+.machine::before{content:"";position:absolute;left:18px;right:18px;top:-9px;height:9px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#d9dde1,#9aa0a7);transform:translateZ(6px)}
+.ecran{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#0d0e10;box-shadow:inset 0 3px 10px rgba(0,0,0,.85);transform:translateZ(18px)}
 .ecran small{font:500 11px/1.25 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--chrome)}
 .ecran b{position:relative;font:900 46px/1 var(--f-titre);font-variant-numeric:tabular-nums;color:var(--ambre);text-shadow:0 0 18px rgba(240,176,98,.45)}
-.ecran b::after{content:"";position:absolute;inset:-6px -10px;border-radius:8px;background:radial-gradient(closest-side,rgba(240,176,98,.22),transparent);animation:lueur 4.8s ease-in-out -1.3s infinite;pointer-events:none}
-.machine-pied{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 14px}
-.machine-pied p{margin:0;font:400 22px/1 var(--f-enseigne);color:#fff7ec}
-.tenir{position:relative;overflow:hidden;flex:none;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:10px 16px 10px 10px;border:0;border-radius:999px;background:#0d0e10;color:var(--creme);font:600 13.5px/1 var(--f-texte);cursor:pointer;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;box-shadow:inset 0 -3px 0 rgba(255,255,255,.08);transition:transform .2s var(--e-sortie),color .25s var(--e-doux)}
+.machine-pied{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 14px;transform-style:preserve-3d}
+.machine-pied p{margin:0;font:400 22px/1 var(--f-enseigne);color:#fff7ec;transform:translateZ(10px)}
+.tenir{position:relative;overflow:hidden;flex:none;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:10px 16px 10px 10px;border:0;border-radius:999px;background:#0d0e10;color:var(--creme);font:600 13.5px/1 var(--f-texte);cursor:pointer;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;box-shadow:0 6px 0 #050506,0 12px 18px -8px rgba(0,0,0,.7);transform:translateZ(28px);transition:transform .12s var(--e-sortie),box-shadow .12s var(--e-sortie),color .2s}
 .tenir .jauge{position:absolute;inset:0;background:linear-gradient(90deg,rgba(181,96,42,.55),rgba(240,176,98,.45));transform-origin:0 50%;transform:scaleX(var(--p,0))}
 .tenir>span,.tenir>i{position:relative}
 .tenir i{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd29a,var(--ambre) 45%,#b5602a);box-shadow:0 0 12px rgba(240,176,98,.6)}
 .tenir:hover{color:var(--ambre)}
-.tenir.appuye{transform:translateY(2px)}
+.tenir.appuye{transform:translateZ(16px) translateY(5px);box-shadow:0 1px 0 #050506,0 4px 8px -6px rgba(0,0,0,.7)}
 .tenir.attend i{animation:appel 1.6s var(--e-doux) infinite}
 @keyframes appel{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 .fente{height:14px;margin:0 22px;border-radius:8px 8px 0 0;background:#0d0e10;box-shadow:inset 0 4px 6px rgba(0,0,0,.9)}
 .num-aide{margin:12px 0 0;min-height:2.6em;text-align:center;max-width:32ch;font:500 12.5px/1.35 var(--f-mono);color:var(--chrome)}
-.sortie{width:min(calc(100% - 70px),312px);overflow:hidden;padding:0 10px 30px;margin-top:-1px}
-.ticket{position:relative;padding:20px 20px 30px;background:#fbf7ee;color:var(--encre);text-align:center;box-shadow:0 22px 30px -20px rgba(0,0,0,.75);rotate:-1.2deg;transform:translate3d(0,calc((var(--p,1) - 1) * 104%),0);-webkit-mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x;mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x}
+.sortie{width:min(calc(100% - 70px),312px);overflow:hidden;padding:0 10px 30px;margin-top:-1px;perspective:700px}
+.ticket{position:relative;padding:20px 20px 30px;background:#fbf7ee;color:var(--encre);text-align:center;box-shadow:0 22px 30px -20px rgba(0,0,0,.75);transform-origin:50% 0;transform:translate3d(0,calc((var(--p,1) - 1) * 104%),0) rotateX(calc((1 - var(--p,1)) * 38deg)) rotateZ(-1.2deg);-webkit-mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x;mask:radial-gradient(circle 7px at 9px 100%,transparent 96%,#000) 0 0/18px 100% repeat-x}
 .ticket .lum{opacity:.18;transition:opacity .5s var(--e-doux),transform .6s var(--e-sortie);transform:translate3d(0,6px,0)}
 .ticket.complet .lum{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 110ms)}
 .t-haut{display:flex;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1.5px dashed rgba(22,23,26,.3);font:500 10.5px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
@@ -639,58 +614,77 @@ body.apres-hero .ambiance{opacity:1}
 .t-svc{margin:16px 0 6px;padding-top:14px;border-top:1.5px dashed rgba(22,23,26,.3);font:400 clamp(22px,2.2vw,26px)/1.1 var(--f-enseigne);text-wrap:balance}
 .t-avec{margin:0;font:500 13px/1.4 var(--f-mono);color:var(--gris)}
 .t-note{margin:12px 0 0;padding:9px 11px;border-radius:6px;background:rgba(181,96,42,.1);font-size:13.5px;line-height:1.4;color:#5a3418}
-.ticket .btn{margin-top:18px;width:100%;justify-content:center}
+.ticket .btn{margin-top:18px;width:100%;justify-content:center;--bg:var(--cognac-f)}
 .t-pied{margin:12px 0 0;font:500 10.5px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
 @media (max-width:900px){.num-grille{grid-template-columns:1fr}.distrib{position:static}}
 
-/* ---------- 5. Trois temps, une chaise ---------- */
-.etapes-s{background:var(--charbon);overflow:hidden}
-.e-tete{text-align:center;max-width:780px;margin:0 auto clamp(44px,5vw,68px)}
-.e-tete .kicker{justify-content:center}
-.e-tete h2{margin:0;font:400 clamp(40px,5.4vw,74px)/1.02 var(--f-enseigne);color:var(--creme);text-wrap:balance}
-.e-tete p{margin:18px auto 0;max-width:46ch;color:var(--chrome);font-size:clamp(17px,1.4vw,19px)}
-.e-corps{position:relative;--gap:clamp(20px,3vw,44px)}
-.e-liste{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
-.e-fil{position:absolute;left:28px;top:8px;width:calc((100% + var(--gap)) * 2 / 3);height:40px;overflow:visible;pointer-events:none}
-.e-fil path{fill:none;stroke:var(--ambre);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--t,0))}
-.e-pas{position:relative;display:flex;flex-direction:column;gap:14px;min-width:0}
-.e-num{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--charbon);border:2px solid var(--ambre);font:800 24px/1 var(--f-titre);color:var(--ambre);font-variant-numeric:tabular-nums}
-.e-photo{margin:4px 0 0;aspect-ratio:4/5;max-width:100%;border-radius:12px;overflow:hidden;background:#1b1d21;box-shadow:0 26px 50px -30px rgba(0,0,0,.9)}
-.e-photo img{width:100%;height:100%;object-fit:cover;display:block;max-width:none}
-.e-pas h3{margin:8px 0 0;font:800 clamp(28px,2.6vw,36px)/1 var(--f-titre);text-transform:uppercase;letter-spacing:.01em}
-.e-pas p{margin:0;color:var(--chrome);max-width:34ch}
-@media (max-width:860px){.e-liste{grid-template-columns:1fr;gap:48px}.e-fil{display:none}.e-photo{aspect-ratio:4/3}}
+/* ---------- 3. L'équipe : des cartes qui se retournent ---------- */
+.mains{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.main{position:relative;aspect-ratio:3/4;max-width:100%;border-radius:14px}
+.main__in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s var(--e-sortie)}
+.main.retourne .main__in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:14px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#1b1d21;border:1px solid var(--filet-clair)}
+.face--av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.face--av::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,14,16,0) 35%,rgba(13,14,16,.75) 62%,rgba(13,14,16,.97) 100%)}
+.face__info{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:18px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.face h3{margin:0;font:800 clamp(22px,1.9vw,28px)/1 var(--f-titre);text-transform:uppercase;letter-spacing:.02em;color:var(--creme)}
+.face__role{margin:0;font-size:14px;color:var(--chrome)}
+.retourner{margin-top:10px;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid rgba(240,176,98,.5);background:rgba(13,14,16,.5);color:var(--creme);font:600 13px/1 var(--f-texte);cursor:pointer;transition:border-color .16s,background .16s,transform .16s var(--e-sortie)}
+.retourner:hover{border-color:var(--ambre);background:rgba(240,176,98,.14)}
+.retourner:active{transform:scale(.97)}
+.retourner svg{width:14px;height:14px;color:var(--ambre)}
+.face--ar{transform:rotateY(180deg);display:flex;flex-direction:column;padding:18px;background:linear-gradient(180deg,#22252a,#16171a)}
+.face--ar h3{font-size:22px}
+.face--ar ul{list-style:none;margin:10px 0;padding:0;overflow-y:auto;overscroll-behavior:contain;flex:1;scrollbar-width:thin;scrollbar-color:rgba(240,176,98,.4) transparent}
+.face--ar li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid rgba(236,228,211,.1);font-size:13px;line-height:1.3;color:var(--creme)}
+.face--ar li em{font:500 11.5px/1.3 var(--f-mono);font-style:normal;color:var(--chrome);white-space:nowrap}
+.face--ar .btn{justify-content:center;padding:.8em 1em;font-size:13.5px}
+.face--ar .retourner{align-self:flex-start;margin-top:8px}
+.badge{position:absolute;top:12px;left:12px;z-index:2;padding:6px 10px;border-radius:99px;background:var(--ambre);color:#16171a;font:700 11px/1 var(--f-texte);letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:1100px){.mains{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(72vw,280px);overflow-x:auto;scroll-snap-type:x mandatory;padding:6px var(--gout-d) 14px var(--gout);margin-inline:calc(-1 * var(--gout)) calc(-1 * var(--gout-d));scroll-padding-inline:var(--gout);scrollbar-width:none}.mains::-webkit-scrollbar{display:none}.main{scroll-snap-align:start}}
 
-/* ---------- 7. Les vraies questions ---------- */
-.faq .rep strong{color:var(--encre)}
-.faq-grille{margin-inline:auto}
+/* ---------- 4. Les avis : une pile de cartes ---------- */
+.avis-grille2{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,80px);align-items:center}
+.avis-grille2>*{min-width:0}
+.pile-zone{display:flex;flex-direction:column;align-items:center;gap:20px}
+.pile{position:relative;width:min(100%,460px);height:clamp(270px,30vw,320px);perspective:1200px;touch-action:pan-y}
+.pile .un-avis{position:absolute;inset:0;margin:0;cursor:grab;-webkit-user-select:none;user-select:none;transform-origin:50% 120%;transition:transform .55s var(--e-sortie),opacity .45s var(--e-doux);box-shadow:0 18px 34px -22px rgba(22,23,26,.55)}
+.pile .un-avis.tire{transition:none;cursor:grabbing}
+.pile-nav{display:flex;align-items:center;gap:14px}
+.pile-nav button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(22,23,26,.3);background:transparent;color:var(--encre);font:600 14px/1 var(--f-texte);cursor:pointer;transition:background .16s,color .16s,transform .16s var(--e-sortie)}
+.pile-nav button:hover{background:var(--encre);color:var(--creme)}
+.pile-nav button:active{transform:scale(.97)}
+.pile-nav svg{width:16px;height:16px}
+.pile-nav span{font:500 13px/1 var(--f-mono);color:var(--gris);font-variant-numeric:tabular-nums}
+@media (max-width:980px){.avis-grille2{grid-template-columns:1fr}}
 
-/* ---------- 8. Ta chaise t'attend ---------- */
-.final{position:relative;overflow:hidden;display:grid;align-items:end;min-height:clamp(540px,82svh,860px);padding-block:clamp(70px,9vw,130px);background:#0d0e10;isolation:isolate}
-.final-fond{position:absolute;inset:0;z-index:-2;background:url("img/seq/f145.webp") center 40%/cover no-repeat}
-.final::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(13,14,16,.6) 0%,rgba(13,14,16,.35) 30%,rgba(13,14,16,.9) 80%,#0d0e10 100%),radial-gradient(ellipse 78% 66% at 50% 60%,rgba(5,5,10,.84) 0%,rgba(5,5,10,.66) 48%,transparent 80%)}
-.final .kicker{padding:9px 14px;border-radius:999px;background:rgba(8,8,15,.76);border:1px solid rgba(96,96,126,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.final .wrap{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
-.final .kicker{margin:0;justify-content:center}
-.final h2{margin:0;font:900 clamp(60px,11vw,168px)/.82 var(--f-titre);text-transform:uppercase;letter-spacing:-.01em;text-shadow:var(--tshadow)}
-.final h2 span{display:block}
-.final h2 span:last-child{color:var(--ambre)}
-.final p.sous{margin:0;max-width:44ch;font-size:clamp(17px,1.5vw,20px);color:var(--creme);text-shadow:var(--tshadow)}
-.final .boutons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.final .btn{text-shadow:none}
-.poussieres{position:absolute;inset:0;z-index:-1;pointer-events:none}
-.poussieres i{position:absolute;bottom:-10px;width:var(--s,3px);height:var(--s,3px);border-radius:50%;background:rgba(240,176,98,.7);box-shadow:0 0 8px rgba(240,176,98,.6);opacity:0;animation:monte var(--d,14s) linear var(--dl,-3s) infinite}
-@keyframes monte{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:.7}85%{opacity:.5}100%{transform:translate3d(var(--x,20px),-70vh,0);opacity:0}}
-
-/* pauses : hors écran et onglet caché */
-.hors *,.hors::before,.hors::after,body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+/* ---------- 5. Ta chaise t'attend : la fin et la visite ---------- */
+.fin-grille{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,72px);align-items:center}
+.fin-grille>*{min-width:0}
+.fin-titre{margin:0 0 18px;font:900 clamp(56px,8.5vw,128px)/.84 var(--f-titre);text-transform:uppercase;letter-spacing:-.01em}
+.fin-titre span{display:block}
+.fin-titre span:last-child{color:var(--ambre)}
+.fin-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 26px}
+.plan3d{perspective:1300px;perspective-origin:50% 0}
+.plan3d__table{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--filet-clair);background:#1b1d21;transform-origin:50% 100%;transform:rotateX(var(--px,0deg)) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));box-shadow:0 40px 60px -30px rgba(0,0,0,.85);transition:transform .12s linear}
+.plan3d__table.repos{transition:transform .7s var(--e-sortie)}
+.plan3d .plan-svg{display:block;width:100%;height:auto}
+.plan3d__bas{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.fin-pied{margin-top:clamp(48px,6vw,72px);padding-top:22px;border-top:1px solid var(--filet-clair);display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;font-size:14px;color:var(--chrome)}
+.fin-pied img{width:120px;height:auto}
+.fin-pied button{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;min-height:32px}
+.fin-pied a{color:inherit}
+@media (max-width:900px){.fin-grille{grid-template-columns:1fr}}
+@media (max-width:760px){.visite-c .pied-pad{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 
 @media (prefers-reduced-motion:reduce){
-  .ambiance,.ampoule::after,.ecran b::after,.tenir.attend i,.poussieres i{animation:none!important}
-  .ch.att>*,.ch.att.in>*{opacity:1;transform:none;transition:none}
-  .ticket,.ticket .lum,.choix label,.tenir,.skip{transition:none!important}
-  .e-fil{--t:1!important}
-  .poussieres{display:none}
+  .ambiance,.tenir.attend i{animation:none!important}
+  .t3d,.t3d.suit,.main__in,.pile .un-avis,.plan3d__table,.choix label,.ticket .lum{transition:none!important}
+  .t3d{transform:none!important}
+  .anneau{height:auto;perspective:none;cursor:auto}
+  .anneau__pivot{position:static;width:auto;margin:0;transform:none!important;display:grid;grid-auto-flow:column;grid-auto-columns:var(--w);gap:12px;overflow-x:auto;padding-bottom:8px}
+  .anneau figure{position:relative;inset:auto;aspect-ratio:3/4;transform:none!important;opacity:1!important}
+  .plan3d__table{transform:none!important}
 }
 </style>
 
@@ -730,7 +724,7 @@ body.apres-hero .ambiance{opacity:1}
   </defs>
 </svg>
 
-<a class="skip" href="#le-shop">Aller au contenu</a>
+<a class="skip" href="#carte">Aller au contenu</a>
 <div class="ambiance" aria-hidden="true"></div>
 <div class="prog" aria-hidden="true"></div>
 <header class="tete">
@@ -738,9 +732,9 @@ body.apres-hero .ambiance{opacity:1}
     <a class="ecusson" href="#top" aria-label="Patbershop, retour en haut"><img src="img/logo-patbershop.webp" alt="" width="1108" height="520"></a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#carte">La carte</a>
+      <a href="#numero">Ton numéro</a>
       <a href="#equipe">L'équipe</a>
       <a href="#avis">Avis</a>
-      <a href="#le-shop">Le shop</a>
       <a href="#visite">Visite</a>
       <span class="nav-trait" aria-hidden="true"></span>
     </nav>
@@ -754,9 +748,9 @@ body.apres-hero .ambiance{opacity:1}
 <div class="menu-plein" id="menu-plein" aria-hidden="true">
   <nav class="mp-liens" aria-label="Menu">
     <a href="#carte" style="--i:0"><b>La carte</b><small>Coupes, barbes, soins</small></a>
-    <a href="#equipe" style="--i:1"><b>L'équipe</b><small>Pat et ses barbiers</small></a>
-    <a href="#avis" style="--i:2"><b>Avis</b><small>5,0 sur 897 avis</small></a>
-    <a href="#le-shop" style="--i:3"><b>Le shop</b><small>L'ambiance</small></a>
+    <a href="#numero" style="--i:1"><b>Ton numéro</b><small>Ta coupe en 3 questions</small></a>
+    <a href="#equipe" style="--i:2"><b>L'équipe</b><small>Pat et ses barbiers</small></a>
+    <a href="#avis" style="--i:3"><b>Avis</b><small>5,0 sur 897 avis</small></a>
     <a href="#visite" style="--i:4"><b>Visite</b><small>Plan et contact</small></a>
   </nav>
   <div class="mp-bas">
@@ -797,37 +791,12 @@ body.apres-hero .ambiance{opacity:1}
 </section>
 
 
-<!-- ============ 10K · 1. LA JASETTE ============ -->
-<section class="sec jasette vivant" id="le-shop" aria-labelledby="t-jasette">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:360px;height:110px;left:-60px;bottom:8%;--r:18deg"><use href="#d-peigne"/></svg><svg class="d" style="width:300px;height:108px;right:-50px;top:6%;--r:-24deg"><use href="#d-rasoir"/></svg></div>
-  <div class="wrap jas-grille">
-    <div class="ch">
-      <p class="kicker"><span class="ampoule" aria-hidden="true"></span>Coupe, barbe &amp; jasette</p>
-      <h2 class="jas-titre" id="t-jasette"><span>Tu parles.</span><span>On écoute.</span><span>Tu sors sharp.</span></h2>
-      <p class="jas-lede">Ta coupe commence par une jasette. Tu montres une photo, tu dis ce que tu veux et ce que tu ne veux pas. Ensuite seulement, la tondeuse part.</p>
-      <p class="jas-devise">« Enfin un vrai barber shop… sauf que maintenant on appelle ça un <em>PatBershop</em>. »<small>Tirée de la page Facebook du shop</small></p>
-    </div>
-    <div class="miroir ch" aria-label="Ce qu'en disent les clients sur Booksy">
-      <figure class="note"><blockquote>Très professionnel et minutieux.</blockquote><figcaption><span class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></span>Stephanie · avec Antoine</figcaption></figure>
-      <figure class="note"><blockquote>Toujours agréable et le service est impeccable.</blockquote><figcaption><span class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></span>Simon · avec Marylène</figcaption></figure>
-      <figure class="note"><blockquote>Top notch comme d'habitude!</blockquote><figcaption><span class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></span>Dominic · avec Antoine</figcaption></figure>
-    </div>
-  </div>
-</section>
 
-<!-- ============ 2. LA CARTE ============ -->
-<section class="sec clair" id="carte" aria-labelledby="t-carte">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:300px;height:140px;left:-70px;top:42%;--r:-28deg"><use href="#d-ciseaux"/></svg><svg class="d" style="width:340px;height:122px;right:-90px;top:30%;--r:22deg"><use href="#d-rasoir"/></svg><svg class="d" style="width:280px;height:86px;right:2%;bottom:6%;--r:-8deg"><use href="#d-peigne"/></svg></div>
+<!-- ============ 1. LA CARTE (3D : enseigne qui penche, anneau des réalisations) ============ -->
+<section class="sec clair vivant" id="carte" aria-labelledby="t-carte">
+  <div class="deco" aria-hidden="true"><svg class="d" style="width:300px;height:140px;left:-70px;top:42%;--r:-28deg"><use href="#d-ciseaux"/></svg><svg class="d" style="width:340px;height:122px;right:-90px;top:30%;--r:22deg"><use href="#d-rasoir"/></svg></div>
   <div class="wrap">
-    <div class="galerie-tete"><h3>Sortis de la chaise</h3><p>Fades, coupes et barbes du portfolio.</p></div>
-  </div>
-  <!-- Photos du portfolio Patbershop (à confirmer avec Pat : accord des clients) -->
-  <div class="defile defile--inverse" role="region" aria-label="Réalisations">
-    <div class="defile-piste"><figure class="real"><img src="img/real/01-fade-mi-haut.webp" alt="Fade mi-haut avec ligne au rasoir" width="586" height="720" loading="lazy" decoding="async"><figcaption>Fade</figcaption></figure><figure class="real"><img src="img/real/04-texture-blonde.webp" alt="Coupe texturée blonde avec dégradé" width="576" height="720" loading="lazy" decoding="async"><figcaption>Coupe</figcaption></figure><figure class="real"><img src="img/real/06-barbe-rousse.webp" alt="Grande barbe rousse taillée et coupe dégradée" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure><figure class="real"><img src="img/real/09-au-travail.webp" alt="Barbier au travail sur une barbe au Patbershop" width="540" height="720" loading="lazy" decoding="async"><figcaption>Au shop</figcaption></figure><figure class="real"><img src="img/real/10-pompadour-barbe.webp" alt="Pompadour dégradé et barbe sculptée" width="720" height="720" loading="lazy" decoding="async"><figcaption>Coupe et barbe</figcaption></figure><figure class="real"><img src="img/real/03-barbe-taillee.webp" alt="Barbe longue mise en forme et coupe coiffée" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure><figure class="real"><img src="img/real/08-rase-barbe.webp" alt="Crâne rasé et barbe longue entretenue" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/01-fade-mi-haut.webp" alt="" width="586" height="720" loading="lazy" decoding="async"><figcaption>Fade</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/04-texture-blonde.webp" alt="" width="576" height="720" loading="lazy" decoding="async"><figcaption>Coupe</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/06-barbe-rousse.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/09-au-travail.webp" alt="" width="540" height="720" loading="lazy" decoding="async"><figcaption>Au shop</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/10-pompadour-barbe.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Coupe et barbe</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/03-barbe-taillee.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/08-rase-barbe.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure></div>
-  </div>
-
-  <div class="wrap">
-    <article class="enseigne rv" aria-labelledby="t-carte">
+    <article class="enseigne t3d reflet" aria-labelledby="t-carte">
       <div class="o1-tete"><small>Patbershop · Barbier</small><h2 id="t-carte">La carte</h2><p>Prix et disponibilités sur Booksy</p></div>
       <div class="o1-grille">
         <div>
@@ -850,21 +819,13 @@ body.apres-hero .ambiance{opacity:1}
       <!-- À REMPLIR : prix de chaque service (remplacer « Booksy » par le prix) -->
       <div class="o1-pied"><p><span class="etoile-c">★</span> Les classiques · premier barbier libre<br>Une trentaine de services en tout</p><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a></div>
     </article>
+    <div class="anneau-tete"><h3>Sortis de la chaise</h3><p>Glisse pour faire tourner. Douze vraies coupes du shop.</p></div>
   </div>
-  <div class="wrap">
-    <div class="galerie-tete galerie-tete--bas"><h3>Avant / après</h3><p>Les grosses transformations, glisse pour voir.</p></div>
-  </div>
-  <div class="defile" role="region" aria-label="Transformations avant et après">
-    <div class="defile-piste"><figure class="real"><img src="img/real/02-transformation-barbe.webp" alt="Transformation : cheveux longs et barbe vers une coupe classique" width="720" height="720" loading="lazy" decoding="async"><figcaption>Transformation</figcaption></figure><figure class="real"><img src="img/real/05-transformation-cheveux-longs.webp" alt="Cheveux longs gris remis en forme, barbe taillée" width="720" height="720" loading="lazy" decoding="async"><figcaption>Transformation</figcaption></figure><figure class="real"><img src="img/real/07-coupe-ciseaux.webp" alt="Cheveux longs coupés aux ciseaux en coupe courte" width="680" height="680" loading="lazy" decoding="async"><figcaption>Avant / après</figcaption></figure><figure class="real"><img src="img/real/11-avant-apres-court.webp" alt="Cheveux longs bouclés coupés courts" width="720" height="720" loading="lazy" decoding="async"><figcaption>Avant / après</figcaption></figure><figure class="real"><img src="img/real/12-barbe-avant-apres.webp" alt="Barbe complète, avant et après" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/02-transformation-barbe.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Transformation</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/05-transformation-cheveux-longs.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Transformation</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/07-coupe-ciseaux.webp" alt="" width="680" height="680" loading="lazy" decoding="async"><figcaption>Avant / après</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/11-avant-apres-court.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Avant / après</figcaption></figure><figure class="real" aria-hidden="true"><img src="img/real/12-barbe-avant-apres.webp" alt="" width="720" height="720" loading="lazy" decoding="async"><figcaption>Barbe</figcaption></figure></div>
-  </div>
+  <div class="anneau" id="anneau" role="region" aria-roledescription="carrousel" aria-label="Réalisations du shop"><div class="anneau__pivot" id="anneau-pivot"><figure style="--i:0"><img src="img/real/01-fade-mi-haut.webp" alt="Fade mi-haut avec ligne au rasoir" width="586" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Fade</figcaption></figure><figure style="--i:1"><img src="img/real/04-texture-blonde.webp" alt="Coupe texturée blonde avec dégradé" width="576" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Coupe</figcaption></figure><figure style="--i:2"><img src="img/real/06-barbe-rousse.webp" alt="Grande barbe rousse taillée et coupe dégradée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure><figure style="--i:3"><img src="img/real/09-au-travail.webp" alt="Barbier au travail sur une barbe au Patbershop" width="540" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Au shop</figcaption></figure><figure style="--i:4"><img src="img/real/10-pompadour-barbe.webp" alt="Pompadour dégradé et barbe sculptée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Coupe et barbe</figcaption></figure><figure style="--i:5"><img src="img/real/03-barbe-taillee.webp" alt="Barbe longue mise en forme et coupe coiffée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure><figure style="--i:6"><img src="img/real/08-rase-barbe.webp" alt="Crâne rasé et barbe longue entretenue" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure><figure style="--i:7"><img src="img/real/02-transformation-barbe.webp" alt="Transformation : cheveux longs et barbe vers une coupe classique" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Transformation</figcaption></figure><figure style="--i:8"><img src="img/real/05-transformation-cheveux-longs.webp" alt="Cheveux longs gris remis en forme, barbe taillée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Transformation</figcaption></figure><figure style="--i:9"><img src="img/real/07-coupe-ciseaux.webp" alt="Cheveux longs coupés aux ciseaux en coupe courte" width="680" height="680" loading="lazy" decoding="async" draggable="false"><figcaption>Avant / après</figcaption></figure><figure style="--i:10"><img src="img/real/11-avant-apres-court.webp" alt="Cheveux longs bouclés coupés courts" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Avant / après</figcaption></figure><figure style="--i:11"><img src="img/real/12-barbe-avant-apres.webp" alt="Barbe complète, avant et après" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure></div></div>
+  <div class="anneau-nav"><button type="button" id="ann-prec" aria-label="Photo précédente"><svg style="transform:scaleX(-1)"><use href="#i-fleche"/></svg></button><button type="button" id="ann-suiv" aria-label="Photo suivante"><svg><use href="#i-fleche"/></svg></button></div>
 </section>
 
-<!-- ============ 10K · BANDE POTEAU (signature) ============ -->
-<div class="poteau" data-pole aria-hidden="true">
-  <div class="poteau-piste"><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span><span><b>Fade</b><i></i><b>Barbe</b><i></i><b>Jasette</b><i></i><b>7, rue du Marché</b><i></i><b>Sharp à l'os</b><i></i></span></div>
-</div>
-
-<!-- ============ 10K · 4. PRENDS UN NUMÉRO (moment interactif) ============ -->
+<!-- ============ 2. PRENDS UN NUMÉRO (3D : le distributeur et le billet qui se recourbe) ============ -->
 <section class="sec numero vivant" id="numero" aria-labelledby="t-numero">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:110px;height:275px;right:4%;bottom:6%;--r:12deg"><use href="#d-tondeuse"/></svg></div>
   <div class="wrap">
@@ -873,7 +834,7 @@ body.apres-hero .ambiance{opacity:1}
         <p class="kicker">Ta coupe en 3 questions</p>
         <h2 class="titre" id="t-numero"><span class="lh ajuste">Prends</span><span class="lh ajuste l2">un</span><span class="lh ajuste l3">numéro.</span></h2>
       </div>
-      <p class="chapeau">Réponds à trois questions, puis tiens le bouton du distributeur. Ton billet sort avec le service et le barbier qui te conviennent.</p>
+      <p class="chapeau">Chez Pat, on jase avant de couper. Réponds à trois questions, puis tiens le bouton du distributeur : ton billet sort avec le service et le barbier qui te conviennent.</p>
     </div>
     <div class="num-grille">
       <form id="f-numero" aria-label="Trouve ton service">
@@ -908,7 +869,7 @@ body.apres-hero .ambiance{opacity:1}
       </form>
 
       <div class="distrib">
-        <div class="machine">
+        <div class="machine t3d" id="machine">
           <div class="ecran"><small>On sert<br>le numéro</small><b id="ecran-num">042</b></div>
           <div class="machine-pied"><p>Patbershop</p><button class="tenir" type="button" id="tenir" aria-describedby="num-aide"><span class="jauge" aria-hidden="true"></span><i aria-hidden="true"></i><span>Tiens pour imprimer</span></button></div>
           <div class="fente" aria-hidden="true"></div>
@@ -930,127 +891,44 @@ body.apres-hero .ambiance{opacity:1}
   </div>
 </section>
 
-<!-- ============ 10K · 5. TROIS TEMPS, UNE CHAISE ============ -->
-<section class="sec etapes-s" id="etapes" aria-labelledby="t-etapes">
-  <div class="couture" data-pole aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="e-tete ch">
-      <p class="kicker">Comment ça se passe</p>
-      <h2 id="t-etapes">Trois temps, une chaise.</h2>
-      <p>Pas de surprise dans le miroir. Voici comment se passe une visite chez Pat.</p>
-    </div>
-    <div class="e-corps">
-    <svg class="e-fil" id="e-fil" viewBox="0 0 800 40" aria-hidden="true"><path pathLength="1" d="M0 20 C 112 6, 176 34, 288 20 S 464 6, 560 20 S 704 34, 800 20"/></svg>
-    <ol class="e-liste ch" id="e-liste">
-      <li class="e-pas"><span class="e-num" aria-hidden="true">1</span><figure class="e-photo"><img src="img/real/09-au-travail.webp" alt="Un barbier du Patbershop au travail sur une barbe" width="540" height="720" loading="lazy" decoding="async"></figure><h3>On jase</h3><p>Tu montres une photo ou tu décris ta coupe. Ton barbier te dit ce qui marche avec tes cheveux, et jusqu'où monte le dégradé.</p></li>
-      <li class="e-pas"><span class="e-num" aria-hidden="true">2</span><figure class="e-photo"><img src="img/real/01-fade-mi-haut.webp" alt="Dégradé mi-haut bien fondu avec une ligne au rasoir" width="586" height="720" loading="lazy" decoding="async"></figure><h3>On coupe</h3><p>Tondeuse, ciseaux, rasoir. On prend le temps de bien fondre le dégradé, sans ligne dure.</p></li>
-      <li class="e-pas"><span class="e-num" aria-hidden="true">3</span><figure class="e-photo"><img src="img/real/10-pompadour-barbe.webp" alt="Pompadour dégradé et barbe sculptée, résultat final" width="720" height="720" loading="lazy" decoding="async"></figure><h3>Tu repars sharp</h3><p>Coiffé, la barbe nette. Une coupe faite pour rester belle les semaines d'après.</p></li>
-    </ol>
-    </div>
-  </div>
-</section>
 
-<!-- ============ 3. L'ÉQUIPE ============ -->
+<!-- ============ 3. L'ÉQUIPE (3D : cartes qui se retournent) ============ -->
 <section class="sec" id="equipe" aria-labelledby="t-equipe">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:420px;height:194px;right:-80px;top:4%;--r:18deg"><use href="#d-ciseaux"/></svg><svg class="d" style="width:110px;height:275px;left:3%;bottom:4%;--r:-14deg"><use href="#d-tondeuse"/></svg></div>
+  <div class="deco" aria-hidden="true"><svg class="d" style="width:420px;height:194px;right:-80px;top:4%;--r:18deg"><use href="#d-ciseaux"/></svg></div>
   <div class="wrap">
     <div class="s-tete">
-      <div>
-        <p class="kicker">L'équipe</p>
-        <h2 class="titre" id="t-equipe"><span class="lh ajuste">Cinq</span><span class="lh ajuste l2">paires de</span><span class="lh ajuste l3">ciseaux.</span></h2>
-      </div>
-      <p class="chapeau">Un maître barbier et son équipe. Chaque barbier a son propre horaire sur Booksy : tu peux réserver avec ton préféré ou avec le premier libre.</p>
+      <div><p class="kicker">L'équipe</p><h2 class="titre" id="t-equipe"><span class="lh ajuste">Cinq</span><span class="lh ajuste l2">paires de</span><span class="lh ajuste l3">ciseaux.</span></h2></div>
+      <p class="chapeau">Retourne une carte pour voir les services de chaque barbier et réserver avec ton préféré. Ou prends le premier libre.</p>
     </div>
-    <div class="equipe">
-      <!-- Photos de l'équipe tirées de Booksy : confirmer l'accord de chacun avant la mise en ligne -->
-<!-- Services de chaque barbier tirés de Booksy (oct. 2026). Chaque service ouvre la page Booksy du barbier, où le service est listé avec son bouton Réserver -->
-      <article class="barbier vedette rv">
-        <span class="b-badge">Propriétaire</span>
-        <div class="b-photo"><img draggable="false" src="img/equipe-pat.webp" alt="Pat Clermont, maître barbier, en train de faire une coupe devant le shop" width="900" height="900" loading="lazy" style="object-position:62% 30%"></div>
-        <div class="b-info">
-          <h3>Pat Clermont</h3>
-          <p class="b-role">Maître barbier et styliste</p>
-          <details class="b-svc">
-            <summary><span class="ouvrir">Voir ses 9 services</span><span class="fermer">Fermer</span><i aria-hidden="true"></i></summary>
-            <p class="b-svc-aide">Touche un service pour le réserver avec Pat sur Booksy.</p>
-            <ul class="b-liste"><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Coupe de cheveux régulière</span><em>30 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Coupe aux ciseaux</span><em>45 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Trime de barbe</span><em>30 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Rasage complet</span><em>1 h</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Coupe régulière + taille de barbe</span><em>45 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Coupe femme</span><em>45 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>Coupe femme mi-long et long</span><em>1 h</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>2 coupes</span><em>1 h 15</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer"><span>3 coupes</span><em>1 h 45</em><svg><use href="#i-fleche"/></svg></a></li></ul>
-          </details>
-          <a class="b-resa" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer">Réserver avec Pat<svg><use href="#i-fleche"/></svg></a>
-        </div>
-      </article>
-      <article class="barbier rv">
-        
-        <div class="b-photo"><img draggable="false" src="img/equipe-marylene.webp" alt="Marylène, barbière chez Patbershop" width="700" height="700" loading="lazy" style="object-position:50% 35%"></div>
-        <div class="b-info">
-          <h3>Marylène</h3>
-          <p class="b-role">Barbière</p>
-          <details class="b-svc">
-            <summary><span class="ouvrir">Voir ses 12 services</span><span class="fermer">Fermer</span><i aria-hidden="true"></i></summary>
-            <p class="b-svc-aide">Touche un service pour le réserver avec Marylène sur Booksy.</p>
-            <ul class="b-liste"><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe ou rasage crânien</span><em>40 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe avec trime de barbe</span><em>1 h</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Trime de barbe</span><em>35 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Trime de barbe et massage facial</span><em>50 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Trime de barbe avec massage crânio-facial</span><em>50 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe ou rasage crânien et massage crânio-facial</span><em>1 h</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe, trime de barbe et massage crânio-facial</span><em>1 h 30</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Rasage crânien, trime de barbe et massage crânio-facial</span><em>1 h 30</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe et rasage ultime</span><em>1 h 30</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe, rasage ultime et massage crânio-facial</span><em>1 h 45</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>2 coupes</span><em>1 h 15</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer"><span>Coupe, trim de barbe + 1 enfant</span><em>1 h 30</em><svg><use href="#i-fleche"/></svg></a></li></ul>
-          </details>
-          <a class="b-resa" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer">Réserver avec Marylène<svg><use href="#i-fleche"/></svg></a>
-        </div>
-      </article>
-      <article class="barbier rv">
-        
-        <div class="b-photo"><img draggable="false" src="img/equipe-antoine.webp" alt="Antoine, barbier, en train de tailler une barbe" width="700" height="700" loading="lazy" style="object-position:40% 30%"></div>
-        <div class="b-info">
-          <h3>Antoine</h3>
-          <p class="b-role">Barbier</p>
-          <details class="b-svc">
-            <summary><span class="ouvrir">Voir ses 4 services</span><span class="fermer">Fermer</span><i aria-hidden="true"></i></summary>
-            <p class="b-svc-aide">Touche un service pour le réserver avec Antoine sur Booksy.</p>
-            <ul class="b-liste"><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/38149" target="_blank" rel="noopener noreferrer"><span>Coupe de cheveux homme</span><em>45 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/38149" target="_blank" rel="noopener noreferrer"><span>Coupe et trim de barbe</span><em>1 h 15</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/38149" target="_blank" rel="noopener noreferrer"><span>Trim de barbe</span><em>30 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/38149" target="_blank" rel="noopener noreferrer"><span>Coupe garçon (moins de 12 ans)</span><em>30 min</em><svg><use href="#i-fleche"/></svg></a></li></ul>
-          </details>
-          <a class="b-resa" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/38149" target="_blank" rel="noopener noreferrer">Réserver avec Antoine<svg><use href="#i-fleche"/></svg></a>
-        </div>
-      </article>
-      <article class="barbier rv">
-        
-        <div class="b-photo"><img draggable="false" src="img/equipe-melissa.webp" alt="Mélissa, barbière chez Patbershop" width="700" height="700" loading="lazy" style="object-position:55% 35%"></div>
-        <div class="b-info">
-          <h3>Mélissa</h3>
-          <p class="b-role">Barbière</p>
-          <details class="b-svc">
-            <summary><span class="ouvrir">Voir ses 3 services</span><span class="fermer">Fermer</span><i aria-hidden="true"></i></summary>
-            <p class="b-svc-aide">Touche un service pour le réserver avec Mélissa sur Booksy.</p>
-            <ul class="b-liste"><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/41081" target="_blank" rel="noopener noreferrer"><span>Coupe de cheveux</span><em>1 h</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/41081" target="_blank" rel="noopener noreferrer"><span>Trime de barbe</span><em>45 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/41081" target="_blank" rel="noopener noreferrer"><span>Coupe et barbe</span><em>1 h 30</em><svg><use href="#i-fleche"/></svg></a></li></ul>
-          </details>
-          <a class="b-resa" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/41081" target="_blank" rel="noopener noreferrer">Réserver avec Mélissa<svg><use href="#i-fleche"/></svg></a>
-        </div>
-      </article>
-      <article class="barbier rv">
-        
-        <div class="b-photo"><img draggable="false" src="img/equipe-mel.webp" alt="Mel, apprentie barbière chez Patbershop" width="700" height="700" loading="lazy" style="object-position:45% 30%"></div>
-        <div class="b-info">
-          <h3>Mel</h3>
-          <p class="b-role">Apprentie</p>
-          <details class="b-svc">
-            <summary><span class="ouvrir">Voir ses 3 services</span><span class="fermer">Fermer</span><i aria-hidden="true"></i></summary>
-            <p class="b-svc-aide">Touche un service pour le réserver avec Mel sur Booksy.</p>
-            <ul class="b-liste"><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/44619" target="_blank" rel="noopener noreferrer"><span>Coupe de cheveux</span><em>1 h</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/44619" target="_blank" rel="noopener noreferrer"><span>Trim de barbe</span><em>45 min</em><svg><use href="#i-fleche"/></svg></a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/44619" target="_blank" rel="noopener noreferrer"><span>Coupe et trim de barbe</span><em>1 h 30</em><svg><use href="#i-fleche"/></svg></a></li></ul>
-          </details>
-          <a class="b-resa" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/44619" target="_blank" rel="noopener noreferrer">Réserver avec Mel<svg><use href="#i-fleche"/></svg></a>
-        </div>
-      </article>
-    </div>
-    <div class="eq-nav" aria-label="Défiler l'équipe"><button class="prec" type="button" aria-label="Barbier précédent"><svg><use href="#i-fleche"/></svg></button><span class="eq-points" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><button class="suiv" type="button" aria-label="Barbier suivant"><svg><use href="#i-fleche"/></svg></button></div>
-    <div class="equipe-pied">
-      <a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Premier barbier libre<svg><use href="#i-fleche"/></svg></a>
-    </div>
+    <ul class="mains" aria-label="Les barbiers">
+      <li class="main t3d" data-flip><span class="badge">Propriétaire</span><div class="main__in">
+          <div class="face face--av"><img src="img/equipe-pat.webp" alt="Pat Clermont, maître barbier, en train de faire une coupe devant le shop" width="900" height="900" loading="lazy" style="object-position:62% 30%" draggable="false"><div class="face__info"><h3>Pat Clermont</h3><p class="face__role">Maître barbier et styliste</p><button class="retourner" type="button" aria-expanded="false">Voir ses 9 services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+          <div class="face face--ar" inert><h3>Pat</h3><ul aria-label="Services de Pat"><li><span>Coupe de cheveux régulière</span><em>30 min</em></li><li><span>Coupe aux ciseaux</span><em>45 min</em></li><li><span>Trime de barbe</span><em>30 min</em></li><li><span>Rasage complet</span><em>1 h</em></li><li><span>Coupe régulière + taille de barbe</span><em>45 min</em></li><li><span>Coupe femme</span><em>45 min</em></li><li><span>Coupe femme mi-long et long</span><em>1 h</em></li><li><span>2 coupes</span><em>1 h 15</em></li><li><span>3 coupes</span><em>1 h 45</em></li></ul><a class="btn" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer">Réserver avec Pat<svg><use href="#i-fleche"/></svg></a><button class="retourner" type="button">Retourner la carte</button></div>
+        </div></li><li class="main t3d" data-flip><div class="main__in">
+          <div class="face face--av"><img src="img/equipe-marylene.webp" alt="Marylène, barbière chez Patbershop" width="700" height="700" loading="lazy" style="object-position:50% 35%" draggable="false"><div class="face__info"><h3>Marylène</h3><p class="face__role">Barbière</p><button class="retourner" type="button" aria-expanded="false">Voir ses 12 services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+          <div class="face face--ar" inert><h3>Marylène</h3><ul aria-label="Services de Marylène"><li><span>Coupe ou rasage crânien</span><em>40 min</em></li><li><span>Coupe avec trime de barbe</span><em>1 h</em></li><li><span>Trime de barbe</span><em>35 min</em></li><li><span>Trime de barbe et massage facial</span><em>50 min</em></li><li><span>Trime de barbe avec massage crânio-facial</span><em>50 min</em></li><li><span>Coupe ou rasage crânien et massage crânio-facial</span><em>1 h</em></li><li><span>Coupe, trime de barbe et massage crânio-facial</span><em>1 h 30</em></li><li><span>Rasage crânien, trime de barbe et massage crânio-facial</span><em>1 h 30</em></li><li><span>Coupe et rasage ultime</span><em>1 h 30</em></li><li><span>Coupe, rasage ultime et massage crânio-facial</span><em>1 h 45</em></li><li><span>2 coupes</span><em>1 h 15</em></li><li><span>Coupe, trim de barbe + 1 enfant</span><em>1 h 30</em></li></ul><a class="btn" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/21602" target="_blank" rel="noopener noreferrer">Réserver avec Marylène<svg><use href="#i-fleche"/></svg></a><button class="retourner" type="button">Retourner la carte</button></div>
+        </div></li><li class="main t3d" data-flip><div class="main__in">
+          <div class="face face--av"><img src="img/equipe-antoine.webp" alt="Antoine, barbier, en train de tailler une barbe" width="700" height="700" loading="lazy" style="object-position:40% 30%" draggable="false"><div class="face__info"><h3>Antoine</h3><p class="face__role">Barbier</p><button class="retourner" type="button" aria-expanded="false">Voir ses 4 services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+          <div class="face face--ar" inert><h3>Antoine</h3><ul aria-label="Services de Antoine"><li><span>Coupe de cheveux homme</span><em>45 min</em></li><li><span>Coupe et trim de barbe</span><em>1 h 15</em></li><li><span>Trim de barbe</span><em>30 min</em></li><li><span>Coupe garçon (moins de 12 ans)</span><em>30 min</em></li></ul><a class="btn" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/38149" target="_blank" rel="noopener noreferrer">Réserver avec Antoine<svg><use href="#i-fleche"/></svg></a><button class="retourner" type="button">Retourner la carte</button></div>
+        </div></li><li class="main t3d" data-flip><div class="main__in">
+          <div class="face face--av"><img src="img/equipe-melissa.webp" alt="Mélissa, barbière chez Patbershop" width="700" height="700" loading="lazy" style="object-position:55% 35%" draggable="false"><div class="face__info"><h3>Mélissa</h3><p class="face__role">Barbière</p><button class="retourner" type="button" aria-expanded="false">Voir ses 3 services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+          <div class="face face--ar" inert><h3>Mélissa</h3><ul aria-label="Services de Mélissa"><li><span>Coupe de cheveux</span><em>1 h</em></li><li><span>Trime de barbe</span><em>45 min</em></li><li><span>Coupe et barbe</span><em>1 h 30</em></li></ul><a class="btn" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/41081" target="_blank" rel="noopener noreferrer">Réserver avec Mélissa<svg><use href="#i-fleche"/></svg></a><button class="retourner" type="button">Retourner la carte</button></div>
+        </div></li><li class="main t3d" data-flip><div class="main__in">
+          <div class="face face--av"><img src="img/equipe-mel.webp" alt="Mel, apprentie barbière chez Patbershop" width="700" height="700" loading="lazy" style="object-position:45% 30%" draggable="false"><div class="face__info"><h3>Mel</h3><p class="face__role">Apprentie</p><button class="retourner" type="button" aria-expanded="false">Voir ses 3 services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+          <div class="face face--ar" inert><h3>Mel</h3><ul aria-label="Services de Mel"><li><span>Coupe de cheveux</span><em>1 h</em></li><li><span>Trim de barbe</span><em>45 min</em></li><li><span>Coupe et trim de barbe</span><em>1 h 30</em></li></ul><a class="btn" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/44619" target="_blank" rel="noopener noreferrer">Réserver avec Mel<svg><use href="#i-fleche"/></svg></a><button class="retourner" type="button">Retourner la carte</button></div>
+        </div></li>
+    </ul>
   </div>
 </section>
 
-<!-- ============ 4. AVIS & RÉALISATIONS ============ -->
+<!-- ============ 4. LES AVIS (3D : pile de cartes) ============ -->
 <section class="sec clair-2" id="avis" aria-labelledby="t-avis">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:380px;height:137px;left:-80px;bottom:10%;--r:-16deg"><use href="#d-rasoir"/></svg><svg class="d" style="width:240px;height:111px;right:38%;top:6%;--r:12deg"><use href="#d-ciseaux"/></svg></div>
   <div class="wrap">
-    <div class="s-tete avis-tete">
-      <div>
-        <p class="kicker">Avis clients</p>
-        <h2 class="titre" id="t-avis"><span class="lh ajuste">897 avis.</span><span class="lh ajuste l2">Cinq</span><span class="lh ajuste l3">étoiles.</span></h2>
-      </div>
+    <div class="s-tete">
+      <div><p class="kicker">Avis clients</p><h2 class="titre" id="t-avis"><span class="lh ajuste">897 avis.</span><span class="lh ajuste l2">Cinq</span><span class="lh ajuste l3">étoiles.</span></h2></div>
+      <p class="chapeau">Tire la carte du dessus pour lire l'avis suivant. Sept avis réels, mot pour mot, tirés de Booksy.</p>
+    </div>
+    <div class="avis-grille2">
       <div class="note-bloc">
         <div class="note-gros"><b>5,0</b><div><div class="etoiles" aria-hidden="true"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><small>Moyenne sur 897 avis Booksy</small></div></div>
         <ul class="barres" aria-label="Répartition des avis">
@@ -1062,63 +940,22 @@ body.apres-hero .ambiance{opacity:1}
         </ul>
         <p class="note-fb">Sur Facebook : <strong>100 % recommandent</strong> (54 avis).</p>
       </div>
-    </div>
-  </div>
-  <!-- 10 avis réels Booksy, texte exact (relevés le 29 octobre 2026). À CONFIRMER : accord de Pat pour afficher les prénoms -->
-  <div class="defile" role="region" aria-label="Avis de clients">
-    <div class="defile-piste"><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Mon fils et moi avons adoré notre expérience du début à la fin ! Le professionnalisme, la qualité de la réalisation et l'attention portée aux détails ont été remarquables. Une expérience mémorable que nous recommandons sans hésitation !</blockquote><figcaption><span class="pastille" aria-hidden="true">J</span><div>Jo<span>Avis Booksy · avec Pat</span></div></figcaption></figure><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Super environment friendly never disappoints and the cuts are fire 🔥. Loyal customers I have been coming for years and will continue . Thanks Pat 😃</blockquote><figcaption><span class="pastille" aria-hidden="true">M</span><div>Malica<span>Avis Booksy · avec Pat</span></div></figcaption></figure><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Coupe de cheveux pour ados et enfant avec Antoine! Très professionnel et minutieux. Les enfants sont très satisfaits !</blockquote><figcaption><span class="pastille" aria-hidden="true">S</span><div>Stephanie<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Toujours agréable et le service est impeccable 😁</blockquote><figcaption><span class="pastille" aria-hidden="true">S</span><div>Simon<span>Avis Booksy · avec Marylène</span></div></figcaption></figure><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Super service et tres belle ambiance</blockquote><figcaption><span class="pastille" aria-hidden="true">J</span><div>Julie<span>Avis Booksy · coupe femme</span></div></figcaption></figure><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>bonne coupe ! barbier très professionel</blockquote><figcaption><span class="pastille" aria-hidden="true">G</span><div>Gabriel<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Top notch comme d'habitude!</blockquote><figcaption><span class="pastille" aria-hidden="true">D</span><div>Dominic<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Mon fils et moi avons adoré notre expérience du début à la fin ! Le professionnalisme, la qualité de la réalisation et l'attention portée aux détails ont été remarquables. Une expérience mémorable que nous recommandons sans hésitation !</blockquote><figcaption><span class="pastille" aria-hidden="true">J</span><div>Jo<span>Avis Booksy · avec Pat</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Super environment friendly never disappoints and the cuts are fire 🔥. Loyal customers I have been coming for years and will continue . Thanks Pat 😃</blockquote><figcaption><span class="pastille" aria-hidden="true">M</span><div>Malica<span>Avis Booksy · avec Pat</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Coupe de cheveux pour ados et enfant avec Antoine! Très professionnel et minutieux. Les enfants sont très satisfaits !</blockquote><figcaption><span class="pastille" aria-hidden="true">S</span><div>Stephanie<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Toujours agréable et le service est impeccable 😁</blockquote><figcaption><span class="pastille" aria-hidden="true">S</span><div>Simon<span>Avis Booksy · avec Marylène</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Super service et tres belle ambiance</blockquote><figcaption><span class="pastille" aria-hidden="true">J</span><div>Julie<span>Avis Booksy · coupe femme</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>bonne coupe ! barbier très professionel</blockquote><figcaption><span class="pastille" aria-hidden="true">G</span><div>Gabriel<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis" aria-hidden="true"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Top notch comme d'habitude!</blockquote><figcaption><span class="pastille" aria-hidden="true">D</span><div>Dominic<span>Avis Booksy · avec Antoine</span></div></figcaption></figure></div>
-  </div>
-</section>
-
-<!-- ============ 10K · 7. LES VRAIES QUESTIONS ============ -->
-<section class="sec clair" id="questions" aria-labelledby="t-faq">
-  <div class="deco" aria-hidden="true"><svg class="d" style="width:320px;height:148px;right:-70px;top:14%;--r:-20deg"><use href="#d-ciseaux"/></svg></div>
-  <div class="wrap">
-    <div class="s-tete">
-      <div>
-        <p class="kicker">Questions</p>
-        <h2 class="titre" id="t-faq"><span class="lh ajuste">Avant de</span><span class="lh ajuste l2">t'asseoir,</span><span class="lh ajuste l3">on répond.</span></h2>
-      </div>
-      <p class="chapeau">Les questions qu'on entend le plus souvent au shop. Pour le reste, appelle au 450 801-7467.</p>
-    </div>
-    <div class="faq-grille">
-      <div class="faq ch">
-        <details open><summary>J'ai peur que mon dégradé monte trop haut.<i aria-hidden="true"></i></summary><div class="rep"><p>On en jase avant de commencer. Montre une photo de ce que tu aimes, ou dis jusqu'où tu veux que ça monte : bas, mi ou haut. Ton barbier te dit ce qui va avec ta tête, puis il coupe ça.</p></div></details>
-        <details><summary>Faut-il réserver?<i aria-hidden="true"></i></summary><div class="rep"><p>C'est le plus sûr. Chaque barbier a son propre horaire sur Booksy, et tu peux réserver en ligne 24 heures sur 24. Tu peux aussi appeler au shop.</p></div></details>
-        <details><summary>Je peux choisir mon barbier?<i aria-hidden="true"></i></summary><div class="rep"><p>Oui. Pat, Marylène, Antoine, Mélissa et Mel ont chacun leur page Booksy. Prends ton préféré, ou le premier libre si t'es pressé.</p></div></details>
-        <details><summary>Vous coupez les cheveux des femmes?<i aria-hidden="true"></i></summary><div class="rep"><p>Oui. Pat fait la <strong>coupe femme</strong> (45 min) et la <strong>coupe mi-long et long</strong> (1 h).</p></div></details>
-        <details><summary>Et les enfants?<i aria-hidden="true"></i></summary><div class="rep"><p>Bienvenus. Antoine fait la <strong>coupe garçon de moins de 12 ans</strong> (30 min). Marylène offre aussi un forfait coupe et trim de barbe pour toi, plus un enfant (1 h 30).</p></div></details>
-        <details><summary>Stationnement, paiement, Wi-Fi?<i aria-hidden="true"></i></summary><div class="rep"><p>Stationnement sur place au 7, rue du Marché, et l'entrée est accessible. Les cartes de crédit sont acceptées. Et il y a du Wi-Fi pendant que t'attends.</p></div></details>
+      <div class="pile-zone">
+        <div class="pile" id="pile" role="region" aria-label="Avis de clients" aria-live="polite"><figure class="un-avis" data-i="0"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Mon fils et moi avons adoré notre expérience du début à la fin ! Le professionnalisme, la qualité de la réalisation et l'attention portée aux détails ont été remarquables. Une expérience mémorable que nous recommandons sans hésitation !</blockquote><figcaption><span class="pastille" aria-hidden="true">J</span><div>Jo<span>Avis Booksy · avec Pat</span></div></figcaption></figure><figure class="un-avis" data-i="1"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Super environment friendly never disappoints and the cuts are fire 🔥. Loyal customers I have been coming for years and will continue . Thanks Pat 😃</blockquote><figcaption><span class="pastille" aria-hidden="true">M</span><div>Malica<span>Avis Booksy · avec Pat</span></div></figcaption></figure><figure class="un-avis" data-i="2"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Coupe de cheveux pour ados et enfant avec Antoine! Très professionnel et minutieux. Les enfants sont très satisfaits !</blockquote><figcaption><span class="pastille" aria-hidden="true">S</span><div>Stephanie<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis" data-i="3"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Toujours agréable et le service est impeccable 😁</blockquote><figcaption><span class="pastille" aria-hidden="true">S</span><div>Simon<span>Avis Booksy · avec Marylène</span></div></figcaption></figure><figure class="un-avis" data-i="4"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Super service et tres belle ambiance</blockquote><figcaption><span class="pastille" aria-hidden="true">J</span><div>Julie<span>Avis Booksy · coupe femme</span></div></figcaption></figure><figure class="un-avis" data-i="5"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>bonne coupe ! barbier très professionel</blockquote><figcaption><span class="pastille" aria-hidden="true">G</span><div>Gabriel<span>Avis Booksy · avec Antoine</span></div></figcaption></figure><figure class="un-avis" data-i="6"><div class="etoiles" aria-label="5 étoiles"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><blockquote>Top notch comme d'habitude!</blockquote><figcaption><span class="pastille" aria-hidden="true">D</span><div>Dominic<span>Avis Booksy · avec Antoine</span></div></figcaption></figure></div>
+        <div class="pile-nav"><button type="button" id="pile-suiv">Avis suivant<svg><use href="#i-fleche"/></svg></button><span id="pile-compte">1 / 7</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 10K · 8. TA CHAISE T'ATTEND ============ -->
-<section class="final vivant" id="rendez-vous" aria-labelledby="t-final">
-  <div class="couture" data-pole aria-hidden="true"></div>
-  <div class="final-fond" aria-hidden="true"></div>
-  <div class="poussieres" aria-hidden="true"><i style="left:12%;--d:15s;--dl:-2s;--x:24px"></i><i style="left:22%;--d:12s;--dl:-7s;--s:2px;--x:-18px"></i><i style="left:34%;--d:17s;--dl:-11s;--x:30px"></i><i style="left:47%;--d:13s;--dl:-4s;--s:2px;--x:-12px"></i><i style="left:58%;--d:16s;--dl:-9s;--x:16px"></i><i style="left:69%;--d:14s;--dl:-1s;--s:2px;--x:-26px"></i><i style="left:79%;--d:18s;--dl:-13s;--x:20px"></i><i style="left:89%;--d:12.5s;--dl:-6s;--s:2px;--x:-14px"></i></div>
-  <div class="wrap ch">
-    <p class="kicker">Patbershop · Valleyfield</p>
-    <h2 id="t-final"><span>Ta chaise</span><span>t'attend.</span></h2>
-    <p class="sous">Pat et son équipe, au 7, rue du Marché. Réserve en ligne, 24 heures sur 24.</p>
-    <div class="boutons"><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="#numero">Prends un numéro d'abord</a></div>
-  </div>
-</section>
-
-<!-- ============ 7. VISITE / CONTACT ============ -->
-<section class="sec visite-c" id="visite" aria-labelledby="t-visite">
-  <div class="wrap">
-    <div class="s-tete">
+<!-- ============ 5. TA CHAISE T'ATTEND (3D : le plan posé sur la table) ============ -->
+<section class="sec visite-c" id="visite" aria-labelledby="t-fin">
+  <div class="wrap pied-pad">
+    <div class="fin-grille">
       <div>
-        <p class="kicker">Visite</p>
-        <h2 class="titre" id="t-visite"><span class="lh ajuste">Viens</span><span class="lh ajuste l2">nous</span><span class="lh ajuste l3">voir.</span></h2>
-      </div>
-      <p class="chapeau">Centre-ville de Salaberry-de-Valleyfield. Réserve en ligne ou appelle directement au shop.</p>
-    </div>
-    <div class="contact-grille">
-      <div>
+        <h2 class="fin-titre" id="t-fin"><span>Ta chaise</span><span>t'attend.</span></h2>
+        <p class="chapeau">Au 7, rue du Marché, au centre-ville de Salaberry-de-Valleyfield. Réserve en ligne, 24 heures sur 24, ou appelle au shop.</p>
+        <div class="fin-actions"><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="#numero">Prends un numéro</a></div>
         <a class="appel" href="tel:+14508017467">
           <span class="appel-ico"><svg><use href="#i-tel"/></svg></span>
           <span><small>Appelle directement au shop</small><b>450 801-7467</b><span class="statut" id="statut"><i></i><span>Horaire complet sur Booksy</span></span></span>
@@ -1127,58 +964,26 @@ body.apres-hero .ambiance{opacity:1}
           <li><div><small>Adresse</small><span id="c-adr">7, rue du Marché, Salaberry-de-Valleyfield (Québec) J6T 1P1</span></div><button class="copier" type="button" data-copie="c-adr">Copier</button></li>
           <li><div><small>Courriel</small><span id="c-mail">patbershop@gmail.com</span></div><button class="copier" type="button" data-copie="c-mail">Copier</button></li>
         </ul>
-      </div>
-      <div class="reserve rv">
-        <small class="r-kick">Patbershop · Barbier</small>
-        <h3>Réserve ta chaise.</h3>
-        <p>Chaque barbier a son propre horaire. Les places libres sont à jour en temps réel sur Booksy.</p>
-        <!-- À REMPLIR : horaire complet de la semaine (seul le jeudi, 10 h à 21 h, est confirmé) -->
         <ul class="horaire" id="horaire" aria-label="Heures d'ouverture" hidden></ul>
-        <div class="actions">
-          <a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a>
-        </div>
-        <div class="reseaux">
-          <a href="https://www.facebook.com/patbershop" target="_blank" rel="noopener noreferrer"><svg><use href="#i-fb"/></svg>Facebook</a>
-          <a href="https://www.instagram.com/patbershop/" target="_blank" rel="noopener noreferrer"><svg><use href="#i-insta"/></svg>Instagram</a>
-        </div>
+      </div>
+      <div class="plan3d">
+        <div class="plan3d__table repos" id="plan3d"><svg class="plan-svg" viewBox="0 0 900 460" role="img" aria-label="Plan du centre-ville de Valleyfield : Patbershop au 7, rue du Marché, entre la rue Sainte-Cécile et la rue Saint-Thomas, à deux rues du Vieux-Canal"><rect width="900" height="460" fill="#1b1d21"/><g opacity=".5" stroke="#23262b" stroke-width="1"><line x1="-200" y1="0" x2="-80" y2="460"/><line x1="-154" y1="0" x2="-34" y2="460"/><line x1="-108" y1="0" x2="12" y2="460"/><line x1="-62" y1="0" x2="58" y2="460"/><line x1="-16" y1="0" x2="104" y2="460"/><line x1="30" y1="0" x2="150" y2="460"/><line x1="76" y1="0" x2="196" y2="460"/><line x1="122" y1="0" x2="242" y2="460"/><line x1="168" y1="0" x2="288" y2="460"/><line x1="214" y1="0" x2="334" y2="460"/><line x1="260" y1="0" x2="380" y2="460"/><line x1="306" y1="0" x2="426" y2="460"/><line x1="352" y1="0" x2="472" y2="460"/><line x1="398" y1="0" x2="518" y2="460"/><line x1="444" y1="0" x2="564" y2="460"/><line x1="490" y1="0" x2="610" y2="460"/><line x1="536" y1="0" x2="656" y2="460"/><line x1="582" y1="0" x2="702" y2="460"/><line x1="628" y1="0" x2="748" y2="460"/><line x1="674" y1="0" x2="794" y2="460"/><line x1="720" y1="0" x2="840" y2="460"/><line x1="766" y1="0" x2="886" y2="460"/><line x1="812" y1="0" x2="932" y2="460"/><line x1="858" y1="0" x2="978" y2="460"/><line x1="904" y1="0" x2="1024" y2="460"/><line x1="950" y1="0" x2="1070" y2="460"/><line x1="996" y1="0" x2="1116" y2="460"/></g><path d="M0 30 C 180 14, 360 44, 520 26 S 800 4, 900 14 L900 52 C 760 44, 640 66, 500 62 S 180 54, 0 74 Z" fill="#1f3b4d"/><text x="300" y="52" class="pl-eau" transform="rotate(-2 300 52)">Vieux-Canal</text><path d="M438 398 L606 350 L660 460 L452 460 Z" fill="#223326"/><text x="540" y="425" class="pl-lieu" text-anchor="middle">Parc Salaberry</text><line x1="0" y1="128" x2="900" y2="62" stroke="#2d3036" stroke-width="22" stroke-linecap="round"/><line x1="40" y1="252" x2="660" y2="193" stroke="#2d3036" stroke-width="17" stroke-linecap="round"/><line x1="0" y1="320" x2="640" y2="258" stroke="#2d3036" stroke-width="19" stroke-linecap="round"/><line x1="404" y1="120" x2="476" y2="460" stroke="#2d3036" stroke-width="20" stroke-linecap="round"/><line x1="56" y1="214" x2="150" y2="460" stroke="#2d3036" stroke-width="16" stroke-linecap="round"/><line x1="440" y1="300" x2="900" y2="168" stroke="#2d3036" stroke-width="17" stroke-linecap="round"/><line x1="250" y1="460" x2="900" y2="262" stroke="#2d3036" stroke-width="17" stroke-linecap="round"/><line x1="262" y1="282" x2="318" y2="460" stroke="#2d3036" stroke-width="15" stroke-linecap="round"/><line x1="0" y1="128" x2="900" y2="62" stroke="#4a4e56" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="252" x2="660" y2="193" stroke="#3a3d44" stroke-width="11" stroke-linecap="round"/><line x1="0" y1="320" x2="640" y2="258" stroke="#4a4e56" stroke-width="13" stroke-linecap="round"/><line x1="404" y1="120" x2="476" y2="460" stroke="#4a4e56" stroke-width="14" stroke-linecap="round"/><line x1="56" y1="214" x2="150" y2="460" stroke="#3a3d44" stroke-width="10" stroke-linecap="round"/><line x1="440" y1="300" x2="900" y2="168" stroke="#3a3d44" stroke-width="11" stroke-linecap="round"/><line x1="250" y1="460" x2="900" y2="262" stroke="#3a3d44" stroke-width="11" stroke-linecap="round"/><line x1="262" y1="282" x2="318" y2="460" stroke="#3a3d44" stroke-width="9" stroke-linecap="round"/><text x="558" y="91" class="pl-rue" text-anchor="middle" transform="rotate(-4.2 558 87)">Rue Victoria</text><text x="424" y="219" class="pl-rue" text-anchor="middle" transform="rotate(-5.4 424 215)">Rue Sainte-Cécile</text><text x="448" y="280" class="pl-rue fort" text-anchor="middle" transform="rotate(-5.5 448 277)">Rue du Marché</text><text x="449" y="334" class="pl-rue" text-anchor="middle" transform="rotate(78.0 449 331)">Rue Jacques-Cartier</text><text x="114" y="370" class="pl-rue" text-anchor="middle" transform="rotate(69.1 114 367)">Rue Saint-Thomas</text><text x="725" y="222" class="pl-rue" text-anchor="middle" transform="rotate(-16.0 725 218)">Rue Champlain</text><text x="653" y="341" class="pl-rue" text-anchor="middle" transform="rotate(-16.9 653 337)">Rue Saint-Jean-Baptiste</text><text x="297" y="396" class="pl-rue" text-anchor="middle" transform="rotate(72.5 297 392)">Rue McBain</text><g class="pl-pin" transform="translate(194 301)"><circle r="26" class="pl-onde"/><circle r="10" fill="#f0b062" stroke="#0d0e10" stroke-width="3"/></g><g transform="translate(212 237)"><rect width="176" height="44" rx="10" fill="#0d0e10" stroke="rgba(236,228,211,.2)"/><text x="14" y="19" class="pl-nom">PATBERSHOP</text><text x="14" y="34" class="pl-adr">7, rue du Marché</text></g></svg></div>
+        <div class="plan3d__bas"><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC" target="_blank" rel="noopener noreferrer">Ouvrir dans Google Maps<svg><use href="#i-fleche"/></svg></a><a class="btn btn--contour" href="https://www.google.com/maps/dir/?api=1&amp;destination=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC" target="_blank" rel="noopener noreferrer">Itinéraire</a></div>
       </div>
     </div>
-
-    <!-- MISE EN LIGNE : sur le vrai site, remplacer le plan dessiné par la carte Google interactive :
-         <iframe src="https://www.google.com/maps?q=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC&amp;output=embed" title="Patbershop sur Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-         et ajouter https://www.google.com à frame-src dans la CSP (_headers). -->
-    <div class="plan rv">
-      <div class="plan-carte"><svg class="plan-svg" viewBox="0 0 900 460" role="img" aria-label="Plan du centre-ville de Valleyfield : Patbershop au 7, rue du Marché, entre la rue Sainte-Cécile et la rue Saint-Thomas, à deux rues du Vieux-Canal"><rect width="900" height="460" fill="#1b1d21"/><g opacity=".5" stroke="#23262b" stroke-width="1"><line x1="-200" y1="0" x2="-80" y2="460"/><line x1="-154" y1="0" x2="-34" y2="460"/><line x1="-108" y1="0" x2="12" y2="460"/><line x1="-62" y1="0" x2="58" y2="460"/><line x1="-16" y1="0" x2="104" y2="460"/><line x1="30" y1="0" x2="150" y2="460"/><line x1="76" y1="0" x2="196" y2="460"/><line x1="122" y1="0" x2="242" y2="460"/><line x1="168" y1="0" x2="288" y2="460"/><line x1="214" y1="0" x2="334" y2="460"/><line x1="260" y1="0" x2="380" y2="460"/><line x1="306" y1="0" x2="426" y2="460"/><line x1="352" y1="0" x2="472" y2="460"/><line x1="398" y1="0" x2="518" y2="460"/><line x1="444" y1="0" x2="564" y2="460"/><line x1="490" y1="0" x2="610" y2="460"/><line x1="536" y1="0" x2="656" y2="460"/><line x1="582" y1="0" x2="702" y2="460"/><line x1="628" y1="0" x2="748" y2="460"/><line x1="674" y1="0" x2="794" y2="460"/><line x1="720" y1="0" x2="840" y2="460"/><line x1="766" y1="0" x2="886" y2="460"/><line x1="812" y1="0" x2="932" y2="460"/><line x1="858" y1="0" x2="978" y2="460"/><line x1="904" y1="0" x2="1024" y2="460"/><line x1="950" y1="0" x2="1070" y2="460"/><line x1="996" y1="0" x2="1116" y2="460"/></g><path d="M0 30 C 180 14, 360 44, 520 26 S 800 4, 900 14 L900 52 C 760 44, 640 66, 500 62 S 180 54, 0 74 Z" fill="#1f3b4d"/><text x="300" y="52" class="pl-eau" transform="rotate(-2 300 52)">Vieux-Canal</text><path d="M438 398 L606 350 L660 460 L452 460 Z" fill="#223326"/><text x="540" y="425" class="pl-lieu" text-anchor="middle">Parc Salaberry</text><line x1="0" y1="128" x2="900" y2="62" stroke="#2d3036" stroke-width="22" stroke-linecap="round"/><line x1="40" y1="252" x2="660" y2="193" stroke="#2d3036" stroke-width="17" stroke-linecap="round"/><line x1="0" y1="320" x2="640" y2="258" stroke="#2d3036" stroke-width="19" stroke-linecap="round"/><line x1="404" y1="120" x2="476" y2="460" stroke="#2d3036" stroke-width="20" stroke-linecap="round"/><line x1="56" y1="214" x2="150" y2="460" stroke="#2d3036" stroke-width="16" stroke-linecap="round"/><line x1="440" y1="300" x2="900" y2="168" stroke="#2d3036" stroke-width="17" stroke-linecap="round"/><line x1="250" y1="460" x2="900" y2="262" stroke="#2d3036" stroke-width="17" stroke-linecap="round"/><line x1="262" y1="282" x2="318" y2="460" stroke="#2d3036" stroke-width="15" stroke-linecap="round"/><line x1="0" y1="128" x2="900" y2="62" stroke="#4a4e56" stroke-width="16" stroke-linecap="round"/><line x1="40" y1="252" x2="660" y2="193" stroke="#3a3d44" stroke-width="11" stroke-linecap="round"/><line x1="0" y1="320" x2="640" y2="258" stroke="#4a4e56" stroke-width="13" stroke-linecap="round"/><line x1="404" y1="120" x2="476" y2="460" stroke="#4a4e56" stroke-width="14" stroke-linecap="round"/><line x1="56" y1="214" x2="150" y2="460" stroke="#3a3d44" stroke-width="10" stroke-linecap="round"/><line x1="440" y1="300" x2="900" y2="168" stroke="#3a3d44" stroke-width="11" stroke-linecap="round"/><line x1="250" y1="460" x2="900" y2="262" stroke="#3a3d44" stroke-width="11" stroke-linecap="round"/><line x1="262" y1="282" x2="318" y2="460" stroke="#3a3d44" stroke-width="9" stroke-linecap="round"/><text x="558" y="91" class="pl-rue" text-anchor="middle" transform="rotate(-4.2 558 87)">Rue Victoria</text><text x="424" y="219" class="pl-rue" text-anchor="middle" transform="rotate(-5.4 424 215)">Rue Sainte-Cécile</text><text x="448" y="280" class="pl-rue fort" text-anchor="middle" transform="rotate(-5.5 448 277)">Rue du Marché</text><text x="449" y="334" class="pl-rue" text-anchor="middle" transform="rotate(78.0 449 331)">Rue Jacques-Cartier</text><text x="114" y="370" class="pl-rue" text-anchor="middle" transform="rotate(69.1 114 367)">Rue Saint-Thomas</text><text x="725" y="222" class="pl-rue" text-anchor="middle" transform="rotate(-16.0 725 218)">Rue Champlain</text><text x="653" y="341" class="pl-rue" text-anchor="middle" transform="rotate(-16.9 653 337)">Rue Saint-Jean-Baptiste</text><text x="297" y="396" class="pl-rue" text-anchor="middle" transform="rotate(72.5 297 392)">Rue McBain</text><g class="pl-pin" transform="translate(194 301)"><circle r="26" class="pl-onde"/><circle r="10" fill="#f0b062" stroke="#0d0e10" stroke-width="3"/></g><g transform="translate(212 237)"><rect width="176" height="44" rx="10" fill="#0d0e10" stroke="rgba(236,228,211,.2)"/><text x="14" y="19" class="pl-nom">PATBERSHOP</text><text x="14" y="34" class="pl-adr">7, rue du Marché</text></g></svg></div>
-      <div class="plan-info">
-        <p class="kicker">Nous trouver</p>
-        <h3>Au cœur du centre-ville</h3>
-        <p>Au centre-ville, à deux rues du Vieux-Canal. Stationnement sur place et entrée accessible.</p>
-        <div class="actions">
-          <a class="btn magnet" href="https://www.google.com/maps/search/?api=1&amp;query=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC" target="_blank" rel="noopener noreferrer">Ouvrir dans Google Maps<svg><use href="#i-fleche"/></svg></a>
-          <a class="btn btn--contour" href="https://www.google.com/maps/dir/?api=1&amp;destination=Patbershop+7+rue+du+March%C3%A9+Salaberry-de-Valleyfield+QC" target="_blank" rel="noopener noreferrer">Itinéraire</a>
-        </div>
-      </div>
+    <div class="fin-pied">
+      <img src="img/logo-patbershop.webp" alt="Patbershop" width="1108" height="520" loading="lazy">
+      <span>© 2026 Patbershop · Barbier et soins, hommes et femmes</span>
+      <a href="https://www.facebook.com/patbershop" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a href="https://www.instagram.com/patbershop/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <button type="button" id="ouvrir-pol">Politique de confidentialité</button>
+      <a class="haut" href="#top">Haut de page ↑</a>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="pied">
-  <div class="wrap">
-    <p class="pied-titre" aria-hidden="true"><span>On se voit</span><span>au shop.</span></p>
-    <div class="pied-cols">
-      <img class="pied-logo" src="img/logo-patbershop.webp" alt="Patbershop" width="1108" height="520" loading="lazy">
-      <div><h4>Explorer</h4><ul><li><a href="#carte">La carte</a></li><li><a href="#equipe">L'équipe</a></li><li><a href="#avis">Avis</a></li><li><a href="#le-shop">Le shop</a></li><li><a href="#numero">Prends un numéro</a></li><li><a href="#questions">Questions</a></li><li><a href="#rendez-vous">Réserver</a></li></ul></div>
-      <div><h4>Nous joindre</h4><ul><li><a href="tel:+14508017467">450 801-7467</a></li><li><a href="mailto:patbershop@gmail.com">patbershop@gmail.com</a></li><li><a href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Booksy</a></li></ul></div>
-      <div><h4>Nous trouver</h4><ul><li>7, rue du Marché</li><li>Salaberry-de-Valleyfield (Québec)</li><li>J6T 1P1</li></ul></div>
-    </div>
-    <div class="pied-bas">
-      <span>© 2026 Patbershop · Barbier &amp; soins, hommes et femmes</span>
-      <button type="button" id="ouvrir-pol">Politique de confidentialité</button>
-      <a class="haut" href="#top">Haut de page ↑</a>
-    </div>
-  </div>
-</footer>
+
 
 <div class="barre-mob">
   <a class="btn btn--contour" href="tel:+14508017467"><svg style="width:18px;height:18px"><use href="#i-tel"/></svg>Appeler</a>
@@ -1395,10 +1200,13 @@ body.apres-hero .ambiance{opacity:1}
     const r = hero.getBoundingClientRect(), tot = hero.offsetHeight - innerHeight * (1 + (window.HERO_PAUSE || 0));
     return reduit ? 1 : Math.min(1, Math.max(0, -r.top / tot));
   }
-  let derP = -1;
-  function boucle(){
-    const p = heroP();
-    if (Math.abs(p - derP) > 1e-4) { derP = p; choreo(p); window.HERO && HERO.render(p); }
+  let derP = -1, montre = -1, tDer = 0;
+  function boucle(t){
+    /* fluidité : on glisse vers la position du défilement au lieu d'y sauter */
+    const cible = heroP(), dt = Math.min(100, t - (tDer || t)); tDer = t;
+    if (montre < 0 || reduit) montre = cible;
+    else { montre += (cible - montre) * (1 - Math.pow(1 - .12, dt / 16.667)); if (Math.abs(cible - montre) < 2e-4) montre = cible; }
+    if (Math.abs(montre - derP) > 1e-4) { derP = montre; choreo(montre); window.HERO && HERO.render(montre); }
     requestAnimationFrame(boucle);
   }
   window.__heroDemarrer = () => { choreo(heroP()); requestAnimationFrame(boucle); };
@@ -1452,14 +1260,20 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     for (let d = 1; d < N; d++) { if (i - d >= 0 && ok[i - d]) return i - d; if (i + d < N && ok[i + d]) return i + d; }
     return -1;
   }
+  function peindre(im, a){
+    const s = Math.max(W / im.naturalWidth, H / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s;
+    ctx.globalAlpha = a; ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h); ctx.globalAlpha = 1;
+  }
   function dessiner(){
-    /* la vidéo occupe 0 % à 72 % du défilement, puis reste sur la dernière image (le mur Club Social) */
-    const cible = Math.round(lisse(0, .72, p) * (nFin - 1)), i = proche(cible);
-    if (i < 0 || i === dessinee || !W) return;
-    const im = imgs[i], s = Math.max(W / im.naturalWidth, H / im.naturalHeight);
-    const w = im.naturalWidth * s, h = im.naturalHeight * s;
-    ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
-    dessinee = i; scene.classList.add('pret');
+    /* la vidéo occupe 0 % à 72 % du défilement, puis reste sur la dernière image (le mur Club Social).
+       Fluidité : entre deux images voisines, la suivante apparaît en fondu au lieu de sauter. */
+    const f = lisse(0, .72, p) * (nFin - 1), i0 = Math.floor(f), fr = f - i0, i = proche(i0);
+    if (i < 0 || !W) return;
+    const j = (i === i0 && fr > .03 && i0 + 1 < nFin && ok[i0 + 1]) ? i0 + 1 : -1;
+    const cle = i + ':' + (j < 0 ? 0 : Math.round(fr * 16));
+    if (cle === dessinee) return;
+    peindre(imgs[i], 1); if (j >= 0) peindre(imgs[j], fr);
+    dessinee = cle; scene.classList.add('pret');
   }
   /* chargement progressif : 1 image sur 8, puis 4, 2, 1, par lots de 6 */
   const ordre = []; const vu = new Set();
@@ -1503,76 +1317,112 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
 
 
 <script>
-/* Équipe sur petit écran : flèches, points, et glisser à la souris */
-(() => {
-  const r = document.querySelector('.equipe'); if (!r) return;
-  const nav = document.querySelector('.eq-nav'), prec = nav.querySelector('.prec'), suiv = nav.querySelector('.suiv'), pts = [...nav.querySelectorAll('.eq-points i')];
-  const pas = () => { const c = r.querySelector('.barbier'); return c ? c.offsetWidth + 12 : 300; };
-  const maj = () => { const max = r.scrollWidth - r.clientWidth; prec.disabled = r.scrollLeft < 4; suiv.disabled = r.scrollLeft > max - 4;
-    const i = max > 0 ? Math.round(r.scrollLeft / pas()) : 0; pts.forEach((p, k) => p.classList.toggle('on', k === Math.min(i, pts.length - 1))); };
-  prec.addEventListener('click', () => r.scrollBy({ left: -pas(), behavior: 'smooth' }));
-  suiv.addEventListener('click', () => r.scrollBy({ left: pas(), behavior: 'smooth' }));
-  r.addEventListener('scroll', maj, { passive: true }); addEventListener('resize', maj); maj();
-  /* glisser à la souris (le doigt fonctionne déjà nativement) */
-  let x0 = 0, s0 = 0, bouge = false, actif = false;
-  r.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' || r.scrollWidth <= r.clientWidth) return; e.preventDefault(); getSelection().removeAllRanges(); actif = true; bouge = false; x0 = e.clientX; s0 = r.scrollLeft; r.classList.add('tire'); });
-  addEventListener('pointermove', e => { if (!actif) return; const d = e.clientX - x0; if (Math.abs(d) > 5) bouge = true; r.scrollLeft = s0 - d; });
-  addEventListener('pointerup', () => { if (!actif) return; actif = false; r.classList.remove('tire'); const max = r.scrollWidth - r.clientWidth, i = Math.round(r.scrollLeft / pas()); let x = i * pas(); if (x > max - pas() / 2) x = max; r.scrollTo({ left: Math.min(x, max), behavior: 'smooth' }); });
-  r.addEventListener('click', e => { if (bouge) { e.preventDefault(); e.stopPropagation(); bouge = false; } }, true);
-  r.addEventListener('dragstart', e => e.preventDefault());
-})();
-</script>
-<script>
-/* ===== 10K · la jasette : entrées, poteau au défilement, fil des étapes, distributeur à tenir, pauses ===== */
+/* ===== v2 · les interactions 3D de chaque section (skill 10k) ===== */
 (() => {
   const $ = id => document.getElementById(id), QA = s => [...document.querySelectorAll(s)];
-  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  const RM = matchMedia('(prefers-reduced-motion: reduce)'), FIN = matchMedia('(hover: hover) and (pointer: fine)');
   let reduit = RM.matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-  /* 1. Entrées chorégraphiées : seuls les groupes sous la ligne de flottaison attendent */
-  const ioCh = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return;
-    const c = e.target; c.classList.add('in'); ioCh.unobserve(c);
-    setTimeout(() => c.classList.add('fini'), 900 + c.children.length * 90);
-  }), { rootMargin: '0px 0px -10% 0px' }) : null;
-  QA('.ch').forEach(c => {
-    [...c.children].forEach((k, i) => k.style.setProperty('--i', i));
-    if (ioCh && !reduit && c.getBoundingClientRect().top > innerHeight) { c.classList.add('att'); ioCh.observe(c); }
+  /* A. Bascule 3D : suit la souris ; sur écran tactile, penche selon la position dans l'écran */
+  const bascules = QA('.t3d:not([data-flip])').concat(QA('.main.t3d'));
+  bascules.forEach(el => {
+    const max = el.classList.contains('main') ? 7 : el.id === 'machine' ? 12 : 5;
+    el.addEventListener('pointermove', e => {
+      if (reduit || !FIN.matches) return;
+      const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.classList.add('suit');
+      el.style.setProperty('--ry', ((x - .5) * 2 * max).toFixed(2) + 'deg');
+      el.style.setProperty('--rx', ((.5 - y) * 2 * max).toFixed(2) + 'deg');
+      el.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); el.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+    });
+    el.addEventListener('pointerleave', () => { el.classList.remove('suit'); el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
+  });
+  const tactiles = [$('machine'), document.querySelector('#carte .enseigne')].filter(Boolean);
+  function pencheAuDefil(){
+    if (FIN.matches || reduit) return;
+    tactiles.forEach(el => { const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+      const d = clamp(((r.top + r.height / 2) - innerHeight / 2) / innerHeight, -1, 1), v = (d * 9).toFixed(1) + 'deg';
+      if (el._v !== v) { el._v = v; el.style.setProperty('--rx', v); } });
+  }
+
+  /* B. L'anneau des réalisations : tourne au défilement, au doigt et aux flèches, avec élan */
+  const ann = $('anneau'), piv = $('anneau-pivot'), figs = piv ? [...piv.children] : [];
+  let base = 0, glisse = 0, elan = 0, cible = 0, rot = 0, tire = false, x0 = 0, g0 = 0, derX = 0, derT = 0, rafA = null, derRot = null;
+  function annProg(){ const r = ann.getBoundingClientRect(); return clamp((innerHeight - r.top) / (innerHeight + r.height), 0, 1); }
+  function annTic(t){
+    rafA = null;
+    if (!tire && Math.abs(elan) > .01) { glisse += elan; elan *= .94; }
+    cible = base + glisse; rot += (cible - rot) * (reduit ? 1 : .16);
+    if (Math.abs(cible - rot) < .02 && Math.abs(elan) < .01) rot = cible;
+    const v = rot.toFixed(2);
+    if (v !== derRot) { derRot = v; piv.style.setProperty('--rot', v + 'deg');
+      figs.forEach((f, i) => { const a = (i * 30 + rot) * Math.PI / 180, o = (.25 + .75 * Math.max(0, Math.cos(a))).toFixed(2); if (f._o !== o) { f._o = o; f.style.opacity = o; } }); }
+    if (tire || Math.abs(elan) > .01 || rot !== cible) rafA = requestAnimationFrame(annTic);
+  }
+  const annGo = () => { if (rafA === null && piv) rafA = requestAnimationFrame(annTic); };
+  if (ann && piv) {
+    ann.addEventListener('pointerdown', e => { if (reduit) return; tire = true; ann.classList.add('tire'); x0 = e.clientX; g0 = glisse; derX = e.clientX; derT = performance.now(); elan = 0; ann.setPointerCapture(e.pointerId); annGo(); });
+    ann.addEventListener('pointermove', e => { if (!tire) return; const now = performance.now(); glisse = g0 + (e.clientX - x0) * .22; if (now > derT) elan = (e.clientX - derX) * .22 * (16 / Math.max(8, now - derT)); derX = e.clientX; derT = now; annGo(); });
+    const lacher = () => { if (!tire) return; tire = false; ann.classList.remove('tire'); elan = clamp(elan, -8, 8); annGo(); };
+    ann.addEventListener('pointerup', lacher); ann.addEventListener('pointercancel', lacher);
+    const pas = s => { if (reduit) { piv.scrollBy({ left: s * (figs[0].offsetWidth + 12), behavior: 'auto' }); return; } glisse -= s * 30; annGo(); };
+    $('ann-prec').addEventListener('click', () => pas(-1));
+    $('ann-suiv').addEventListener('click', () => pas(1));
+    annGo();
+  }
+
+  /* C. L'équipe : la carte se retourne, le côté caché sort de l'ordre de tabulation */
+  QA('[data-flip]').forEach(c => {
+    const av = c.querySelector('.face--av'), ar = c.querySelector('.face--ar'), b1 = av.querySelector('.retourner'), b2 = ar.querySelector('.retourner');
+    const tourner = dos => { c.classList.toggle('retourne', dos); av.inert = dos; ar.inert = !dos; b1.setAttribute('aria-expanded', dos); (dos ? ar.querySelector('a') : b1).focus({ preventScroll: true }); };
+    b1.addEventListener('click', () => tourner(true)); b2.addEventListener('click', () => tourner(false));
   });
 
-  /* 2. Poteaux qui tournent et fil des étapes, pilotés par le défilement (écritures seulement si ça change) */
-  const poles = QA('[data-pole]'), piste = document.querySelector('.poteau-piste'), fil = $('e-fil'), liste = $('e-liste');
-  const vu = new WeakMap();
-  const ioVu = 'IntersectionObserver' in window ? new IntersectionObserver(es => { es.forEach(e => vu.set(e.target, e.isIntersecting)); if (typeof auDefil === 'function') requestAnimationFrame(auDefil); }) : null;
-  poles.forEach(p => ioVu ? ioVu.observe(p) : vu.set(p, true));
-  if (liste) ioVu ? ioVu.observe(liste) : vu.set(liste, true);
-  let moitie = 1; const mesurer = () => {
-    if (piste) moitie = piste.scrollWidth / 2 || 1;
-    /* le fil est redessiné à sa vraie largeur, pour un trait net et continu */
-    if (fil && fil.clientWidth) { const W = Math.round(fil.clientWidth), q = W / 8;
-      fil.setAttribute('viewBox', `0 0 ${W} 40`);
-      fil.firstElementChild.setAttribute('d', `M0 20 C ${q} 6, ${q * 2} 34, ${q * 3} 20 S ${q * 5} 6, ${q * 6} 20 S ${q * 7.5} 34, ${W} 20`); }
-  };
-  mesurer(); addEventListener('resize', mesurer);
-  let tic = false, derT = -1;
-  function auDefil(){
-    tic = false;
-    const y = scrollY;
-    poles.forEach(p => {
-      if (!vu.get(p)) return;
-      const v = (y * .5 % 67.88).toFixed(1);
-      if (p._v !== v) { p._v = v; p.style.setProperty('--pole', v); }
-      if (p === poles[0] && piste) { const f = (y * .4 % moitie).toFixed(1); if (piste._f !== f) { piste._f = f; piste.style.setProperty('--file', f); } }
-    });
-    if (fil && liste && (vu.get(liste) || derT < 0)) {
-      const r = liste.getBoundingClientRect();
-      const t = reduit ? 1 : clamp((innerHeight * .85 - r.top) / (r.height * .6), 0, 1);
-      if (Math.abs(t - derT) > .008 || (t === 1 && derT !== 1)) { derT = t; fil.style.setProperty('--t', t.toFixed(3)); }
-    }
+  /* D. La pile d'avis : on lance la carte du dessus vers l'arrière */
+  const pile = $('pile'), cartes = pile ? [...pile.children] : [], compte = $('pile-compte');
+  let ordre = cartes.map((_, i) => i), haut = 0;
+  function placer(){
+    ordre.forEach((idx, pos) => { const c = cartes[idx];
+      c.style.zIndex = String(cartes.length - pos);
+      c.style.transform = `translate3d(0, ${pos * -12}px, ${pos * -40}px) rotateZ(${pos === 0 ? 0 : (idx % 2 ? 1 : -1) * (1.2 + pos * .5)}deg)`;
+      c.style.opacity = pos > 3 ? '0' : '1'; c.setAttribute('aria-hidden', pos === 0 ? 'false' : 'true'); });
+    if (compte) compte.textContent = `${haut + 1} / ${cartes.length}`;
   }
+  function suivant(sens){
+    const c = cartes[ordre[0]];
+    if (!reduit) { c.style.transform = `translate3d(${sens * 120}%, -30px, 60px) rotateY(${sens * 35}deg) rotateZ(${sens * 18}deg)`; c.style.opacity = '0'; }
+    setTimeout(() => { ordre.push(ordre.shift()); haut = (haut + 1) % cartes.length; placer(); }, reduit ? 0 : 260);
+  }
+  if (pile) {
+    placer();
+    $('pile-suiv').addEventListener('click', () => suivant(1));
+    let tx0 = 0, dx = 0, tient = false;
+    pile.addEventListener('pointerdown', e => { if (reduit) return; tient = true; tx0 = e.clientX; dx = 0; cartes[ordre[0]].classList.add('tire'); pile.setPointerCapture(e.pointerId); });
+    pile.addEventListener('pointermove', e => { if (!tient) return; dx = e.clientX - tx0; const c = cartes[ordre[0]]; c.style.transform = `translate3d(${dx}px, 0, ${Math.abs(dx) * .2}px) rotateY(${dx * .06}deg) rotateZ(${dx * .04}deg)`; });
+    const fin = () => { if (!tient) return; tient = false; const c = cartes[ordre[0]]; c.classList.remove('tire'); if (Math.abs(dx) > 70) suivant(Math.sign(dx)); else placer(); };
+    pile.addEventListener('pointerup', fin); pile.addEventListener('pointercancel', fin);
+  }
+
+  /* E. Le plan : posé à plat sur la table, il se redresse quand on arrive dessus, puis suit la souris */
+  const plan = $('plan3d');
+  function planDefil(){
+    if (!plan) return;
+    const r = plan.getBoundingClientRect(); if (r.bottom < -50 || r.top > innerHeight + 50) return;
+    const t = reduit ? 1 : clamp((innerHeight - r.top) / (innerHeight * .7), 0, 1), v = ((1 - t) * 52).toFixed(1) + 'deg';
+    if (plan._v !== v) { plan._v = v; plan.style.setProperty('--px', v); }
+  }
+  if (plan) {
+    plan.addEventListener('pointermove', e => { if (reduit || !FIN.matches) return; const r = plan.getBoundingClientRect(); plan.classList.remove('repos');
+      plan.style.setProperty('--ry', (((e.clientX - r.left) / r.width - .5) * 10).toFixed(2) + 'deg'); plan.style.setProperty('--rx', ((.5 - (e.clientY - r.top) / r.height) * 8).toFixed(2) + 'deg'); });
+    plan.addEventListener('pointerleave', () => { plan.classList.add('repos'); plan.style.setProperty('--rx', '0deg'); plan.style.setProperty('--ry', '0deg'); });
+  }
+
+  /* défilement : une seule écoute, écritures seulement si ça change */
+  let tic = false;
+  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
-  auDefil();
+  addEventListener('resize', auDefil); auDefil();
 
   /* 3. Le distributeur : 3 réponses, puis on tient le bouton et le billet sort */
   const f = $('f-numero');
@@ -1651,19 +1501,33 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
     window.__numeroFinir = () => { if (!complet) { remplir(); finir(); } };
   }
 
-  /* 4. Pauses : sections hors écran et onglet caché */
-  if ('IntersectionObserver' in window) {
-    const ioV = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('hors', !e.isIntersecting)));
-    QA('.vivant').forEach(s => ioV.observe(s));
-  }
+
+  /* pauses hors écran et onglet caché */
+  if ('IntersectionObserver' in window) { const ioV = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('hors', !e.isIntersecting))); QA('.vivant').forEach(s => ioV.observe(s)); }
   document.addEventListener('visibilitychange', () => document.body.classList.toggle('paused', document.hidden));
 
-  /* 5. Mouvement réduit, en direct et dans les deux sens */
-  RM.addEventListener('change', e => {
-    reduit = e.matches;
-    if (reduit) { QA('.ch').forEach(c => c.classList.add('in', 'fini')); window.__numeroFinir && window.__numeroFinir(); }
-    derT = -1; auDefil();
-  });
+  /* mouvement réduit, en direct dans les deux sens */
+  RM.addEventListener('change', e => { reduit = e.matches; if (reduit) { window.__numeroFinir && window.__numeroFinir(); QA('.t3d').forEach(el => { el.classList.remove('suit'); el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); }); } auDefil(); annGo(); });
+})();
+</script>
+<script>
+/* Équipe sur petit écran : flèches, points, et glisser à la souris */
+(() => {
+  const r = document.querySelector('.equipe'); if (!r) return;
+  const nav = document.querySelector('.eq-nav'), prec = nav.querySelector('.prec'), suiv = nav.querySelector('.suiv'), pts = [...nav.querySelectorAll('.eq-points i')];
+  const pas = () => { const c = r.querySelector('.barbier'); return c ? c.offsetWidth + 12 : 300; };
+  const maj = () => { const max = r.scrollWidth - r.clientWidth; prec.disabled = r.scrollLeft < 4; suiv.disabled = r.scrollLeft > max - 4;
+    const i = max > 0 ? Math.round(r.scrollLeft / pas()) : 0; pts.forEach((p, k) => p.classList.toggle('on', k === Math.min(i, pts.length - 1))); };
+  prec.addEventListener('click', () => r.scrollBy({ left: -pas(), behavior: 'smooth' }));
+  suiv.addEventListener('click', () => r.scrollBy({ left: pas(), behavior: 'smooth' }));
+  r.addEventListener('scroll', maj, { passive: true }); addEventListener('resize', maj); maj();
+  /* glisser à la souris (le doigt fonctionne déjà nativement) */
+  let x0 = 0, s0 = 0, bouge = false, actif = false;
+  r.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' || r.scrollWidth <= r.clientWidth) return; e.preventDefault(); getSelection().removeAllRanges(); actif = true; bouge = false; x0 = e.clientX; s0 = r.scrollLeft; r.classList.add('tire'); });
+  addEventListener('pointermove', e => { if (!actif) return; const d = e.clientX - x0; if (Math.abs(d) > 5) bouge = true; r.scrollLeft = s0 - d; });
+  addEventListener('pointerup', () => { if (!actif) return; actif = false; r.classList.remove('tire'); const max = r.scrollWidth - r.clientWidth, i = Math.round(r.scrollLeft / pas()); let x = i * pas(); if (x > max - pas() / 2) x = max; r.scrollTo({ left: Math.min(x, max), behavior: 'smooth' }); });
+  r.addEventListener('click', e => { if (bouge) { e.preventDefault(); e.stopPropagation(); bouge = false; } }, true);
+  r.addEventListener('dragstart', e => e.preventDefault());
 })();
 </script>
 <script>
@@ -1672,5 +1536,3 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
   L.forEach(dt => dt.addEventListener('toggle', () => { const c = dt.closest('.barbier'); c.classList.toggle('ouvert', dt.open);
     if (dt.open) { L.forEach(o => { if (o !== dt && o.open) o.open = false; }); c.querySelector('.b-info').scrollTop = 0; } })); })();
 </script>
-
-
