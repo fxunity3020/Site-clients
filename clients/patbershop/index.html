@@ -545,6 +545,21 @@ html{overflow-x:hidden;overflow-x:clip}
 .ambiance{position:fixed;inset:-25%;z-index:40;pointer-events:none;opacity:0;transition:opacity 1.4s var(--e-doux);background:radial-gradient(26% 20% at 28% 38%,rgba(240,176,98,.05),transparent 70%),radial-gradient(22% 18% at 74% 64%,rgba(181,96,42,.045),transparent 70%);animation:derive 72s var(--e-doux) -18s infinite alternate}
 body.apres-hero .ambiance{opacity:1}
 @keyframes derive{0%{transform:translate3d(-4%,-3%,0)}50%{transform:translate3d(3%,2%,0)}100%{transform:translate3d(-2%,4%,0)}}
+/* entrées chorégraphiées (10k) : les enfants arrivent l'un après l'autre, puis les délais sont retirés */
+.ch.att>*{opacity:0;transform:translate3d(0,26px,0)}
+.ch.att.in>*{opacity:1;transform:none;transition:opacity .9s var(--e-sortie) calc(var(--i,0) * 90ms),transform .9s var(--e-sortie) calc(var(--i,0) * 90ms)}
+.ch.att.in.fini>*{transition-delay:0s!important}
+.mains.ch.att.in>.main{transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry))}
+.mains.ch.att>.main{transform:perspective(1100px) translate3d(0,40px,0) rotateX(-18deg)}
+.mains.ch.att.in.fini>.main{transition:transform .7s var(--e-sortie)}
+.mains.ch.att.in.fini>.main.suit{transition:transform .12s linear}
+/* un élément vivant par section, à voix basse (10k) */
+.ecran b::after{content:"";position:absolute;inset:-6px -10px;border-radius:8px;background:radial-gradient(closest-side,rgba(240,176,98,.22),transparent);animation:lueur 4.8s ease-in-out -1.3s infinite;pointer-events:none}
+@keyframes lueur{0%,100%{opacity:.35}50%{opacity:1}}
+.retourner svg{animation:tourne 7s var(--e-doux) -2s infinite}
+@keyframes tourne{0%,82%{transform:none}92%,100%{transform:rotate(360deg)}}
+.pile{animation:respire 6.5s ease-in-out -1.7s infinite}
+@keyframes respire{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-4px,0)}}
 .hors *,.hors::before,.hors::after,body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
 
 /* bascule 3D commune : suit la souris, ou le défilement sur écran tactile */
@@ -678,7 +693,8 @@ body.apres-hero .ambiance{opacity:1}
 @media (max-width:760px){.visite-c .pied-pad{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 
 @media (prefers-reduced-motion:reduce){
-  .ambiance,.tenir.attend i{animation:none!important}
+  .ambiance,.tenir.attend i,.ecran b::after,.retourner svg,.pile{animation:none!important}
+  .ch.att>*,.ch.att.in>*{opacity:1;transform:none;transition:none}
   .t3d,.t3d.suit,.main__in,.pile .un-avis,.plan3d__table,.choix label,.ticket .lum{transition:none!important}
   .t3d{transform:none!important}
   .anneau{height:auto;perspective:none;cursor:auto}
@@ -819,7 +835,7 @@ body.apres-hero .ambiance{opacity:1}
       <!-- À REMPLIR : prix de chaque service (remplacer « Booksy » par le prix) -->
       <div class="o1-pied"><p><span class="etoile-c">★</span> Les classiques · premier barbier libre<br>Une trentaine de services en tout</p><a class="btn magnet" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield" target="_blank" rel="noopener noreferrer">Réserver sur Booksy<svg><use href="#i-fleche"/></svg></a></div>
     </article>
-    <div class="anneau-tete"><h3>Sortis de la chaise</h3><p>Glisse pour faire tourner. Douze vraies coupes du shop.</p></div>
+    <div class="anneau-tete ch"><h3>Sortis de la chaise</h3><p>Glisse pour faire tourner. Douze vraies coupes du shop.</p></div>
   </div>
   <div class="anneau" id="anneau" role="region" aria-roledescription="carrousel" aria-label="Réalisations du shop"><div class="anneau__pivot" id="anneau-pivot"><figure style="--i:0"><img src="img/real/01-fade-mi-haut.webp" alt="Fade mi-haut avec ligne au rasoir" width="586" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Fade</figcaption></figure><figure style="--i:1"><img src="img/real/04-texture-blonde.webp" alt="Coupe texturée blonde avec dégradé" width="576" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Coupe</figcaption></figure><figure style="--i:2"><img src="img/real/06-barbe-rousse.webp" alt="Grande barbe rousse taillée et coupe dégradée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure><figure style="--i:3"><img src="img/real/09-au-travail.webp" alt="Barbier au travail sur une barbe au Patbershop" width="540" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Au shop</figcaption></figure><figure style="--i:4"><img src="img/real/10-pompadour-barbe.webp" alt="Pompadour dégradé et barbe sculptée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Coupe et barbe</figcaption></figure><figure style="--i:5"><img src="img/real/03-barbe-taillee.webp" alt="Barbe longue mise en forme et coupe coiffée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure><figure style="--i:6"><img src="img/real/08-rase-barbe.webp" alt="Crâne rasé et barbe longue entretenue" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure><figure style="--i:7"><img src="img/real/02-transformation-barbe.webp" alt="Transformation : cheveux longs et barbe vers une coupe classique" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Transformation</figcaption></figure><figure style="--i:8"><img src="img/real/05-transformation-cheveux-longs.webp" alt="Cheveux longs gris remis en forme, barbe taillée" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Transformation</figcaption></figure><figure style="--i:9"><img src="img/real/07-coupe-ciseaux.webp" alt="Cheveux longs coupés aux ciseaux en coupe courte" width="680" height="680" loading="lazy" decoding="async" draggable="false"><figcaption>Avant / après</figcaption></figure><figure style="--i:10"><img src="img/real/11-avant-apres-court.webp" alt="Cheveux longs bouclés coupés courts" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Avant / après</figcaption></figure><figure style="--i:11"><img src="img/real/12-barbe-avant-apres.webp" alt="Barbe complète, avant et après" width="720" height="720" loading="lazy" decoding="async" draggable="false"><figcaption>Barbe</figcaption></figure></div></div>
   <div class="anneau-nav"><button type="button" id="ann-prec" aria-label="Photo précédente"><svg style="transform:scaleX(-1)"><use href="#i-fleche"/></svg></button><button type="button" id="ann-suiv" aria-label="Photo suivante"><svg><use href="#i-fleche"/></svg></button></div>
@@ -829,14 +845,14 @@ body.apres-hero .ambiance{opacity:1}
 <section class="sec numero vivant" id="numero" aria-labelledby="t-numero">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:110px;height:275px;right:4%;bottom:6%;--r:12deg"><use href="#d-tondeuse"/></svg></div>
   <div class="wrap">
-    <div class="s-tete">
+    <div class="s-tete ch">
       <div>
         <p class="kicker">Ta coupe en 3 questions</p>
         <h2 class="titre" id="t-numero"><span class="lh ajuste">Prends</span><span class="lh ajuste l2">un</span><span class="lh ajuste l3">numéro.</span></h2>
       </div>
       <p class="chapeau">Chez Pat, on jase avant de couper. Réponds à trois questions, puis tiens le bouton du distributeur : ton billet sort avec le service et le barbier qui te conviennent.</p>
     </div>
-    <div class="num-grille">
+    <div class="num-grille ch">
       <form id="f-numero" aria-label="Trouve ton service">
         <fieldset class="q">
           <legend><span>1 / 3</span>Qu'est-ce qu'on fait?</legend>
@@ -893,14 +909,14 @@ body.apres-hero .ambiance{opacity:1}
 
 
 <!-- ============ 3. L'ÉQUIPE (3D : cartes qui se retournent) ============ -->
-<section class="sec" id="equipe" aria-labelledby="t-equipe">
+<section class="sec vivant" id="equipe" aria-labelledby="t-equipe">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:420px;height:194px;right:-80px;top:4%;--r:18deg"><use href="#d-ciseaux"/></svg></div>
   <div class="wrap">
-    <div class="s-tete">
+    <div class="s-tete ch">
       <div><p class="kicker">L'équipe</p><h2 class="titre" id="t-equipe"><span class="lh ajuste">Cinq</span><span class="lh ajuste l2">paires de</span><span class="lh ajuste l3">ciseaux.</span></h2></div>
       <p class="chapeau">Retourne une carte pour voir les services de chaque barbier et réserver avec ton préféré. Ou prends le premier libre.</p>
     </div>
-    <ul class="mains" aria-label="Les barbiers">
+    <ul class="mains ch" aria-label="Les barbiers">
       <li class="main t3d" data-flip><span class="badge">Propriétaire</span><div class="main__in">
           <div class="face face--av"><img src="img/equipe-pat.webp" alt="Pat Clermont, maître barbier, en train de faire une coupe devant le shop" width="900" height="900" loading="lazy" style="object-position:62% 30%" draggable="false"><div class="face__info"><h3>Pat Clermont</h3><p class="face__role">Maître barbier et styliste</p><button class="retourner" type="button" aria-expanded="false">Voir ses 9 services<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
           <div class="face face--ar" inert><h3>Pat</h3><ul aria-label="Services de Pat"><li><span>Coupe de cheveux régulière</span><em>30 min</em></li><li><span>Coupe aux ciseaux</span><em>45 min</em></li><li><span>Trime de barbe</span><em>30 min</em></li><li><span>Rasage complet</span><em>1 h</em></li><li><span>Coupe régulière + taille de barbe</span><em>45 min</em></li><li><span>Coupe femme</span><em>45 min</em></li><li><span>Coupe femme mi-long et long</span><em>1 h</em></li><li><span>2 coupes</span><em>1 h 15</em></li><li><span>3 coupes</span><em>1 h 45</em></li></ul><a class="btn" href="https://booksy.com/fr-ca/3861_patbershop_barbershop_1006617_salaberry-de-valleyfield/staffer/9440" target="_blank" rel="noopener noreferrer">Réserver avec Pat<svg><use href="#i-fleche"/></svg></a><button class="retourner" type="button">Retourner la carte</button></div>
@@ -922,13 +938,13 @@ body.apres-hero .ambiance{opacity:1}
 </section>
 
 <!-- ============ 4. LES AVIS (3D : pile de cartes) ============ -->
-<section class="sec clair-2" id="avis" aria-labelledby="t-avis">
+<section class="sec clair-2 vivant" id="avis" aria-labelledby="t-avis">
   <div class="wrap">
-    <div class="s-tete">
+    <div class="s-tete ch">
       <div><p class="kicker">Avis clients</p><h2 class="titre" id="t-avis"><span class="lh ajuste">897 avis.</span><span class="lh ajuste l2">Cinq</span><span class="lh ajuste l3">étoiles.</span></h2></div>
       <p class="chapeau">Tire la carte du dessus pour lire l'avis suivant. Sept avis réels, mot pour mot, tirés de Booksy.</p>
     </div>
-    <div class="avis-grille2">
+    <div class="avis-grille2 ch">
       <div class="note-bloc">
         <div class="note-gros"><b>5,0</b><div><div class="etoiles" aria-hidden="true"><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg><svg><use href="#i-etoile"/></svg></div><small>Moyenne sur 897 avis Booksy</small></div></div>
         <ul class="barres" aria-label="Répartition des avis">
@@ -949,9 +965,9 @@ body.apres-hero .ambiance{opacity:1}
 </section>
 
 <!-- ============ 5. TA CHAISE T'ATTEND (3D : le plan posé sur la table) ============ -->
-<section class="sec visite-c" id="visite" aria-labelledby="t-fin">
+<section class="sec visite-c vivant" id="visite" aria-labelledby="t-fin">
   <div class="wrap pied-pad">
-    <div class="fin-grille">
+    <div class="fin-grille ch">
       <div>
         <h2 class="fin-titre" id="t-fin"><span>Ta chaise</span><span>t'attend.</span></h2>
         <p class="chapeau">Au 7, rue du Marché, au centre-ville de Salaberry-de-Valleyfield. Réserve en ligne, 24 heures sur 24, ou appelle au shop.</p>
@@ -1324,6 +1340,10 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
   let reduit = RM.matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
+  /* 0. Entrées chorégraphiées : seuls les groupes sous la ligne de flottaison attendent */
+  const ioCh = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const c = e.target; c.classList.add('in'); ioCh.unobserve(c); setTimeout(() => c.classList.add('fini'), 900 + c.children.length * 90); }), { rootMargin: '0px 0px -10% 0px' }) : null;
+  QA('.ch').forEach(c => { [...c.children].forEach((k, i) => k.style.setProperty('--i', i)); if (ioCh && !reduit && c.getBoundingClientRect().top > innerHeight) { c.classList.add('att'); ioCh.observe(c); } });
+
   /* A. Bascule 3D : suit la souris ; sur écran tactile, penche selon la position dans l'écran */
   const bascules = QA('.t3d:not([data-flip])').concat(QA('.main.t3d'));
   bascules.forEach(el => {
@@ -1353,13 +1373,16 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
   function annTic(t){
     rafA = null;
     if (!tire && Math.abs(elan) > .01) { glisse += elan; elan *= .94; }
+    else if (!tire && !reduit && annVu && !document.hidden) glisse -= .035; /* dérive lente, l'anneau reste vivant */
     cible = base + glisse; rot += (cible - rot) * (reduit ? 1 : .16);
     if (Math.abs(cible - rot) < .02 && Math.abs(elan) < .01) rot = cible;
     const v = rot.toFixed(2);
     if (v !== derRot) { derRot = v; piv.style.setProperty('--rot', v + 'deg');
       figs.forEach((f, i) => { const a = (i * 30 + rot) * Math.PI / 180, o = (.25 + .75 * Math.max(0, Math.cos(a))).toFixed(2); if (f._o !== o) { f._o = o; f.style.opacity = o; } }); }
-    if (tire || Math.abs(elan) > .01 || rot !== cible) rafA = requestAnimationFrame(annTic);
+    if (tire || Math.abs(elan) > .01 || rot !== cible || (annVu && !reduit && !document.hidden)) rafA = requestAnimationFrame(annTic);
   }
+  let annVu = false;
+  if (ann && 'IntersectionObserver' in window) new IntersectionObserver(es => { annVu = es[0].isIntersecting; if (annVu) annGo(); }).observe(ann);
   const annGo = () => { if (rafA === null && piv) rafA = requestAnimationFrame(annTic); };
   if (ann && piv) {
     ann.addEventListener('pointerdown', e => { if (reduit) return; tire = true; ann.classList.add('tire'); x0 = e.clientX; g0 = glisse; derX = e.clientX; derT = performance.now(); elan = 0; ann.setPointerCapture(e.pointerId); annGo(); });
@@ -1507,7 +1530,7 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
   document.addEventListener('visibilitychange', () => document.body.classList.toggle('paused', document.hidden));
 
   /* mouvement réduit, en direct dans les deux sens */
-  RM.addEventListener('change', e => { reduit = e.matches; if (reduit) { window.__numeroFinir && window.__numeroFinir(); QA('.t3d').forEach(el => { el.classList.remove('suit'); el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); }); } auDefil(); annGo(); });
+  RM.addEventListener('change', e => { reduit = e.matches; if (reduit) { QA('.ch').forEach(c => c.classList.add('in', 'fini')); window.__numeroFinir && window.__numeroFinir(); QA('.t3d').forEach(el => { el.classList.remove('suit'); el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); }); } auDefil(); annGo(); });
 })();
 </script>
 <script>
