@@ -578,6 +578,10 @@ body.apres-hero .ambiance{opacity:1}
 @media (max-width:760px){.final{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}.final::before{background:linear-gradient(180deg,rgba(13,14,16,.72) 0%,rgba(13,14,16,.66) 35%,rgba(13,14,16,.9) 72%,#0d0e10 100%),radial-gradient(ellipse 90% 60% at 50% 55%,rgba(5,5,10,.55),transparent 80%)}}
 @media (prefers-reduced-motion:reduce){.poussieres{display:none}.poussieres i{animation:none!important}.final-fond,.final .profond{transform:none!important;transition:none}}
 
+/* ---------- Les sections en profondeur : chacune arrive de l'arrière et recule quand on passe à la suivante ---------- */
+.prof{transform:perspective(1600px) translate3d(0,0,var(--z,0px)) rotateX(var(--a,0deg));transform-origin:50% var(--oy,50%);border-radius:var(--br,0px);backface-visibility:hidden}
+@media (prefers-reduced-motion:reduce){.prof{transform:none!important;border-radius:0!important}}
+
 /* ---------- Les grands titres basculent en 3D en entrant ---------- */
 .titre3d{transform-origin:50% 100%;transform:perspective(900px) rotateX(var(--tx,0deg));will-change:transform}
 @media (prefers-reduced-motion:reduce){.titre3d{transform:none!important}}
@@ -837,7 +841,7 @@ body.apres-hero .ambiance{opacity:1}
 
 
 <!-- ============ 1. LA CARTE (3D : enseigne qui penche, anneau des réalisations) ============ -->
-<section class="sec clair vivant" id="carte" aria-labelledby="t-carte">
+<section class="prof sec clair vivant" id="carte" aria-labelledby="t-carte">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:300px;height:140px;left:-70px;top:42%;--r:-28deg"><use href="#d-ciseaux"/></svg><svg class="d" style="width:340px;height:122px;right:-90px;top:30%;--r:22deg"><use href="#d-rasoir"/></svg></div>
   <div class="wrap">
     <article class="enseigne t3d reflet" aria-labelledby="t-carte">
@@ -870,7 +874,7 @@ body.apres-hero .ambiance{opacity:1}
 </section>
 
 <!-- ============ 2. PRENDS UN NUMÉRO (3D : le distributeur et le billet qui se recourbe) ============ -->
-<section class="sec numero vivant" id="numero" aria-labelledby="t-numero">
+<section class="prof sec numero vivant" id="numero" aria-labelledby="t-numero">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:110px;height:275px;right:4%;bottom:6%;--r:12deg"><use href="#d-tondeuse"/></svg></div>
   <div class="wrap">
     <div class="s-tete ch">
@@ -937,7 +941,7 @@ body.apres-hero .ambiance{opacity:1}
 
 
 <!-- ============ 3. L'ÉQUIPE (3D : cartes qui se retournent) ============ -->
-<section class="sec vivant" id="equipe" aria-labelledby="t-equipe">
+<section class="prof sec vivant" id="equipe" aria-labelledby="t-equipe">
   <div class="deco" aria-hidden="true"><svg class="d" style="width:420px;height:194px;right:-80px;top:4%;--r:18deg"><use href="#d-ciseaux"/></svg></div>
   <div class="wrap">
     <div class="s-tete ch">
@@ -966,7 +970,7 @@ body.apres-hero .ambiance{opacity:1}
 </section>
 
 <!-- ============ 4. LES AVIS (3D : pile de cartes) ============ -->
-<section class="sec clair-2 vivant" id="avis" aria-labelledby="t-avis">
+<section class="prof sec clair-2 vivant" id="avis" aria-labelledby="t-avis">
   <div class="wrap">
     <div class="s-tete ch">
       <div><p class="kicker">Avis clients</p><h2 class="titre titre3d" id="t-avis"><span class="lh ajuste">897 avis.</span><span class="lh ajuste l2">Cinq</span><span class="lh ajuste l3">étoiles.</span></h2></div>
@@ -993,7 +997,7 @@ body.apres-hero .ambiance{opacity:1}
 </section>
 
 <!-- ============ 5. TA CHAISE T'ATTEND (3D : le plan posé sur la table) ============ -->
-<section class="sec visite-c vivant" id="visite" aria-labelledby="t-fin">
+<section class="prof sec visite-c vivant" id="visite" aria-labelledby="t-fin">
   <div class="wrap">
     <div class="fin-grille ch">
       <div>
@@ -1018,7 +1022,7 @@ body.apres-hero .ambiance{opacity:1}
   </div>
 </section>
 <!-- ============ 6. TA CHAISE T'ATTEND (3D : le mur du shop en profondeur) ============ -->
-<section class="final vivant" id="rendez-vous" aria-labelledby="t-final">
+<section class="prof final vivant" id="rendez-vous" aria-labelledby="t-final">
   <div class="final-fond" aria-hidden="true"></div>
   <div class="poussieres" aria-hidden="true"><i style="left:12%;--d:15s;--dl:-2s;--x:24px"></i><i style="left:22%;--d:12s;--dl:-7s;--s:2px;--x:-18px"></i><i style="left:34%;--d:17s;--dl:-11s;--x:30px"></i><i style="left:47%;--d:13s;--dl:-4s;--s:2px;--x:-12px"></i><i style="left:58%;--d:16s;--dl:-9s;--x:16px"></i><i style="left:69%;--d:14s;--dl:-1s;--s:2px;--x:-26px"></i><i style="left:79%;--d:18s;--dl:-13s;--x:20px"></i><i style="left:89%;--d:12.5s;--dl:-6s;--s:2px;--x:-14px"></i></div>
   <div class="wrap ch profond">
@@ -1502,9 +1506,26 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
       if (el._tx !== v) { el._tx = v; el.style.setProperty('--tx', v); } });
   }
 
+  /* I. Les sections en profondeur : en entrant, la section remonte de l'arrière ; en sortant, elle recule.
+        Bien à plat pendant qu'on la lit. */
+  const profs = QA('.prof'), TELP = matchMedia('(max-width: 760px)');
+  const doux = t => t * t * (3 - 2 * t);
+  function profDefil(){
+    const vh = innerHeight, amp = TELP.matches ? .55 : 1;
+    profs.forEach(el => {
+      const r = el.getBoundingClientRect(); if (r.bottom < -vh * .2 || r.top > vh * 1.2) return;
+      const entre = reduit ? 0 : 1 - doux(clamp((vh - r.top) / (vh * .85), 0, 1));
+      const sort = reduit || el.id === 'rendez-vous' ? 0 : doux(clamp((vh * .35 - r.bottom) / (vh * .6), 0, 1));
+      const z = (-(entre * 300 + sort * 220) * amp).toFixed(1) + 'px', a = ((entre * 9 - sort * 7) * amp).toFixed(2) + 'deg';
+      const oy = Math.round(vh / 2 - r.top) + 'px', br = Math.round((entre + sort) * 32) + 'px';
+      if (el._z !== z || el._a !== a) { el._z = z; el._a = a; el.style.setProperty('--z', z); el.style.setProperty('--a', a); el.style.setProperty('--br', br); }
+      if (el._oy !== oy) { el._oy = oy; el.style.setProperty('--oy', oy); }
+    });
+  }
+
   /* défilement : une seule écoute, écritures seulement si ça change */
   let tic = false;
-  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
+  function auDefil(){ tic = false; pencheAuDefil(); planDefil(); murDefil(); titresDefil(); profDefil(); if (ann && piv) { const b = -annProg() * 120; if (Math.abs(b - base) > .05) { base = b; annGo(); } } }
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(auDefil); } }, { passive: true });
   addEventListener('resize', auDefil); auDefil();
 
