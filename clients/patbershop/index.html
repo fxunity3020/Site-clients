@@ -876,7 +876,7 @@ body.apres-hero .ambiance{opacity:1}
 <section class="tond" id="classiques" aria-labelledby="t-classiques">
   <div class="tond__scene" id="tond-scene">
     <div class="tond__affiche" id="tond-affiche"></div>
-    <video class="tond__video" id="tond-video" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <canvas class="tond__video" id="tond-canvas" aria-hidden="true"></canvas>
     <div class="tond__lueur" aria-hidden="true"><i data-c="0"></i><i data-c="1"></i><i data-c="2"></i><i data-c="3"></i></div>
     <div class="tond__voile" aria-hidden="true"></div>
     <h2 class="sr" id="t-classiques">Les classiques de la maison</h2>
@@ -1683,26 +1683,45 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
 })();
 </script>
 <script>
-/* ===== Les classiques : la tondeuse que le défilement fait tourner (standard 10k : Blob, lissage, seeks gardés) ===== */
+/* ===== Les classiques : la tondeuse que le défilement fait tourner.
+   Même technique que le héros (qui fonctionne en ligne) : la vidéo est découpée en 73 images,
+   dessinées sur un canevas avec un fondu entre deux images voisines. Progression lissée. ===== */
 (() => {
   const sec = document.getElementById('classiques'); if (!sec) return;
-  const scene = document.getElementById('tond-scene'), video = document.getElementById('tond-video'), affiche = document.getElementById('tond-affiche');
+  const cv = document.getElementById('tond-canvas'), ctx = cv.getContext('2d'), affiche = document.getElementById('tond-affiche');
+  const N = 73, src = i => `img/tond/t${String(i + 1).padStart(3, '0')}.webp`;
+  const imgs = new Array(N), ok = new Array(N).fill(false);
   const bandes = [...sec.querySelectorAll('.tband')].map(el => { const [a, b] = el.dataset.band.split(' ').map(Number); return { el, a, b, op: -1, k: -1 }; });
   const lueurs = [...sec.querySelectorAll('.tond__lueur i')];
   const GATES = ['(max-width: 720px)', '(orientation: portrait) and (max-width: 1024px)', '(orientation: portrait) and (pointer: coarse)', '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)', '(prefers-reduced-motion: reduce)'];
   const MQLS = GATES.map(q => matchMedia(q));
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v)), lisse = (p, a, b) => { const t = clamp((p - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
-  /* l'affiche est posée par le code, seulement là où elle sert */
   affiche.style.backgroundImage = "url('img/tondeuse-affiche.webp')";
-  /* entrée par mots : seuil ordonné */
   bandes.forEach(B => [...B.el.querySelectorAll('.w')].forEach((w, i, all) => w.style.setProperty('--th', (i / all.length * .32).toFixed(3))));
 
-  const prog = () => { const r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1); };
-  let cible = 0, montre = 0, raf = null, tDer = 0, vu = false, coul = -1;
-  let occupe = false, enAttente = null;
-  function chercher(t){ if (!video.duration) return; if (occupe) { enAttente = t; return; } occupe = true; video.currentTime = t; }
-  video.addEventListener('seeked', () => { occupe = false; if (enAttente !== null) { const t = enAttente; enAttente = null; chercher(t); } });
-  video.addEventListener('error', () => { occupe = false; enAttente = null; sec.classList.remove('pret'); });
+  let W = 0, H = 0, dessinee = '';
+  function taille(){ const d = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = Math.round(W * d); cv.height = Math.round(H * d); ctx.setTransform(d, 0, 0, d, 0, 0); dessinee = ''; dessiner(); }
+  function proche(i){ if (ok[i]) return i; for (let d = 1; d < N; d++) { if (i - d >= 0 && ok[i - d]) return i - d; if (i + d < N && ok[i + d]) return i + d; } return -1; }
+  function peindre(im, a){ const s = Math.max(W / im.naturalWidth, H / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s; ctx.globalAlpha = a; ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h); ctx.globalAlpha = 1; }
+  let montre = 0;
+  function dessiner(){
+    if (!W) return;
+    const f = montre * (N - 1), i0 = Math.floor(f), fr = f - i0, i = proche(i0); if (i < 0) return;
+    const j = (i === i0 && fr > .03 && i0 + 1 < N && ok[i0 + 1]) ? i0 + 1 : -1;
+    const cle = i + ':' + (j < 0 ? 0 : Math.round(fr * 12)); if (cle === dessinee) return;
+    peindre(imgs[i], 1); if (j >= 0) peindre(imgs[j], fr);
+    dessinee = cle; sec.classList.add('pret');
+  }
+  /* chargement progressif : 1 image sur 8, puis 4, 2, 1 */
+  let lance = false;
+  function charger(){
+    if (lance) return; lance = true;
+    const ordre = [], vu = new Set(); [8, 4, 2, 1].forEach(pas => { for (let i = 0; i < N; i += pas) if (!vu.has(i)) { vu.add(i); ordre.push(i); } });
+    let k = 0, actifs = 0;
+    const suite = () => { while (actifs < 6 && k < ordre.length) { const i = ordre[k++]; actifs++; const im = new Image(); im.decoding = 'async'; im.src = src(i); imgs[i] = im;
+      im.onload = () => { ok[i] = true; actifs--; dessinee = ''; dessiner(); suite(); }; im.onerror = () => { actifs--; suite(); }; } };
+    suite();
+  }
 
   function bandesMaj(p){
     let c = 0;
@@ -1710,36 +1729,26 @@ body.logo-hero .tete .ecusson{opacity:1;transform:none;pointer-events:auto}
       const f = Math.min(.05, (B.b - B.a) / 3);
       const op = (n === 0 ? 1 : lisse(p, B.a, B.a + f)) * (n === bandes.length - 1 ? 1 : 1 - lisse(p, B.b - f, B.b));
       const k = clamp((p - B.a) / Math.min(.06, (B.b - B.a) * .35), 0, 1);
-      const o = op.toFixed(3), kk = (n === 0 ? Math.max(k, 1) : k).toFixed(3);
+      const o = op.toFixed(3), kk = (n === 0 ? 1 : k).toFixed(3);
       if (o !== B.op) { B.op = o; B.el.style.opacity = o; B.el.classList.toggle('actif', op > .6); }
-      if (Math.abs(kk - B.k) > .008 || (kk == 1 && B.k != 1)) { B.k = kk; B.el.style.setProperty('--k', kk); }
+      if (kk !== B.k) { B.k = kk; B.el.style.setProperty('--k', kk); }
       if (p >= B.a) c = n;
     });
     if (c !== coul) { coul = c; lueurs.forEach((l, i) => l.classList.toggle('on', i === c)); }
   }
+  const prog = () => { const r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1); };
+  let cible = 0, raf = null, tDer = 0, vu = false, coul = -1;
   function tic(now){
     const dt = Math.min(100, now - (tDer || now)); tDer = now;
     montre += (cible - montre) * (1 - Math.pow(1 - .16, dt / 16.667));
     if (Math.abs(cible - montre) < .0005) { montre = cible; raf = null; tDer = 0; } else raf = requestAnimationFrame(tic);
-    if (video.duration) chercher(montre * (video.duration - .05));
-    bandesMaj(montre);
+    dessiner(); bandesMaj(montre);
   }
   function auDefil(){ cible = prog(); if (raf === null && vu) raf = requestAnimationFrame(tic); }
-
-  let charge = false;
-  async function chargerVideo(){
-    if (charge) return; charge = true;
-    try {
-      const ctrl = new AbortController(), garde = setTimeout(() => ctrl.abort(), 20000);
-      const res = await fetch('img/tondeuse-scrub.mp4', { signal: ctrl.signal }); clearTimeout(garde);
-      if (!res.ok) throw new Error('vidéo absente');
-      video.src = URL.createObjectURL(await res.blob()); video.load();
-      video.addEventListener('loadeddata', () => { sec.classList.add('pret'); chercher(montre * (video.duration - .05)); }, { once: true });
-    } catch (e) { charge = false; sec.classList.remove('pret'); }
-  }
   let actifScrub = false;
-  const io = new IntersectionObserver(es => { vu = es[0].isIntersecting; if (vu && actifScrub) { chargerVideo(); auDefil(); } }, { rootMargin: '100% 0px' });
-  function activer(){ if (actifScrub) return; actifScrub = true; addEventListener('scroll', auDefil, { passive: true }); bandes.forEach(B => { B.op = -1; B.k = -1; }); coul = -1; io.observe(sec); auDefil(); }
+  const io = new IntersectionObserver(es => { vu = es[0].isIntersecting; if (vu && actifScrub) { charger(); auDefil(); } }, { rootMargin: '100% 0px' });
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => actifScrub && taille(), 120); });
+  function activer(){ if (actifScrub) return; actifScrub = true; addEventListener('scroll', auDefil, { passive: true }); bandes.forEach(B => { B.op = -1; B.k = -1; }); coul = -1; io.observe(sec); taille(); auDefil(); }
   function desactiver(){ if (!actifScrub) return; actifScrub = false; removeEventListener('scroll', auDefil); io.unobserve(sec); if (raf !== null) { cancelAnimationFrame(raf); raf = null; } bandes.forEach(B => { B.el.style.opacity = ''; B.el.style.removeProperty('--k'); }); }
   function mode(){ if (MQLS.some(m => m.matches)) desactiver(); else activer(); }
   MQLS.forEach(m => m.addEventListener('change', mode)); mode();
